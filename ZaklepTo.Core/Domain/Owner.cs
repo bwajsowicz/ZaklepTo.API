@@ -6,6 +6,6 @@ namespace ZaklepTo.Core.Domain
 {
     class Owner : User
     {
-        public Restaurant Restaurant { get; protected set; }
+        public Restaurant Restaurant { get; private set; }
     }
 }
