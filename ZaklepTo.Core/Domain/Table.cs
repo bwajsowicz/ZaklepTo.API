@@ -8,6 +8,6 @@ namespace ZaklepTo.Core.Domain
     {
         public Guid Id { get; private set; }
         public int NumberOfSeats { get; private set; }
-        public Tuple<int, int> Coordinates { get; private set; }
+        public (int x, int y) Coordinates { get; private set; }
     }
 }
