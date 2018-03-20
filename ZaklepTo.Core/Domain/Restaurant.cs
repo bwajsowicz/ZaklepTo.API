@@ -13,5 +13,15 @@ namespace ZaklepTo.Core.Domain
         public string Localization { get; private set; }
         private List<Table> _tables { get; set; }
         public IEnumerable<Table> Tables => _tables;
+
+        public Restaurant(Guid id, string name, string description, string cousine, string localization, List<Table> tables)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            Cousine = cousine;
+            Localization = localization;
+            _tables = tables;
+        }
     }
 }

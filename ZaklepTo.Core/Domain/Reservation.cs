@@ -13,5 +13,16 @@ namespace ZaklepTo.Core.Domain
         public Table Table { get; private set; }
         public Customer Customer { get; private set; }
         public bool IsConfirmed { get; private set; }
+
+        public Reservation(Guid id, Restaurant restaurant, DateTime dateStart, DateTime dateEnd, Table table, Customer customer, bool isConfirmed = false)
+        {
+            Id = id;
+            Restaurant = restaurant;
+            DateStart = dateStart;
+            DateEnd = dateEnd;
+            Table = table;
+            Customer = customer;
+            IsConfirmed = isConfirmed;
+        }
     }
 }
