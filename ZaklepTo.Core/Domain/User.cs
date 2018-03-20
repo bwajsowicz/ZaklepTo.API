@@ -6,6 +6,7 @@ namespace ZaklepTo.Core.Domain
 {
     public abstract class User
     {
+        public string Login { get; private set; }
         public string FirstName { get; protected set; }
         public string LastName { get; protected set; }
         public string FullName => $"{FirstName} {LastName}";
@@ -20,10 +21,11 @@ namespace ZaklepTo.Core.Domain
         {
         }
 
-        public User(string firstname, string lastname, string email,
+        public User(string login, string firstname, string lastname, string email,
             string phone, string password, string salt)
         {
             //trzeba zaimplenetować walidację 
+            Login = login;
             FirstName = firstname;
             LastName = lastname;
             Email = email;

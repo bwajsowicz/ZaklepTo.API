@@ -9,6 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="Repositories\" />
     <Folder Include="Domain\" />
   </ItemGroup>
 
