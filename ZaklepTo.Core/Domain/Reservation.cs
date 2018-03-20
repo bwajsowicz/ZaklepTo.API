@@ -12,5 +12,6 @@ namespace ZaklepTo.Core.Domain
         public DateTime DateEnd { get; private set; }
         public Table Table { get; private set; }
         public Customer Customer { get; private set; }
+        public bool IsConfirmed { get; private set; }
     }
 }
