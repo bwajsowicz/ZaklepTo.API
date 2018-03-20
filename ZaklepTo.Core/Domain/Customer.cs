@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ZaklepTo.Core.Domain
 {
-    class Customer : User
+    public class Customer : User
     {
     }
 }
