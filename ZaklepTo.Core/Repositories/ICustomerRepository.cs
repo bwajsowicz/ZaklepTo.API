@@ -4,7 +4,7 @@ using ZaklepTo.Core.Domain;
 
 namespace ZaklepTo.Core.Repositories
 {
-    public interface ICustomerException
+    public interface ICustomerRepository
     {
         Task<Customer> GetAsync(string email);
         Task<IEnumerable<Customer>> GetAllAsync();
