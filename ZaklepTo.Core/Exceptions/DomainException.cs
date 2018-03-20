@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ZaklepTo.Core.Expections
+namespace ZaklepTo.Core.Exceptions
 {
     class DomainException : ZaklepToException
     {

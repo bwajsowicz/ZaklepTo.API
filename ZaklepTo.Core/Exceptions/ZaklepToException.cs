@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZaklepTo.Core.Expections
+namespace ZaklepTo.Core.Exceptions
 {
     public abstract class ZaklepToException : Exception
     {
