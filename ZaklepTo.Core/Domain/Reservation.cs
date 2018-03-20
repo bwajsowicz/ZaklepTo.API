@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ZaklepTo.Core.Domain
 {
-    class Reservation
+    public class Reservation
     {
         public Guid Id { get; private set; }
         public Restaurant Restaurant { get; private set; }

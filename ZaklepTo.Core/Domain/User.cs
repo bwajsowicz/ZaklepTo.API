@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ZaklepTo.Core.Domain
 {
-    abstract class User
+    public abstract class User
     {
         public string FirstName { get; protected set; }
         public string LastName { get; protected set; }
