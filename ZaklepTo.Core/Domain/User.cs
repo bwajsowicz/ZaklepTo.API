@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ZaklepTo.Core.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace ZaklepTo.Core.Domain
 {
@@ -15,6 +17,7 @@ namespace ZaklepTo.Core.Domain
         public string Password { get; protected set; }
         public string Salt { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
+        private Regex LoginPattern = new Regex("[A-Za-z0-9]{5,20}");
 
         //niektóre biblioteki mogą wymagać konstruktora bezparametrowego
         protected User()
@@ -33,6 +36,11 @@ namespace ZaklepTo.Core.Domain
             Password = password;
             Salt = salt;
             CreatedAt = DateTime.UtcNow;
+
+            if(string.IsNullOrWhiteSpace(login) || LoginPattern.IsMatch(login))
+            {
+                throw new DomainException(ErrorCodes.InvalidLogin, "Login can't contain special characters, white spaces and be less than 5 and longer than 20 characters.");
+            }
         }
     }
 }
