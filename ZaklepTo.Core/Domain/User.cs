@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using ZaklepTo.Core.Exceptions;
+using ZaklepTo.Core.Extensions;
 using System.Text.RegularExpressions;
 
 namespace ZaklepTo.Core.Domain
 {
     public abstract class User
     {
-        public string Login { get; private set; }
+        public string Login { get; protected set; }
         public string FirstName { get; protected set; }
         public string LastName { get; protected set; }
         public string FullName => $"{FirstName} {LastName}";
@@ -22,7 +23,7 @@ namespace ZaklepTo.Core.Domain
         protected User()
         {
         }
-
+        
         public User(string login, string firstname, string lastname, string email,
             string phone, string password, string salt)
         {
@@ -40,10 +41,18 @@ namespace ZaklepTo.Core.Domain
         public void SetLogin(string login)
         {
             Regex LoginPattern = new Regex("[A-Za-z0-9]{5,20}");
-            if (string.IsNullOrWhiteSpace(login) || LoginPattern.IsMatch(login))
+            if (login.Empty())
             {
-               throw new DomainException(ErrorCodes.InvalidLogin, "Login can't contain special characters, white spaces and be less than 5 and longer than 20 characters.");
+               throw new DomainException(ErrorCodes.InvalidLogin, "Login can't be empty.");
+            }else if(LoginPattern.IsMatch(login))
+            {
+                throw new DomainException(ErrorCodes.InvalidLogin, "Login can't contain special characters and be less than 5 and longest than 20 characters.");
             }
+            if(Login == login)
+            {
+                return;
+            }
+            Login = login;
         }
     }
 }
