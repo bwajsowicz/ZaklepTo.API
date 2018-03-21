@@ -35,7 +35,7 @@ namespace ZaklepTo.Infrastucture.Repositories.InMemory
 
         public async Task UpdateAsync(Customer customer)
         {
-            var oldCustomer = _customers.SingleOrDefault(x => x.Email == customer.Email);
+            var oldCustomer = await GetAsync(customer.Email);
             _customers.Remove(oldCustomer);
             _customers.Add(customer);
             await Task.CompletedTask;
