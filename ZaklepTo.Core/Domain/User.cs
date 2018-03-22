@@ -26,15 +26,14 @@ namespace ZaklepTo.Core.Domain
 
         public User(string login, string firstname, string lastname, string email,
             string phone, string password, string salt)
-        {
-            //trzeba zaimplenetować walidację 
-            Login = login;
-            FirstName = firstname;
-            LastName = lastname;
-            Email = email;
-            Phone = phone;
-            Password = password;
-            Salt = salt;
+        { 
+            SetLogin(login);
+            SetFirstName(firstname);
+            SetLastName(lastname);
+            SetEmail(email);
+            SetPhone(phone);
+            SetPassword(password);
+            SetSalt(salt);
             CreatedAt = DateTime.UtcNow;
         }
 
@@ -156,7 +155,7 @@ namespace ZaklepTo.Core.Domain
             }
             else if(password.Length > 15 || password.Length < 8)
             {
-                throw new DomainException(ErrorCodes.InvalidPassword, "Password must be longest than 8 and less than 15 characters")
+                throw new DomainException(ErrorCodes.InvalidPassword, "Password must be longest than 8 and less than 15 characters");
             }
             else if (!SpecialChar.IsMatch(password) || !LettersLowercas.IsMatch(password) || !LettersUppercas.IsMatch(password) || !Numbers.IsMatch(password))
             {
@@ -169,6 +168,15 @@ namespace ZaklepTo.Core.Domain
             }
 
             Password = password;
+        }
+
+        public void SetSalt(string salt)
+        {
+            if(salt.Empty())
+            {
+                throw new DomainException(ErrorCodes.InvalidSalt, "Salt can't be null or empty.");
+            }
+            Salt = salt;
         }
     }
 }
