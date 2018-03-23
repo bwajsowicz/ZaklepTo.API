@@ -13,5 +13,9 @@ namespace ZaklepTo.Core.Exceptions
         public static string InvalidPhone => "invalid_phone";
         public static string InvalidPassword => "invalid_password";
         public static string InvalidSalt => "invalid_salt";
+        public static string InvalidRestaurantName => "invalid_restaurantname";
+        public static string InvalidDescription => "invalid_description";
+        public static string InvalidCuisine => "invalid_cuisine";
+        public static string InvalidLocalization => "invalid_localization";
     }
 }
