@@ -8,7 +8,7 @@ using ZaklepTo.Core.Repositories;
 
 namespace ZaklepTo.Infrastucture.Repositories.InMemory
 {
-    class CustomerRepository : ICustomerRepository
+    class InMemoryCustomerRepository : ICustomerRepository
     {
         private static ISet<Customer> _customers = new HashSet<Customer>
         {

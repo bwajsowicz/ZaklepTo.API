@@ -8,7 +8,7 @@ using ZaklepTo.Core.Domain;
 
 namespace ZaklepTo.Infrastucture.Repositories.InMemory
 {
-    class OwnerRepository : IOwnerRepository
+    class InMemoryOwnerRepository : IOwnerRepository
     { 
         //nulls
         private ISet<Owner> _owners = new HashSet<Owner>
