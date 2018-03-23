@@ -9,17 +9,17 @@ namespace ZaklepTo.Core.Domain
         public Guid Id { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
-        public string Cousine { get; private set; }
+        public string Cuisine { get; private set; }
         public string Localization { get; private set; }
         private List<Table> _tables { get; set; }
         public IEnumerable<Table> Tables => _tables;
 
-        public Restaurant(Guid id, string name, string description, string cousine, string localization, List<Table> tables)
+        public Restaurant(Guid id, string name, string description, string cuisine, string localization, List<Table> tables)
         {
             Id = id;
             Name = name;
             Description = description;
-            Cousine = cousine;
+            Cuisine = cuisine;
             Localization = localization;
             _tables = tables;
         }
