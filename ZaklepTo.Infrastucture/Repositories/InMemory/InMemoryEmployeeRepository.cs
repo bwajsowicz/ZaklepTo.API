@@ -8,7 +8,7 @@ using ZaklepTo.Core.Repositories;
 
 namespace ZaklepTo.Infrastucture.Repositories.InMemory
 {
-    class EmployeeRepository : IEmployeeRepository
+    class InMemoryEmployeeRepository : IEmployeeRepository
     {
         //nulls
         private ISet<Employee> _employees = new HashSet<Employee>
