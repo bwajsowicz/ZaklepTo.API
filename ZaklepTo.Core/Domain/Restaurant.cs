@@ -17,7 +17,7 @@ namespace ZaklepTo.Core.Domain
         private List<Table> _tables { get; set; }
         public IEnumerable<Table> Tables => _tables;
 
-        protected Restaurant(string name, string description, string cuisine, string localization)
+        Restaurant(string name, string description, string cuisine, string localization)
         {
             SetCousin(cuisine);
             SetDescription(description);
@@ -57,11 +57,11 @@ namespace ZaklepTo.Core.Domain
 
             if (cuisine.Empty())
             {
-                throw new DomainException(ErrorCodes.InvalidCousine, "Cousine can't be null or empty.");
+                throw new DomainException(ErrorCodes.InvalidCuisine, "Cousine can't be null or empty.");
             }
             else if (CousinePattern.IsMatch(cuisine))
             {
-                throw new DomainException(ErrorCodes.InvalidCousine, "Cousine can't contain special characters or numbers.");
+                throw new DomainException(ErrorCodes.InvalidCuisine, "Cousine can't contain special characters or numbers.");
             }
             if (Cuisine == cuisine)
             {

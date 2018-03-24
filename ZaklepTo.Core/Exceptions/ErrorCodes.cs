@@ -20,5 +20,6 @@ namespace ZaklepTo.Core.Exceptions
         public static string InvalidNumberOfSeats => "invalid_numberofseats";
         public static string InvalidCoordinates => "invalid_coordinates";
         public static string InvalidId => "invalid_id";
+        public static string InvalidRestaurant => "invalid_restaurant";
     }
 }
