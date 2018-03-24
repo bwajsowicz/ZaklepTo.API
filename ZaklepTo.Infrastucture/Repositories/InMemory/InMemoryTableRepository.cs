@@ -12,9 +12,9 @@ namespace ZaklepTo.Infrastucture.Repositories.InMemory
     {
         private ISet<Table> _tables = new HashSet<Table>
         {
-            new Table(Guid.NewGuid(), 4, (10, 10)),
-            new Table(Guid.NewGuid(), 2, (50, 35)),
-            new Table(Guid.NewGuid(), 1, (16, 42))
+            new Table(4, (10, 10)),
+            new Table(2, (50, 35)),
+            new Table(1, (16, 42))
         };
 
         public async Task AddAsync(Table table)

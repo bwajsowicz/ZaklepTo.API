@@ -10,9 +10,9 @@ namespace ZaklepTo.Core.Domain
         public int NumberOfSeats { get; private set; }
         public (int x, int y) Coordinates { get; private set; }
 
-        public Table(Guid id, int numberOfSeats, (int x, int y) coordinates)
+        public Table(int numberOfSeats, (int x, int y) coordinates)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             NumberOfSeats = numberOfSeats;
             Coordinates = coordinates;
         }

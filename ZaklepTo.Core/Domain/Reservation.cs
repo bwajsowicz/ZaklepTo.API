@@ -14,9 +14,9 @@ namespace ZaklepTo.Core.Domain
         public Customer Customer { get; private set; }
         public bool IsConfirmed { get; private set; }
 
-        public Reservation(Guid id, Restaurant restaurant, DateTime dateStart, DateTime dateEnd, Table table, Customer customer, bool isConfirmed = false)
+        public Reservation(Restaurant restaurant, DateTime dateStart, DateTime dateEnd, Table table, Customer customer, bool isConfirmed = false)
         {
-            Id = id;
+            Id = Guid.NewGuid(); ;
             Restaurant = restaurant;
             DateStart = dateStart;
             DateEnd = dateEnd;
