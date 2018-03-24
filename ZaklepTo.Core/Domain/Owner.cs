@@ -10,16 +10,9 @@ namespace ZaklepTo.Core.Domain
     {
         public Restaurant Restaurant { get; private set; }
 
-        public Owner(string login, string firstname, string lastname, string email,
-        string phone, string password, string salt)
+        public Owner(Restaurant restaurant)
         {
-            SetLogin(login);
-            SetFirstName(firstname);
-            SetLastName(lastname);
-            SetEmail(email);
-            SetPhone(phone);
-            SetPassword(password);
-            SetSalt(salt);
+            SetRestaurant(restaurant);
             CreatedAt = DateTime.UtcNow;
         }
 
