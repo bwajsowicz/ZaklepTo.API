@@ -13,7 +13,13 @@ namespace ZaklepTo.Core.Domain
         public Table Table { get; private set; }
         public Customer Customer { get; private set; }
         public bool IsConfirmed { get; private set; }
-        public bool IsActive { get; private set; }
+        private bool _isActive;
+
+        public bool IsActive
+        {
+            get => _isActive && DateTime.Now < DateEnd;
+            private set => _isActive = value;
+        }
 
         public Reservation(Restaurant restaurant, DateTime dateStart, DateTime dateEnd, Table table, Customer customer, bool isConfirmed = false, bool isActive = true)
         {
