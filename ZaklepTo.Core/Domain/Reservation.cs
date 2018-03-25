@@ -21,7 +21,8 @@ namespace ZaklepTo.Core.Domain
             private set => _isActive = value;
         }
 
-        public Reservation(Restaurant restaurant, DateTime dateStart, DateTime dateEnd, Table table, Customer customer, bool isConfirmed = false, bool isActive = true)
+        public Reservation(Restaurant restaurant, DateTime dateStart, DateTime dateEnd, 
+            Table table, Customer customer, bool isConfirmed = false, bool isActive = true)
         {
             Id = Guid.NewGuid(); ;
             Restaurant = restaurant;

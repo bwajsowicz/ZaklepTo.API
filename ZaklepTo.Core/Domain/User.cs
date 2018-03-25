@@ -16,7 +16,6 @@ namespace ZaklepTo.Core.Domain
         public string Salt { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
 
-        //niektóre biblioteki mogą wymagać konstruktora bezparametrowego
         protected User()
         {
         }
@@ -24,7 +23,6 @@ namespace ZaklepTo.Core.Domain
         public User(string login, string firstname, string lastname, string email,
             string phone, string password, string salt)
         {
-            //trzeba zaimplenetować walidację 
             Login = login;
             FirstName = firstname;
             LastName = lastname;
