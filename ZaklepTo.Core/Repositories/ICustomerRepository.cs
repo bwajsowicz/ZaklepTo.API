@@ -6,10 +6,10 @@ namespace ZaklepTo.Core.Repositories
 {
     public interface ICustomerRepository
     {
-        Task<Customer> GetAsync(string email);
+        Task<Customer> GetAsync(string login);
         Task<IEnumerable<Customer>> GetAllAsync();
         Task AddAsync(Customer customer);
         Task UpdateAsync(Customer customer);
-        Task DeleteAsync(string email);
+        Task DeleteAsync(string login);
     }
 }

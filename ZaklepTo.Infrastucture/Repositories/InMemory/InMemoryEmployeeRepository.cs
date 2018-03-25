@@ -22,9 +22,9 @@ namespace ZaklepTo.Infrastucture.Repositories.InMemory
         public async Task AddAsync(Employee employee)
             => await Task.FromResult(_employees.Add(employee));
 
-        public async Task DeleteAsync(string email)
+        public async Task DeleteAsync(string login)
         {
-            var employee = await GetAsync(email);
+            var employee = await GetAsync(login);
             _employees.Remove(employee);
             await Task.CompletedTask;
         }
@@ -32,8 +32,8 @@ namespace ZaklepTo.Infrastucture.Repositories.InMemory
         public async Task<IEnumerable<Employee>> GetAllAsync()
             => await Task.FromResult(_employees);
 
-        public async Task<Employee> GetAsync(string email)
-            => await Task.FromResult(_employees.SingleOrDefault(x => x.Email == email));
+        public async Task<Employee> GetAsync(string login)
+            => await Task.FromResult(_employees.SingleOrDefault(x => x.Email == login));
 
         public async Task UpdateAsync(Employee employee)
         {
