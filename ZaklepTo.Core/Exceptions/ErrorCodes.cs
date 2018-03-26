@@ -12,5 +12,7 @@ namespace ZaklepTo.Core.Exceptions
         public static string InvalidEmail => "invalid_email";
         public static string InvalidPhone => "invalid_phone";
         public static string InvalidPassword => "invalid_password";
+        public static string CustomerAlreadyExists => "user_already_exists";
+        public static string CustomerNotFound => "user_not_found";
     }
 }

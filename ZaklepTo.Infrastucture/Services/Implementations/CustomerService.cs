@@ -7,6 +7,7 @@ using ZaklepTo.Core.Domain;
 using ZaklepTo.Core.Repositories;
 using ZaklepTo.Infrastucture.DTO;
 using ZaklepTo.Infrastucture.Encrypter;
+using ZaklepTo.Core.Exceptions;
 
 namespace ZaklepTo.Infrastucture.Services.Implementations
 {
@@ -40,19 +41,19 @@ namespace ZaklepTo.Infrastucture.Services.Implementations
         {
             var customer = await _customerRepository.GetAsync(login);
             if(null==customer)
-                throw new Exception("Incorrect login/password"); //TODO Implement proper exceptions
+                throw new ServiceException(ErrorCodes.InvalidLogin, "Login is incorrect."); 
 
             var hash = _encrypter.GetHash(password, customer.Salt);
             if (customer.Password == hash)
                 return;
-            throw new Exception("Incorrect login/password"); //TODO Implement proper exceptions
+            throw new ServiceException(ErrorCodes.InvalidPassword, "Password is incorrect.");
         }
 
         public async Task RegisterAsync(string login, string firstname, string lastname, string email, string phone, string password)
         {
             var customer = await _customerRepository.GetAsync(login);
             if(customer!=null)
-                throw new Exception("Customer with that login already exists"); //TODO proper exceptions
+                throw new ServiceException(ErrorCodes.CustomerAlreadyExists, "User with that login already exists."); //TODO proper exceptions
 
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);
@@ -65,7 +66,7 @@ namespace ZaklepTo.Infrastucture.Services.Implementations
         {
             var customer = await _customerRepository.GetAsync(customerDto.Login);
             if (null == customer)
-                throw new Exception("User not found"); //TODO Proper exception
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "User not found.");
 
             //TODO implement customer updating
             throw new NotImplementedException();

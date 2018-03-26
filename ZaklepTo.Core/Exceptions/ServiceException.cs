@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ZaklepTo.Core.Exceptions
 {
-    class ServiceException : ZaklepToException
+    public class ServiceException : ZaklepToException
     {
         public ServiceException(string code) : base(code)
         {
