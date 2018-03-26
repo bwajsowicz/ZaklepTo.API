@@ -21,9 +21,9 @@ namespace ZaklepTo.Infrastucture.Repositories.InMemory
         public async Task AddAsync(Owner owner)
             => await Task.FromResult(_owners.Add(owner));
 
-        public async Task DeleteAsync(string email)
+        public async Task DeleteAsync(string login)
         {
-            var owner = await GetAsync(email);
+            var owner = await GetAsync(login);
             _owners.Remove(owner);
             await Task.CompletedTask;
         }
@@ -31,8 +31,8 @@ namespace ZaklepTo.Infrastucture.Repositories.InMemory
         public async Task<IEnumerable<Owner>> GetAllAsync()
             => await Task.FromResult(_owners);
 
-        public async Task<Owner> GetAsync(string email)
-            => await Task.FromResult(_owners.SingleOrDefault(x => x.Email == email));
+        public async Task<Owner> GetAsync(string login)
+            => await Task.FromResult(_owners.SingleOrDefault(x => x.Email == login));
 
         public async Task UpdateAsync(Owner owner)
         {
