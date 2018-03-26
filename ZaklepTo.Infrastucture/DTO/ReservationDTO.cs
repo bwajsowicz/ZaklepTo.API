@@ -12,6 +12,6 @@ namespace ZaklepTo.Infrastucture.DTO
         public DateTime DateEnd { get; set; }
         public TableDTO Table { get; set; }
         public CustomerDTO Customer { get; set; }
-        public bool IsConfirmed { get; set; } }
+        public bool IsConfirmed { get; set; }
     }
 }

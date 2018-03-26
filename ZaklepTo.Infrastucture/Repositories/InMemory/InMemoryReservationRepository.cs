@@ -14,8 +14,8 @@ namespace ZaklepTo.Infrastucture.Repositories.InMemory
         private ISet<Reservation> _reservations = new HashSet<Reservation>
         {
             new Reservation(null, DateTime.UtcNow, DateTime.UtcNow, null, null, true),
-            new Reservation(Guid.NewGuid(), null, DateTime.UtcNow, DateTime.UtcNow, null, null, true),
-            new Reservation(Guid.NewGuid(), null, DateTime.UtcNow, DateTime.UtcNow, null, null, true)
+            new Reservation(null, DateTime.UtcNow, DateTime.UtcNow, null, null, true),
+            new Reservation(null, DateTime.UtcNow, DateTime.UtcNow, null, null, true)
         };
 
         public async Task AddAsync(Reservation reservation)
