@@ -43,7 +43,7 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> Register([FromBody] CustomerOnCreateDTO customer)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
 
             await _customerService.RegisterAsync(
                 customer.Login,
