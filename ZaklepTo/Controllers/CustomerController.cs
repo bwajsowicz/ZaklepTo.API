@@ -27,5 +27,16 @@ namespace ZaklepTo.API.Controllers
 
             return Ok(customers);
         }
+
+        [HttpGet("{login}")]
+        public async Task<IActionResult> GetCustomer(string login)
+        {
+            var customerDTO = await _customerService.GetAsync(login);
+
+            if (customerDTO == null)
+                return NotFound();
+
+            return Ok(customerDTO);
+        }  
     }
 }

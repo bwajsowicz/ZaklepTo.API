@@ -8,7 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ZaklepTo.Core.Repositories;
 using ZaklepTo.Infrastucture.Mappers;
+using ZaklepTo.Infrastucture.Services.Implementations;
+using ZaklepTo.Infrastucture.Repositories.InMemory;
+using ZaklepTo.Infrastucture.Encrypter;
+using ZaklepTo.Infrastructure;
 
 namespace ZaklepTo
 {
@@ -24,6 +29,10 @@ namespace ZaklepTo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ICustomerRepository, InMemoryCustomerRepository>();
+            services.AddScoped<IReservationRepository, InMemoryReservationRepository>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddSingleton<IEncrypter, Encrypter>();
             services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddMvc();
         }
