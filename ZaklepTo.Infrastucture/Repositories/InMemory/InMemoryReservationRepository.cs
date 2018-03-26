@@ -8,7 +8,7 @@ using ZaklepTo.Core.Domain;
 
 namespace ZaklepTo.Infrastucture.Repositories.InMemory
 {
-    class InMemoryReservationRepository : IReservationRepository
+    public class InMemoryReservationRepository : IReservationRepository
     {
         //nulls
         private ISet<Reservation> _reservations = new HashSet<Reservation>

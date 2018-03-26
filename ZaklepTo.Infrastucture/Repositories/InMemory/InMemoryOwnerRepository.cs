@@ -32,11 +32,11 @@ namespace ZaklepTo.Infrastucture.Repositories.InMemory
             => await Task.FromResult(_owners);
 
         public async Task<Owner> GetAsync(string login)
-            => await Task.FromResult(_owners.SingleOrDefault(x => x.Email == login));
+            => await Task.FromResult(_owners.SingleOrDefault(x => x.Login == login));
 
         public async Task UpdateAsync(Owner owner)
         {
-            var oldOwner = await GetAsync(owner.Email);
+            var oldOwner = await GetAsync(owner.Login);
             _owners.Remove(oldOwner);
             _owners.Add(owner);
             await Task.CompletedTask;

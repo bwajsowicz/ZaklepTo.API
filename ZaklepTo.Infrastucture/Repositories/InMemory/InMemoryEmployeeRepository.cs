@@ -33,11 +33,11 @@ namespace ZaklepTo.Infrastucture.Repositories.InMemory
             => await Task.FromResult(_employees);
 
         public async Task<Employee> GetAsync(string login)
-            => await Task.FromResult(_employees.SingleOrDefault(x => x.Email == login));
+            => await Task.FromResult(_employees.SingleOrDefault(x => x.Login == login));
 
         public async Task UpdateAsync(Employee employee)
         {
-            var oldEmployee = await GetAsync(employee.Email);
+            var oldEmployee = await GetAsync(employee.Login);
             _employees.Remove(oldEmployee);
             _employees.Add(employee);
             await Task.CompletedTask;

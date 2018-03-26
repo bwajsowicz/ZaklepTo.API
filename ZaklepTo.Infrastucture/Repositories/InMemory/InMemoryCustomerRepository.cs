@@ -8,7 +8,7 @@ using ZaklepTo.Core.Repositories;
 
 namespace ZaklepTo.Infrastucture.Repositories.InMemory
 {
-    class InMemoryCustomerRepository : ICustomerRepository
+    public class InMemoryCustomerRepository : ICustomerRepository
     {
         private static ISet<Customer> _customers = new HashSet<Customer>
         {
@@ -31,11 +31,11 @@ namespace ZaklepTo.Infrastucture.Repositories.InMemory
             => await Task.FromResult(_customers);
 
         public async Task<Customer> GetAsync(string login)
-            => await Task.FromResult(_customers.SingleOrDefault(x => x.Email == login));
+            => await Task.FromResult(_customers.SingleOrDefault(x => x.Login == login));
 
         public async Task UpdateAsync(Customer customer)
         {
-            var oldCustomer = await GetAsync(customer.Email);
+            var oldCustomer = await GetAsync(customer.Login);
             _customers.Remove(oldCustomer);
             _customers.Add(customer);
             await Task.CompletedTask;
