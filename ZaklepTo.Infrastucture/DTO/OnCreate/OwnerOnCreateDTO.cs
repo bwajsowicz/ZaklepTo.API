@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ZaklepTo.Infrastucture.DTO
 {
-    public class CustomerOnCreateDTO
+    public class OwnerOnCreateDTO
     {
         public string Login { get; set; }
         public string Password { get; set; }

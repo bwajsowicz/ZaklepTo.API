@@ -7,7 +7,7 @@ using ZaklepTo.Infrastucture.DTO;
 
 namespace ZaklepTo.Infrastucture.Validators
 {
-    public class CustomerOnCreateValidator : AbstractValidator<CustomerOnCreateDTO>
+    public class EmployeeOnCreateValidator : AbstractValidator<EmployeeOnCreateDTO>
     {
         // TODO move properties to constructor?
 
@@ -19,7 +19,7 @@ namespace ZaklepTo.Infrastucture.Validators
 
         private readonly Regex phonePattern = new Regex("^[0-9]");
 
-        public CustomerOnCreateValidator()
+        public EmployeeOnCreateValidator()
         {
             RuleFor(x => x.Login)
                 .NotEmpty()
