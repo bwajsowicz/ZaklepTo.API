@@ -53,12 +53,12 @@ namespace ZaklepTo.Infrastucture.Services.Implementations
         {
             var customer = await _customerRepository.GetAsync(login);
             if(customer!=null)
-                throw new ServiceException(ErrorCodes.CustomerAlreadyExists, "User with that login already exists."); //TODO proper exceptions
+                throw new ServiceException(ErrorCodes.CustomerAlreadyExists, "User with that login already exists.");
 
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);
 
-            customer = new Customer(login, firstname, lastname, email, phone, password, salt);
+            customer = new Customer(login, firstname, lastname, email, phone, hash, salt);
             await _customerRepository.AddAsync(customer);
         }
 
@@ -68,8 +68,30 @@ namespace ZaklepTo.Infrastucture.Services.Implementations
             if (null == customer)
                 throw new ServiceException(ErrorCodes.CustomerNotFound, "User not found.");
 
-            //TODO implement customer updating
-            throw new NotImplementedException();
+            customer = new Customer(customerDto.Login, customerDto.FirstName, customerDto.LastName, customerDto.Email,
+                customerDto.Phone, customer.Password, customer.Salt);
+
+            await _customerRepository.UpdateAsync(customer);
+        }
+
+        public async Task ChangePassword(string login, string oldPassword, string newPassword)
+        {
+            var customer = await _customerRepository.GetAsync(login);
+            if(null==customer)
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "User not found.");
+
+            var oldPasswordHash = _encrypter.GetHash(oldPassword, customer.Salt);
+
+            if (customer.Password != oldPasswordHash)
+                throw new ServiceException(ErrorCodes.InvalidPassword, "Invalid password.");
+
+            var salt = _encrypter.GetSalt(newPassword);
+            var hash = _encrypter.GetHash(newPassword, salt);
+
+            customer = new Customer(customer.Login, customer.FirstName, customer.LastName, customer.Email,
+                customer.Phone, hash, customer.Salt);
+
+            await _customerRepository.UpdateAsync(customer);
         }
 
         public async Task DeleteAsync(string login)
@@ -79,7 +101,15 @@ namespace ZaklepTo.Infrastucture.Services.Implementations
 
         public async Task<IEnumerable<RestaurantDTO>> GetMostFrequentRestaurations(string login)
         {
-            throw new NotImplementedException();
+            var reservations = await _reservationRepository.GetAllAsync();
+
+            var topRestaurationsForCustomer = reservations.Where(x => x.Customer.Login == login)
+                .GroupBy(x => x.Restaurant)
+                .OrderByDescending(x => x.Count())
+                .Take(4)
+                .Select(x => _mapper.Map<Restaurant, RestaurantDTO>(x.Key));
+
+            return topRestaurationsForCustomer;
         }
     }
 }
