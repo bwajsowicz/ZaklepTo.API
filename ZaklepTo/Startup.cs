@@ -18,6 +18,7 @@ using FluentValidation.AspNetCore;
 using ZaklepTo.Infrastucture.Validators;
 using ZaklepTo.Infrastucture.DTO;
 using FluentValidation;
+using ZaklepTo.Infrastucture.Services.Interfaces;
 
 namespace ZaklepTo
 {

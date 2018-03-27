@@ -7,6 +7,7 @@ using ZaklepTo.Infrastucture.Services.Implementations;
 using AutoMapper;
 using ZaklepTo.Core.Domain;
 using ZaklepTo.Infrastucture.DTO;
+using ZaklepTo.Infrastucture.Services.Interfaces;
 
 namespace ZaklepTo.API.Controllers
 {

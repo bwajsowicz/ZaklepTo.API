@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using ZaklepTo.Infrastucture.DTO;
 
-namespace ZaklepTo.Infrastucture.Services.Implementations
+namespace ZaklepTo.Infrastucture.Services.Interfaces
 {
     public interface ICustomerService
     {

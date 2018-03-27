@@ -8,6 +8,7 @@ using ZaklepTo.Core.Repositories;
 using ZaklepTo.Infrastucture.DTO;
 using ZaklepTo.Infrastucture.Encrypter;
 using ZaklepTo.Core.Exceptions;
+using ZaklepTo.Infrastucture.Services.Interfaces;
 
 namespace ZaklepTo.Infrastucture.Services.Implementations
 {
