@@ -56,5 +56,27 @@ namespace ZaklepTo.API.Controllers
 
             return Created($"{customer.Login}", Json(customer));
         }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> Update([FromBody] CustomerOnUpdateDTO updatedCustomer)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var customerToUpdate = await _customerService.GetAsync(updatedCustomer.Login);
+
+            if (customerToUpdate == null)
+                return BadRequest();
+
+            // TODO: password update.
+
+            customerToUpdate.Login = updatedCustomer.Login;
+            customerToUpdate.FirstName = updatedCustomer.FirstName;
+            customerToUpdate.LastName = updatedCustomer.LastName;
+            customerToUpdate.Email = updatedCustomer.Email;
+            customerToUpdate.Phone = updatedCustomer.Phone;
+
+            return Ok();
+        }
     }
 }
