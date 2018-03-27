@@ -14,6 +14,10 @@ using ZaklepTo.Infrastucture.Services.Implementations;
 using ZaklepTo.Infrastucture.Repositories.InMemory;
 using ZaklepTo.Infrastucture.Encrypter;
 using ZaklepTo.Infrastructure;
+using FluentValidation.AspNetCore;
+using ZaklepTo.Infrastucture.Validators;
+using ZaklepTo.Infrastucture.DTO;
+using FluentValidation;
 
 namespace ZaklepTo
 {
@@ -34,7 +38,12 @@ namespace ZaklepTo
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddSingleton<IEncrypter, Encrypter>();
             services.AddSingleton(AutoMapperConfig.Initialize());
-            services.AddMvc();
+
+            services.AddMvc().AddFluentValidation(fv => {});
+
+            services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerOnCreateValidator>();
+            services.AddTransient<IValidator<EmployeeOnCreateDTO>, EmployeeOnCreateValidator>();
+            services.AddTransient<IValidator<OwnerOnCreateDTO>, OwnerOnCreateValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

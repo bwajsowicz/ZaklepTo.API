@@ -38,5 +38,23 @@ namespace ZaklepTo.API.Controllers
 
             return Ok(customerDTO);
         }  
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] CustomerOnCreateDTO customer)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            await _customerService.RegisterAsync(
+                customer.Login,
+                customer.FirstName,
+                customer.LastName,
+                customer.Email,
+                customer.Phone,
+                customer.Password
+                );
+
+            return Created($"{customer.Login}", Json(customer));
+        }
     }
 }
