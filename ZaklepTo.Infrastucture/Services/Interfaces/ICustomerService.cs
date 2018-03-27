@@ -14,6 +14,7 @@ namespace ZaklepTo.Infrastucture.Services.Implementations
             string email, string phone, string password);
 
         Task UpdateAsync(CustomerDTO customerDto);
+        Task ChangePassword(string login, string oldPassword, string newPassword);
         Task DeleteAsync(string login);
         Task<IEnumerable<RestaurantDTO>> GetMostFrequentRestaurations(string login);
     }
