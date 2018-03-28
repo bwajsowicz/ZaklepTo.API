@@ -16,6 +16,6 @@ namespace ZaklepTo.Infrastucture.Services.Interfaces
         Task UpdateAsync(CustomerDTO customerDto);
         Task ChangePassword(string login, string oldPassword, string newPassword);
         Task DeleteAsync(string login);
-        Task<IEnumerable<RestaurantDTO>> GetMostFrequentRestaurations(string login);
+        Task<IEnumerable<RestaurantDTO>> GetMostFrequentRestaurants(string login);
     }
 }

@@ -100,17 +100,17 @@ namespace ZaklepTo.Infrastucture.Services.Implementations
             await _customerRepository.DeleteAsync(login);
         }
 
-        public async Task<IEnumerable<RestaurantDTO>> GetMostFrequentRestaurations(string login)
+        public async Task<IEnumerable<RestaurantDTO>> GetMostFrequentRestaurants(string login)
         {
             var reservations = await _reservationRepository.GetAllAsync();
 
-            var topRestaurationsForCustomer = reservations.Where(x => x.Customer.Login == login)
+            var topRestaurantsForCustomer = reservations.Where(x => x.Customer.Login == login)
                 .GroupBy(x => x.Restaurant)
                 .OrderByDescending(x => x.Count())
                 .Take(4)
                 .Select(x => _mapper.Map<Restaurant, RestaurantDTO>(x.Key));
 
-            return topRestaurationsForCustomer;
+            return topRestaurantsForCustomer;
         }
     }
 }

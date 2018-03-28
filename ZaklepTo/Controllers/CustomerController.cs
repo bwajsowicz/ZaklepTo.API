@@ -45,7 +45,7 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> GetCustomerTopRestaurants(string login)
         {
             IEnumerable<RestaurantDTO> topRestaurantsForCustomer = 
-                await _customerService.GetMostFrequentRestaurations(login);
+                await _customerService.GetMostFrequentRestaurants(login);
 
             return Ok(topRestaurantsForCustomer);
         }
