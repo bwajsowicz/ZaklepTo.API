@@ -48,6 +48,7 @@ namespace ZaklepTo
             services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerOnCreateValidator>();
             services.AddTransient<IValidator<EmployeeOnCreateDTO>, EmployeeOnCreateValidator>();
             services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerOnCreateValidator>();
+            services.AddTransient<IValidator<RestaurantOnCreateDTO>, RestaurantOnCreateValidator>();
 
             services.AddTransient<IValidator<PasswordChange>, PasswordChangeValidator>();
         }
