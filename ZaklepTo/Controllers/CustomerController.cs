@@ -41,6 +41,15 @@ namespace ZaklepTo.API.Controllers
             return Ok(customerDTO);
         }  
 
+        [HttpGet("{login}/toprestaurants")]
+        public async Task<IActionResult> GetCustomerTopRestaurants(string login)
+        {
+            IEnumerable<RestaurantDTO> topRestaurantsForCustomer = 
+                await _customerService.GetMostFrequentRestaurations(login);
+
+            return Ok(topRestaurantsForCustomer);
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> RegisterCustomer([FromBody] CustomerOnCreateDTO customer)
         {
@@ -93,7 +102,8 @@ namespace ZaklepTo.API.Controllers
             await _customerService.ChangePassword(
                 passwordChange.Login,
                 passwordChange.OldPassword,
-                passwordChange.NewPassword);
+                passwordChange.NewPassword
+                );
 
             return Ok();
         }
