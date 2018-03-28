@@ -19,6 +19,7 @@ using ZaklepTo.Infrastucture.Validators;
 using ZaklepTo.Infrastucture.DTO;
 using FluentValidation;
 using ZaklepTo.Infrastucture.Services.Interfaces;
+using ZaklepTo.Infrastucture.DTO.OnUpdate;
 
 namespace ZaklepTo
 {
@@ -44,7 +45,9 @@ namespace ZaklepTo
 
             services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerValidator>();
             services.AddTransient<IValidator<EmployeeOnCreateDTO>, EmployeeValidator>();
-            services.AddTransient<IValidator<OwnerOnCreateDTO>, OwnerValidator>();
+            services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerValidator>();
+
+            services.AddTransient<IValidator<PasswordChange>, PasswordChangeValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

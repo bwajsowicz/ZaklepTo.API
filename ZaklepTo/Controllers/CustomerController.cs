@@ -8,6 +8,7 @@ using AutoMapper;
 using ZaklepTo.Core.Domain;
 using ZaklepTo.Infrastucture.DTO;
 using ZaklepTo.Infrastucture.Services.Interfaces;
+using ZaklepTo.Infrastucture.DTO.OnUpdate;
 
 namespace ZaklepTo.API.Controllers
 {
@@ -41,7 +42,7 @@ namespace ZaklepTo.API.Controllers
         }  
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] CustomerOnCreateDTO customer)
+        public async Task<IActionResult> RegisterCustomer([FromBody] CustomerOnCreateDTO customer)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -59,7 +60,7 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> Update([FromBody] CustomerOnUpdateDTO updatedCustomer)
+        public async Task<IActionResult> UpdateCustomer([FromBody] CustomerOnUpdateDTO updatedCustomer)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -69,13 +70,30 @@ namespace ZaklepTo.API.Controllers
             if (customerToUpdate == null)
                 return BadRequest();
 
-            // TODO: password update.
-
             customerToUpdate.Login = updatedCustomer.Login;
             customerToUpdate.FirstName = updatedCustomer.FirstName;
             customerToUpdate.LastName = updatedCustomer.LastName;
             customerToUpdate.Email = updatedCustomer.Email;
             customerToUpdate.Phone = updatedCustomer.Phone;
+
+            return Ok();
+        }
+
+        [HttpPut("changepassword")]
+        public async Task<IActionResult> ChangeCustomerPassword([FromBody] PasswordChange passwordChange)
+        {
+            if (!ModelState.IsValid) 
+                return BadRequest(ModelState);
+
+            var customer = await _customerService.GetAsync(passwordChange.Login);
+
+            if (customer == null)
+                return BadRequest();
+
+            await _customerService.ChangePassword(
+                passwordChange.Login,
+                passwordChange.OldPassword,
+                passwordChange.NewPassword);
 
             return Ok();
         }
