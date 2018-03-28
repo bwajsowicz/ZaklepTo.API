@@ -68,7 +68,7 @@ namespace ZaklepTo.API.Controllers
             return Created($"{customer.Login}", Json(customer));
         }
 
-        [HttpPut("update")]
+        [HttpPut("{login}/update")]
         public async Task<IActionResult> UpdateCustomer([FromBody] CustomerOnUpdateDTO updatedCustomer)
         {
             if(!ModelState.IsValid)
@@ -88,7 +88,7 @@ namespace ZaklepTo.API.Controllers
             return Ok();
         }
 
-        [HttpPut("changepassword")]
+        [HttpPut("{login}/changepassword")]
         public async Task<IActionResult> ChangeCustomerPassword([FromBody] PasswordChange passwordChange)
         {
             if (!ModelState.IsValid) 

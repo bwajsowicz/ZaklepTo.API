@@ -7,9 +7,9 @@ using ZaklepTo.Infrastucture.DTO;
 
 namespace ZaklepTo.Infrastucture.Validators
 {
-    public class OwnerValidator : AbstractValidator<OwnerOnCreateDTO>
+    public class OwnerOnCreateValidator : AbstractValidator<OwnerOnCreateDTO>
     {
-        public OwnerValidator()
+        public OwnerOnCreateValidator()
         {
             var loginPattern = new Regex("^[a-zA-Z0-9]");
 

@@ -38,14 +38,16 @@ namespace ZaklepTo
             services.AddScoped<ICustomerRepository, InMemoryCustomerRepository>();
             services.AddScoped<IReservationRepository, InMemoryReservationRepository>();
             services.AddScoped<ICustomerService, CustomerService>();
+            // Restaurant service isn't implemented yet.
+            // services.AddScoped<IRestaurantService, RestaurantService>(); 
             services.AddSingleton<IEncrypter, Encrypter>();
             services.AddSingleton(AutoMapperConfig.Initialize());
 
             services.AddMvc().AddFluentValidation(fv => {});
 
-            services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerValidator>();
-            services.AddTransient<IValidator<EmployeeOnCreateDTO>, EmployeeValidator>();
-            services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerValidator>();
+            services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerOnCreateValidator>();
+            services.AddTransient<IValidator<EmployeeOnCreateDTO>, EmployeeOnCreateValidator>();
+            services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerOnCreateValidator>();
 
             services.AddTransient<IValidator<PasswordChange>, PasswordChangeValidator>();
         }
