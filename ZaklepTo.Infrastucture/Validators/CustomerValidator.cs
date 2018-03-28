@@ -7,20 +7,18 @@ using ZaklepTo.Infrastucture.DTO;
 
 namespace ZaklepTo.Infrastucture.Validators
 {
-    public class EmployeeOnCreateValidator : AbstractValidator<EmployeeOnCreateDTO>
+    public class CustomerValidator : AbstractValidator<CustomerOnCreateDTO>
     {
-        // TODO move properties to constructor?
-
-        private readonly Regex loginPattern = new Regex("^[a-zA-Z0-9]");
-
-        private readonly Regex passwordSpecialChar = new Regex("[!@#$%^&*()_+}{\":?><,./; '[]|\\]");
-        private readonly Regex passwordUpperCase = new Regex("[A-Z]");
-        private readonly Regex passwordNumbers = new Regex("[0-9]");
-
-        private readonly Regex phonePattern = new Regex("^[0-9]");
-
-        public EmployeeOnCreateValidator()
+        public CustomerValidator()
         {
+            var loginPattern = new Regex("^[a-zA-Z0-9]");
+
+            var passwordSpecialChar = new Regex("[!@#$%^&*()_+}{\":?><,./; '[]|\\]");
+            var passwordUpperCase = new Regex("[A-Z]");
+            var passwordNumbers = new Regex("[0-9]");
+
+            var phonePattern = new Regex("^[0-9]");
+
             RuleFor(x => x.Login)
                 .NotEmpty()
                 .WithMessage("Login can't be empty.")
@@ -35,11 +33,11 @@ namespace ZaklepTo.Infrastucture.Validators
                 .Length(8, 15)
                 .WithMessage("Password must be longer than 5 and shorter than 15 characters.")
                 .Matches(passwordSpecialChar)
-                .WithMessage("Password must containt at least one special character.")
+                .WithMessage("Password must contain at least one special character.")
                 .Matches(passwordUpperCase)
-                .WithMessage("Password must containt at leas one capital letter.")
+                .WithMessage("Password must contain at least one capital letter.")
                 .Matches(passwordNumbers)
-                .WithMessage("Password must containt at leas one number.");
+                .WithMessage("Password must contain at least one number.");
 
             RuleFor(x => x.FirstName)
                 .NotEmpty()

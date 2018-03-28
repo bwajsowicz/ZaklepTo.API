@@ -42,9 +42,9 @@ namespace ZaklepTo
 
             services.AddMvc().AddFluentValidation(fv => {});
 
-            services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerOnCreateValidator>();
-            services.AddTransient<IValidator<EmployeeOnCreateDTO>, EmployeeOnCreateValidator>();
-            services.AddTransient<IValidator<OwnerOnCreateDTO>, OwnerOnCreateValidator>();
+            services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerValidator>();
+            services.AddTransient<IValidator<EmployeeOnCreateDTO>, EmployeeValidator>();
+            services.AddTransient<IValidator<OwnerOnCreateDTO>, OwnerValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
