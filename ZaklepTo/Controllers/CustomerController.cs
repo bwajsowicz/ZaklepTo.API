@@ -103,5 +103,18 @@ namespace ZaklepTo.API.Controllers
 
             return Ok();
         }
+        
+        [HttpDelete("login/remove")]
+        public async Task<IActionResult> RemoveCustomer(string login)
+        {
+            var customer = _customerService.GetAsync(login);
+
+            if (customer == null)
+                return NotFound();
+
+            await _customerService.DeleteAsync(login);
+
+            return Ok();
+        }
     }
 }
