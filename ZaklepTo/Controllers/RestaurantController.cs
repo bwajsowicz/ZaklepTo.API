@@ -20,7 +20,7 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAllRestaurant()
+        public async Task<IActionResult> GetAllRestaurants()
         {
             IEnumerable<RestaurantDTO> restaurants = await _restaurantService.GetAllAsync();
 
@@ -28,7 +28,7 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpGet("{restaurantId}")]
-        public async Task<IActionResult> GetRestaurant(Guid restaurantId)
+        public async Task<IActionResult> GetSingleRestaurant(Guid restaurantId)
         {
             var restaurant = await _restaurantService.GetAsync(restaurantId);
 

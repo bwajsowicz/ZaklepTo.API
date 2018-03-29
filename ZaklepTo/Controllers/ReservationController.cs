@@ -33,7 +33,6 @@ namespace ZaklepTo.API.Controllers
             var activeReservations = await _reservationService.GetAllActiveAsync();
 
             return Ok(activeReservations);
-
         }
 
         [HttpGet("{reservationId}")]
@@ -63,7 +62,7 @@ namespace ZaklepTo.API.Controllers
             return Ok();
         }
 
-        [HttpDelete("reservationId/remove")]
+        [HttpDelete("{reservationId}/remove")]
         public async Task<IActionResult> RemoveReservation(Guid reservationId)
         {
             var reservationToRemove = await _reservationService.GetAsync(reservationId);

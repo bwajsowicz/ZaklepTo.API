@@ -31,7 +31,7 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpGet("{login}")]
-        public async Task<IActionResult> GetCustomer(string login)
+        public async Task<IActionResult> GetSingleCustomer(string login)
         {
             var customerDTO = await _customerService.GetAsync(login);
 
@@ -104,7 +104,7 @@ namespace ZaklepTo.API.Controllers
             return Ok();
         }
         
-        [HttpDelete("login/remove")]
+        [HttpDelete("{login}/remove")]
         public async Task<IActionResult> RemoveCustomer(string login)
         {
             var customer = _customerService.GetAsync(login);
