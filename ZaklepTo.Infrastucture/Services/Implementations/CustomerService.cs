@@ -63,11 +63,9 @@ namespace ZaklepTo.Infrastucture.Services.Implementations
             await _customerRepository.AddAsync(customer);
         }
 
-        public async Task UpdateAsync(CustomerDTO customerDto)
+        public async Task UpdateAsync(CustomerOnUpdateDTO customerDto)
         {
             var customer = await _customerRepository.GetAsync(customerDto.Login);
-            if (null == customer)
-                throw new ServiceException(ErrorCodes.CustomerNotFound, "User not found.");
 
             customer = new Customer(customerDto.Login, customerDto.FirstName, customerDto.LastName, customerDto.Email,
                 customerDto.Phone, customer.Password, customer.Salt);

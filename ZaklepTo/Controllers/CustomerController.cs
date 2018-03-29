@@ -79,11 +79,7 @@ namespace ZaklepTo.API.Controllers
             if (customerToUpdate == null)
                 return BadRequest();
 
-            customerToUpdate.Login = updatedCustomer.Login;
-            customerToUpdate.FirstName = updatedCustomer.FirstName;
-            customerToUpdate.LastName = updatedCustomer.LastName;
-            customerToUpdate.Email = updatedCustomer.Email;
-            customerToUpdate.Phone = updatedCustomer.Phone;
+            await _customerService.UpdateAsync(updatedCustomer);
 
             return Ok();
         }

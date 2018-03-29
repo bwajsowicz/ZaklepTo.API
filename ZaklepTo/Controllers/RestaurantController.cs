@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ZaklepTo.Infrastucture.DTO;
+using ZaklepTo.Infrastucture.DTO.OnUpdate;
 using ZaklepTo.Infrastucture.Services.Interfaces;
 
 namespace ZaklepTo.API.Controllers
@@ -26,19 +27,19 @@ namespace ZaklepTo.API.Controllers
             return Ok(restaurants);
         }
 
-        [HttpGet("{guid}")]
-        public async Task<IActionResult> GetRestaurant(Guid guid)
+        [HttpGet("{restaurantId}")]
+        public async Task<IActionResult> GetRestaurant(Guid restaurantId)
         {
-            var restaurantDTO = await _restaurantService.GetAsync(guid);
+            var restaurant = await _restaurantService.GetAsync(restaurantId);
 
-            if (restaurantDTO == null)
+            if (restaurant == null)
                 return NotFound();
 
-            return Ok(restaurantDTO);
+            return Ok(restaurant);
         }
 
-        [HttpPut("{guid}/update")]
-        public async Task<IActionResult> UpdateRestaurant([FromBody] RestaurantDTO updatedRestaurant)
+        [HttpPut("{restaurantId}/update")]
+        public async Task<IActionResult> UpdateRestaurant([FromBody] RestaurantOnUpdateDTO updatedRestaurant)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -46,13 +47,9 @@ namespace ZaklepTo.API.Controllers
             var restaurantToUpdate = await _restaurantService.GetAsync(updatedRestaurant.Id);
 
             if (restaurantToUpdate == null)
-                return BadRequest();
+                return NotFound();
 
-            restaurantToUpdate.Id = updatedRestaurant.Id;
-            restaurantToUpdate.Name = updatedRestaurant.Name;
-            restaurantToUpdate.Description = updatedRestaurant.Description;
-            restaurantToUpdate.Cuisine = updatedRestaurant.Cuisine;
-            restaurantToUpdate.Tables = updatedRestaurant.Tables;
+            await _restaurantService.UpdateAsync(updatedRestaurant);
 
             return Ok();
         }
