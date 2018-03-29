@@ -12,7 +12,7 @@ namespace ZaklepTo.API.Controllers
     [Route("api/restaurants")]
     public class RestaurantController : Controller
     {
-        private IRestaurantService _restaurantService;
+        private readonly IRestaurantService _restaurantService;
 
         public RestaurantController(IRestaurantService restaurantService)
         {
@@ -22,7 +22,7 @@ namespace ZaklepTo.API.Controllers
         [HttpGet()]
         public async Task<IActionResult> GetAllRestaurants()
         {
-            IEnumerable<RestaurantDTO> restaurants = await _restaurantService.GetAllAsync();
+            var restaurants = await _restaurantService.GetAllAsync();
 
             return Ok(restaurants);
         }

@@ -15,7 +15,7 @@ namespace ZaklepTo.API.Controllers
     [Route("api/customers")]
     public class CustomerController : Controller
     {
-        private ICustomerService _customerService;
+        private readonly ICustomerService _customerService;
 
         public CustomerController(ICustomerService customerService)
         {
@@ -25,7 +25,7 @@ namespace ZaklepTo.API.Controllers
         [HttpGet()]
         public async Task<IActionResult> GetAllCustomers()
         {
-            IEnumerable<CustomerDTO> customers = await _customerService.GetAllAsync();
+            var customers = await _customerService.GetAllAsync();
 
             return Ok(customers);
         }
@@ -33,18 +33,18 @@ namespace ZaklepTo.API.Controllers
         [HttpGet("{login}")]
         public async Task<IActionResult> GetSingleCustomer(string login)
         {
-            var customerDTO = await _customerService.GetAsync(login);
+            var customer = await _customerService.GetAsync(login);
 
-            if (customerDTO == null)
+            if (customer == null)
                 return NotFound();
 
-            return Ok(customerDTO);
+            return Ok(customer);
         }  
 
         [HttpGet("{login}/toprestaurants")]
         public async Task<IActionResult> GetCustomerTopRestaurants(string login)
         {
-            IEnumerable<RestaurantDTO> topRestaurantsForCustomer = 
+            var topRestaurantsForCustomer = 
                 await _customerService.GetMostFrequentRestaurants(login);
 
             return Ok(topRestaurantsForCustomer);
@@ -77,7 +77,7 @@ namespace ZaklepTo.API.Controllers
             var customerToUpdate = await _customerService.GetAsync(updatedCustomer.Login);
 
             if (customerToUpdate == null)
-                return BadRequest();
+                return NotFound();
 
             await _customerService.UpdateAsync(updatedCustomer);
 
@@ -93,7 +93,7 @@ namespace ZaklepTo.API.Controllers
             var customer = await _customerService.GetAsync(passwordChange.Login);
 
             if (customer == null)
-                return BadRequest();
+                return NotFound();
 
             await _customerService.ChangePassword(
                 passwordChange.Login,

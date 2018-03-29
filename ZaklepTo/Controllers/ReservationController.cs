@@ -12,7 +12,7 @@ namespace ZaklepTo.API.Controllers
     [Route("api/reservations")]
     public class ReservationController : Controller
     {
-        private IReservationService _reservationService;
+        private readonly IReservationService _reservationService;
 
         public ReservationController(IReservationService reservationService)
         {
