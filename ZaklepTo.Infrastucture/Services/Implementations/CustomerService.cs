@@ -9,6 +9,7 @@ using ZaklepTo.Infrastucture.DTO;
 using ZaklepTo.Infrastucture.Encrypter;
 using ZaklepTo.Core.Exceptions;
 using ZaklepTo.Infrastucture.Services.Interfaces;
+using ZaklepTo.Infrastucture.DTO.OnUpdate;
 
 namespace ZaklepTo.Infrastucture.Services.Implementations
 {
@@ -50,17 +51,15 @@ namespace ZaklepTo.Infrastucture.Services.Implementations
             throw new ServiceException(ErrorCodes.InvalidPassword, "Password is incorrect.");
         }
 
-        public async Task RegisterAsync(string login, string firstname, string lastname, string email, string phone, string password)
+        public async Task RegisterAsync(CustomerOnCreateDTO customer)
         {
-            var customer = await _customerRepository.GetAsync(login);
-            if(customer!=null)
-                throw new ServiceException(ErrorCodes.CustomerAlreadyExists, "User with that login already exists.");
+            var salt = _encrypter.GetSalt(customer.Password);
+            var hash = _encrypter.GetHash(customer.Password, salt);
 
-            var salt = _encrypter.GetSalt(password);
-            var hash = _encrypter.GetHash(password, salt);
+            var customerToRegister = new Customer(customer.Login, customer.FirstName, customer.LastName, 
+                customer.Email, customer.Phone, hash, salt);
 
-            customer = new Customer(login, firstname, lastname, email, phone, hash, salt);
-            await _customerRepository.AddAsync(customer);
+            await _customerRepository.AddAsync(customerToRegister);
         }
 
         public async Task UpdateAsync(CustomerOnUpdateDTO customerDto)
@@ -73,19 +72,17 @@ namespace ZaklepTo.Infrastucture.Services.Implementations
             await _customerRepository.UpdateAsync(customer);
         }
 
-        public async Task ChangePassword(string login, string oldPassword, string newPassword)
+        public async Task ChangePassword(PasswordChange passwordChange)
         {
-            var customer = await _customerRepository.GetAsync(login);
-            if(null==customer)
-                throw new ServiceException(ErrorCodes.CustomerNotFound, "User not found.");
+            var customer = await _customerRepository.GetAsync(passwordChange.Login);
 
-            var oldPasswordHash = _encrypter.GetHash(oldPassword, customer.Salt);
+            var oldPasswordHash = _encrypter.GetHash(passwordChange.OldPassword, customer.Salt);
 
             if (customer.Password != oldPasswordHash)
                 throw new ServiceException(ErrorCodes.InvalidPassword, "Invalid password.");
 
-            var salt = _encrypter.GetSalt(newPassword);
-            var hash = _encrypter.GetHash(newPassword, salt);
+            var salt = _encrypter.GetSalt(passwordChange.NewPassword);
+            var hash = _encrypter.GetHash(passwordChange.NewPassword, salt);
 
             customer = new Customer(customer.Login, customer.FirstName, customer.LastName, customer.Email,
                 customer.Phone, hash, customer.Salt);

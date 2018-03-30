@@ -56,14 +56,7 @@ namespace ZaklepTo.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _customerService.RegisterAsync(
-                customer.Login,
-                customer.FirstName,
-                customer.LastName,
-                customer.Email,
-                customer.Phone,
-                customer.Password
-                );
+            await _customerService.RegisterAsync(customer);
 
             return Created($"{customer.Login}", Json(customer));
         }
@@ -95,11 +88,7 @@ namespace ZaklepTo.API.Controllers
             if (customer == null)
                 return NotFound();
 
-            await _customerService.ChangePassword(
-                passwordChange.Login,
-                passwordChange.OldPassword,
-                passwordChange.NewPassword
-                );
+            await _customerService.ChangePassword(passwordChange);
 
             return Ok();
         }
