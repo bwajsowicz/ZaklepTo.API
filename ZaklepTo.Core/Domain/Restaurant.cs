@@ -14,6 +14,10 @@ namespace ZaklepTo.Core.Domain
         private List<Table> _tables { get; set; }
         public IEnumerable<Table> Tables => _tables;
 
+        protected Restaurant()
+        {
+        }
+
         public Restaurant(string name, string description, string cuisine, string localization, List<Table> tables)
         {
             Id = Guid.NewGuid();
