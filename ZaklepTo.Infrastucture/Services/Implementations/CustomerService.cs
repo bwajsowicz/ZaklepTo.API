@@ -42,8 +42,6 @@ namespace ZaklepTo.Infrastucture.Services.Implementations
         public async Task LoginAsync(string login, string password)
         {
             var customer = await _customerRepository.GetAsync(login);
-            if(null==customer)
-                throw new ServiceException(ErrorCodes.InvalidLogin, "Login is incorrect."); 
 
             var hash = _encrypter.GetHash(password, customer.Salt);
             if (customer.Password == hash)
@@ -66,8 +64,11 @@ namespace ZaklepTo.Infrastucture.Services.Implementations
         {
             var customer = await _customerRepository.GetAsync(customerDto.Login);
 
-            customer = new Customer(customerDto.Login, customerDto.FirstName, customerDto.LastName, customerDto.Email,
-                customerDto.Phone, customer.Password, customer.Salt);
+            customer.Login = customerDto.Login;
+            customer.FirstName = customerDto.FirstName;
+            customer.LastName = customerDto.LastName;
+            customer.Email = customerDto.Email;
+            customer.Phone = customerDto.Phone;
 
             await _customerRepository.UpdateAsync(customer);
         }
@@ -84,8 +85,7 @@ namespace ZaklepTo.Infrastucture.Services.Implementations
             var salt = _encrypter.GetSalt(passwordChange.NewPassword);
             var hash = _encrypter.GetHash(passwordChange.NewPassword, salt);
 
-            customer = new Customer(customer.Login, customer.FirstName, customer.LastName, customer.Email,
-                customer.Phone, hash, customer.Salt);
+            customer.Password = hash;
 
             await _customerRepository.UpdateAsync(customer);
         }

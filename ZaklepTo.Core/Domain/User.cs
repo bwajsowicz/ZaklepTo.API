@@ -6,15 +6,15 @@ namespace ZaklepTo.Core.Domain
 {
     public abstract class User
     {
-        public string Login { get; private set; }
-        public string FirstName { get; protected set; }
-        public string LastName { get; protected set; }
+        public string Login { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string FullName => $"{FirstName} {LastName}";
-        public string Email { get; protected set; }
-        public string Phone { get; protected set; }
-        public string Password { get; protected set; }
-        public string Salt { get; protected set; }
-        public DateTime CreatedAt { get; protected set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Password { get; set; }
+        public string Salt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         protected User()
         {
