@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ZaklepTo.Infrastucture.Encrypter
+﻿namespace ZaklepTo.Infrastructure.Encrypter
 {
     public interface IEncrypter
     {

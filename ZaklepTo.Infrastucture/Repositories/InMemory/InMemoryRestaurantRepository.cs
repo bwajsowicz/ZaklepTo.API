@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using ZaklepTo.Core.Repositories;
 using System.Threading.Tasks;
 using ZaklepTo.Core.Domain;
+using ZaklepTo.Core.Repositories;
 
-namespace ZaklepTo.Infrastucture.Repositories.InMemory
+namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
     public class InMemoryRestaurantRepository : IRestaurantRepository
     {
         //nulls
-        private ISet<Restaurant> _restaurants = new HashSet<Restaurant>
+        private readonly ISet<Restaurant> _restaurants = new HashSet<Restaurant>
         {
             new Restaurant("Testowa1", "Opis", "Dobra", "Szczecin", null),
             new Restaurant("Testowa2", "Opis", "Polska", "Szczecin", null),

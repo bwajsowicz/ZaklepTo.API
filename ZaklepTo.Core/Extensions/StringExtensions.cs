@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ZaklepTo.Core.Extensions
+﻿namespace ZaklepTo.Core.Extensions
 {
     public static class StringExtensions
     {

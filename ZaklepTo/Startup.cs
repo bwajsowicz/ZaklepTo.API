@@ -3,17 +3,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ZaklepTo.Core.Repositories;
-using ZaklepTo.Infrastucture.Mappers;
-using ZaklepTo.Infrastucture.Services.Implementations;
-using ZaklepTo.Infrastucture.Repositories.InMemory;
-using ZaklepTo.Infrastucture.Encrypter;
 using FluentValidation.AspNetCore;
-using ZaklepTo.Infrastucture.Validators;
 using FluentValidation;
-using ZaklepTo.Infrastucture.Services.Interfaces;
-using ZaklepTo.Infrastucture.DTO.OnUpdate;
-using ZaklepTo.Infrastucture.DTO.OnCreate;
+using ZaklepTo.Infrastructure.DTO.OnCreate;
+using ZaklepTo.Infrastructure.DTO.OnUpdate;
 using ZaklepTo.Infrastructure.Encrypter;
+using ZaklepTo.Infrastructure.Mappers;
+using ZaklepTo.Infrastructure.Repositories.InMemory;
+using ZaklepTo.Infrastructure.Services.Implementations;
+using ZaklepTo.Infrastructure.Services.Interfaces;
+using ZaklepTo.Infrastructure.Validators;
 
 namespace ZaklepTo.API
 {

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using ZaklepTo.Core.Repositories;
 using System.Threading.Tasks;
 using ZaklepTo.Core.Domain;
+using ZaklepTo.Core.Repositories;
 
-namespace ZaklepTo.Infrastucture.Repositories.InMemory
+namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
     public class InMemoryTableRepository : ITableRepository
     {
-        private ISet<Table> _tables = new HashSet<Table>
+        private readonly ISet<Table> _tables = new HashSet<Table>
         {
             new Table(4, (10, 10)),
             new Table(2, (50, 35)),

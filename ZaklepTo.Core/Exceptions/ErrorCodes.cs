@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ZaklepTo.Core.Exceptions
+﻿namespace ZaklepTo.Core.Exceptions
 {
     public static class ErrorCodes
     {

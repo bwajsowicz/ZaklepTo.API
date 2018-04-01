@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ZaklepTo.Core.Exceptions
 {
-    class DomainException : ZaklepToException
+    public class DomainException : ZaklepToException
     {
         public DomainException(string code) : base(code)
         {

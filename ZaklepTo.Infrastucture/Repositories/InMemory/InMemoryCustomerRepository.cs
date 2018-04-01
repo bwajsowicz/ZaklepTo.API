@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZaklepTo.Core.Domain;
 using ZaklepTo.Core.Repositories;
 
-namespace ZaklepTo.Infrastucture.Repositories.InMemory
+namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
     public class InMemoryCustomerRepository : ICustomerRepository
     {
-        private static ISet<Customer> _customers = new HashSet<Customer>
+        private static readonly ISet<Customer> _customers = new HashSet<Customer>
         {
             new Customer("mkowalski", "Madam", "Kowalski", "kkowalski@example.com", "123-123-123", "pass1", "salt"),
             new Customer("mbodzion", "Maciej", "Bodzion", "mbodzion@example.com", "213-543-185", "pass2", "salt"),

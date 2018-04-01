@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ZaklepTo.Core.Domain;
 
-namespace ZaklepTo.Infrastucture.DTO
+namespace ZaklepTo.Infrastructure.DTO
 {
     class EmployeeDTO
     {

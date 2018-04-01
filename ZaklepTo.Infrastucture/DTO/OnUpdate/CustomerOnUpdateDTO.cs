@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ZaklepTo.Infrastucture.DTO.OnUpdate
+﻿namespace ZaklepTo.Infrastructure.DTO.OnUpdate
 {
     public class CustomerOnUpdateDTO
     {

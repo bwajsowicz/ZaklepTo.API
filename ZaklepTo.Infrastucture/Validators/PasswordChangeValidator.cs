@@ -1,11 +1,8 @@
-﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-using ZaklepTo.Infrastucture.DTO.OnUpdate;
+﻿using System.Text.RegularExpressions;
+using FluentValidation;
+using ZaklepTo.Infrastructure.DTO.OnUpdate;
 
-namespace ZaklepTo.Infrastucture.Validators
+namespace ZaklepTo.Infrastructure.Validators
 {
     public class PasswordChangeValidator : AbstractValidator<PasswordChange>
     {

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ZaklepTo.Infrastucture.DTO;
-using ZaklepTo.Infrastucture.DTO.OnUpdate;
-using ZaklepTo.Infrastucture.Services.Interfaces;
+using ZaklepTo.Infrastructure.DTO.OnUpdate;
+using ZaklepTo.Infrastructure.Services.Interfaces;
 
 namespace ZaklepTo.API.Controllers
 {

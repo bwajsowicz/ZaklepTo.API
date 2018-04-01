@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace ZaklepTo.Infrastucture.DTO.OnCreate
+namespace ZaklepTo.Infrastructure.DTO.OnCreate
 {
     public class RestaurantOnCreateDTO
     {

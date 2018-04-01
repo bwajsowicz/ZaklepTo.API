@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using FluentValidation;
-using ZaklepTo.Infrastucture.DTO.OnCreate;
+using ZaklepTo.Infrastructure.DTO.OnCreate;
 
-namespace ZaklepTo.Infrastucture.Validators
+namespace ZaklepTo.Infrastructure.Validators
 {
     public class EmployeeOnCreateValidator : AbstractValidator<EmployeeOnCreateDTO>
     {

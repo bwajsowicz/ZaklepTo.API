@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
 using ZaklepTo.Core.Domain;
-using ZaklepTo.Infrastucture.DTO;
+using ZaklepTo.Infrastructure.DTO;
 
-namespace ZaklepTo.Infrastucture.Mappers
+namespace ZaklepTo.Infrastructure.Mappers
 {
     public static class AutoMapperConfig
     {

@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ZaklepTo.Core.Domain;
-using ZaklepTo.Core.Repositories;
-using ZaklepTo.Infrastucture.DTO;
-using ZaklepTo.Infrastucture.Encrypter;
 using ZaklepTo.Core.Exceptions;
-using ZaklepTo.Infrastucture.Services.Interfaces;
-using ZaklepTo.Infrastucture.DTO.OnUpdate;
-using ZaklepTo.Infrastucture.DTO.OnCreate;
+using ZaklepTo.Core.Repositories;
+using ZaklepTo.Infrastructure.DTO;
+using ZaklepTo.Infrastructure.DTO.OnCreate;
+using ZaklepTo.Infrastructure.DTO.OnUpdate;
+using ZaklepTo.Infrastructure.Encrypter;
+using ZaklepTo.Infrastructure.Services.Interfaces;
 
-namespace ZaklepTo.Infrastucture.Services.Implementations
+namespace ZaklepTo.Infrastructure.Services.Implementations
 {
     public class CustomerService : ICustomerService
     {

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Cryptography;
-using System.Text;
 using ZaklepTo.Core.Extensions;
-using ZaklepTo.Infrastucture.Encrypter;
 
 namespace ZaklepTo.Infrastructure.Encrypter
 {

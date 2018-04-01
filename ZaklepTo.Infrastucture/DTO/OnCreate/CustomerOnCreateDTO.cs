@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ZaklepTo.Infrastucture.DTO.OnCreate
+﻿namespace ZaklepTo.Infrastructure.DTO.OnCreate
 {
     public class CustomerOnCreateDTO
     {

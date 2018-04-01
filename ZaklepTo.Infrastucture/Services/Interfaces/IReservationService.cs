@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ZaklepTo.Infrastucture.DTO;
-using ZaklepTo.Infrastucture.DTO.OnUpdate;
+using ZaklepTo.Infrastructure.DTO;
+using ZaklepTo.Infrastructure.DTO.OnUpdate;
 
-namespace ZaklepTo.Infrastucture.Services.Interfaces
+namespace ZaklepTo.Infrastructure.Services.Interfaces
 {
     public interface IReservationService
     {

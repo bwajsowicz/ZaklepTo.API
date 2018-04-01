@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ZaklepTo.Infrastucture\ZaklepTo.Infrastucture.csproj" />
+    <ProjectReference Include="..\ZaklepTo.Infrastucture\ZaklepTo.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

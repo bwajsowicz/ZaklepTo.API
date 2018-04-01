@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
-using ZaklepTo.Core.Repositories;
 using System.Threading.Tasks;
 using ZaklepTo.Core.Domain;
+using ZaklepTo.Core.Repositories;
 
-namespace ZaklepTo.Infrastucture.Repositories.InMemory
+namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
-    class InMemoryOwnerRepository : IOwnerRepository
+    public class InMemoryOwnerRepository : IOwnerRepository
     { 
         //nulls
-        private ISet<Owner> _owners = new HashSet<Owner>
+        private readonly ISet<Owner> _owners = new HashSet<Owner>
         {
             new Owner("own1", "Jan", "Kowalski", "jkowalski@example.com", "123-123-123", "pass1", "salt", null),
             new Owner("own2", "Zbigniew", "Phrymus", "jphrymus@example.com", "321-321-321", "pass2", "salt", null),

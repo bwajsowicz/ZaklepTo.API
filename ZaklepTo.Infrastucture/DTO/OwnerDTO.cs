@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ZaklepTo.Infrastucture.DTO
+namespace ZaklepTo.Infrastructure.DTO
 {
     public class OwnerDTO
     {

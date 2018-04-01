@@ -5,13 +5,13 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZaklepTo.API", "ZaklepTo\ZaklepTo.API.csproj", "{1D93D8DB-8A42-4A98-B998-E99D126E4E96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaklepTo.Infrastucture", "ZaklepTo.Infrastucture\ZaklepTo.Infrastucture.csproj", "{3D70523C-58AB-4980-821B-364BE6AACC9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZaklepTo.Infrastructure", "ZaklepTo.Infrastucture\ZaklepTo.Infrastructure.csproj", "{3D70523C-58AB-4980-821B-364BE6AACC9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaklepTo.Core", "ZaklepTo.Core\ZaklepTo.Core.csproj", "{900AA829-3D78-484C-A29F-C7E1B2724778}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZaklepTo.Core", "ZaklepTo.Core\ZaklepTo.Core.csproj", "{900AA829-3D78-484C-A29F-C7E1B2724778}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaklepTo.Tests", "ZaklepTo.Tests\ZaklepTo.Tests.csproj", "{4225BCBF-3C6A-402F-B318-703485DAB546}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZaklepTo.Tests", "ZaklepTo.Tests\ZaklepTo.Tests.csproj", "{4225BCBF-3C6A-402F-B318-703485DAB546}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZaklepTo.Tests.EndToEnd", "ZaklepTo.Tests.EndToEnd\ZaklepTo.Tests.EndToEnd.csproj", "{322B4E63-38DD-4090-A960-A2F17DFBA081}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZaklepTo.Tests.EndToEnd", "ZaklepTo.Tests.EndToEnd\ZaklepTo.Tests.EndToEnd.csproj", "{322B4E63-38DD-4090-A960-A2F17DFBA081}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BD81ABA8-34C3-4032-AB0A-3F7B6FFE44C5}"
 EndProject

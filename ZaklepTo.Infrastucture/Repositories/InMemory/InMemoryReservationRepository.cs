@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using ZaklepTo.Core.Repositories;
 using System.Threading.Tasks;
 using ZaklepTo.Core.Domain;
+using ZaklepTo.Core.Repositories;
 
-namespace ZaklepTo.Infrastucture.Repositories.InMemory
+namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
     public class InMemoryReservationRepository : IReservationRepository
     {
         //nulls
-        private ISet<Reservation> _reservations = new HashSet<Reservation>
+        private readonly ISet<Reservation> _reservations = new HashSet<Reservation>
         {
             new Reservation(null, DateTime.UtcNow, DateTime.UtcNow, null, null, true),
             new Reservation(null, DateTime.UtcNow, DateTime.UtcNow, null, null, true),
