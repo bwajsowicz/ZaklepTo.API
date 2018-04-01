@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using FluentValidation;
-using ZaklepTo.Infrastucture.DTO;
+using ZaklepTo.Infrastucture.DTO.OnCreate;
 
 namespace ZaklepTo.Infrastucture.Validators
 {

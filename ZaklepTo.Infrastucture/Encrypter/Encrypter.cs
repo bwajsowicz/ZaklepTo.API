@@ -5,7 +5,7 @@ using System.Text;
 using ZaklepTo.Core.Extensions;
 using ZaklepTo.Infrastucture.Encrypter;
 
-namespace ZaklepTo.Infrastructure
+namespace ZaklepTo.Infrastructure.Encrypter
 {
     public class Encrypter : IEncrypter
     {

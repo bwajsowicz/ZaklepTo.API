@@ -1,8 +1,5 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using ZaklepTo.Infrastucture.DTO;
+using ZaklepTo.Infrastucture.DTO.OnCreate;
 
 namespace ZaklepTo.Infrastucture.Validators
 {

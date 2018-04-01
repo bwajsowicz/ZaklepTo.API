@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ZaklepTo.Infrastucture.DTO
+namespace ZaklepTo.Infrastucture.DTO.OnCreate
 {
     public class OwnerOnCreateDTO
     {

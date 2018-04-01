@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using ZaklepTo.Core.Repositories;
 using ZaklepTo.Infrastucture.Mappers;
 using ZaklepTo.Infrastucture.Services.Implementations;
 using ZaklepTo.Infrastucture.Repositories.InMemory;
 using ZaklepTo.Infrastucture.Encrypter;
-using ZaklepTo.Infrastructure;
 using FluentValidation.AspNetCore;
 using ZaklepTo.Infrastucture.Validators;
-using ZaklepTo.Infrastucture.DTO;
 using FluentValidation;
 using ZaklepTo.Infrastucture.Services.Interfaces;
 using ZaklepTo.Infrastucture.DTO.OnUpdate;
+using ZaklepTo.Infrastucture.DTO.OnCreate;
+using ZaklepTo.Infrastructure.Encrypter;
 
-namespace ZaklepTo
+namespace ZaklepTo.API
 {
     public class Startup
     {
