@@ -13,14 +13,14 @@ using ZaklepTo.Infrastructure.Services.Interfaces;
 
 namespace ZaklepTo.Infrastructure.Services.Implementations
 {
-    public class CustomerService : ICustomerService
+    public class OwnerService : ICustomerService
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly IReservationRepository _reservationRepository;
         private readonly IMapper _mapper;
         private readonly IEncrypter _encrypter;
 
-        public CustomerService(ICustomerRepository customerRepository, IMapper mapper, IEncrypter encrypter, IReservationRepository reservationRepository)
+        public OwnerService(ICustomerRepository customerRepository, IMapper mapper, IEncrypter encrypter, IReservationRepository reservationRepository)
         {
             _customerRepository = customerRepository;
             _mapper = mapper;
