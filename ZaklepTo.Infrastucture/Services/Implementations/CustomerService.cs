@@ -6,6 +6,7 @@ using ZaklepTo.Core.Domain;
 using ZaklepTo.Core.Exceptions;
 using ZaklepTo.Core.Repositories;
 using ZaklepTo.Infrastructure.DTO;
+using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
 using ZaklepTo.Infrastructure.DTO.OnUpdate;
 using ZaklepTo.Infrastructure.Encrypter;
@@ -13,14 +14,14 @@ using ZaklepTo.Infrastructure.Services.Interfaces;
 
 namespace ZaklepTo.Infrastructure.Services.Implementations
 {
-    public class OwnerService : ICustomerService
+    public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly IReservationRepository _reservationRepository;
         private readonly IMapper _mapper;
         private readonly IEncrypter _encrypter;
 
-        public OwnerService(ICustomerRepository customerRepository, IMapper mapper, IEncrypter encrypter, IReservationRepository reservationRepository)
+        public CustomerService(ICustomerRepository customerRepository, IMapper mapper, IEncrypter encrypter, IReservationRepository reservationRepository)
         {
             _customerRepository = customerRepository;
             _mapper = mapper;
@@ -39,11 +40,11 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             return customers.Select(customer => _mapper.Map<Customer, CustomerDTO>(customer));
         }
 
-        public async Task LoginAsync(string login, string password)
+        public async Task LoginAsync(LoginCredentials loginCredentials)
         {
-            var customer = await _customerRepository.GetAsync(login);
+            var customer = await _customerRepository.GetAsync(loginCredentials.Login);
 
-            var hash = _encrypter.GetHash(password, customer.Salt);
+            var hash = _encrypter.GetHash(loginCredentials.Password, customer.Salt);
             if (customer.Password == hash)
                 return;
             throw new ServiceException(ErrorCodes.InvalidPassword, "Password is incorrect.");

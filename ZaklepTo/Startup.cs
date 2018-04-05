@@ -30,7 +30,7 @@ namespace ZaklepTo.API
         {
             services.AddScoped<ICustomerRepository, InMemoryCustomerRepository>();
             services.AddScoped<IReservationRepository, InMemoryReservationRepository>();
-            services.AddScoped<ICustomerService, OwnerService>();
+            services.AddScoped<ICustomerService, CustomerService>();
             // Restaurant service isn't implemented yet.
             // services.AddScoped<IRestaurantService, RestaurantService>(); 
             services.AddSingleton<IEncrypter, Encrypter>();
