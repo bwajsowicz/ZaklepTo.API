@@ -42,5 +42,13 @@ namespace ZaklepTo.API.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("{restaurantId")]
+        public async Task<IActionResult> RemoveRestaurant(Guid restaurantId)
+        {
+            await _restaurantService.DeleteAsync(restaurantId);
+
+            return Ok();
+        }
     }
 }
