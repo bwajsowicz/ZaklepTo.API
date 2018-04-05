@@ -29,9 +29,6 @@ namespace ZaklepTo.API.Controllers
         {
             var restaurant = await _restaurantService.GetAsync(restaurantId);
 
-            if (restaurant == null)
-                return NotFound();
-
             return Ok(restaurant);
         }
 
@@ -40,11 +37,6 @@ namespace ZaklepTo.API.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            var restaurantToUpdate = await _restaurantService.GetAsync(updatedRestaurant.Id);
-
-            if (restaurantToUpdate == null)
-                return NotFound();
 
             await _restaurantService.UpdateAsync(updatedRestaurant);
 

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
 using ZaklepTo.Infrastructure.DTO.OnUpdate;
 using ZaklepTo.Infrastructure.Services.Interfaces;
@@ -29,14 +30,11 @@ namespace ZaklepTo.API.Controllers
         {
             var customer = await _customerService.GetAsync(login);
 
-            if (customer == null)
-                return NotFound();
-
             return Ok(customer);
         }  
 
         [HttpGet("{login}/toprestaurants")]
-        public async Task<IActionResult> GetCustomerTopRestaurants(string login)
+        public async Task<IActionResult> GetCustomersTopRestaurants(string login)
         {
             var topRestaurantsForCustomer = 
                 await _customerService.GetMostFrequentRestaurants(login);
@@ -55,16 +53,19 @@ namespace ZaklepTo.API.Controllers
             return Created($"{customer.Login}", Json(customer));
         }
 
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginCustomer([FromBody] LoginCredentials loginCredentials)
+        {
+            await _customerService.LoginAsync(loginCredentials);
+
+            return Ok();
+        }
+
         [HttpPut("{login}/update")]
         public async Task<IActionResult> UpdateCustomer([FromBody] CustomerOnUpdateDTO updatedCustomer)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            var customerToUpdate = await _customerService.GetAsync(updatedCustomer.Login);
-
-            if (customerToUpdate == null)
-                return NotFound();
 
             await _customerService.UpdateAsync(updatedCustomer);
 
@@ -72,15 +73,10 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpPut("{login}/changepassword")]
-        public async Task<IActionResult> ChangeCustomerPassword([FromBody] PasswordChange passwordChange)
+        public async Task<IActionResult> ChangeCustomersPassword([FromBody] PasswordChange passwordChange)
         {
             if (!ModelState.IsValid) 
                 return BadRequest(ModelState);
-
-            var customer = await _customerService.GetAsync(passwordChange.Login);
-
-            if (customer == null)
-                return NotFound();
 
             await _customerService.ChangePassword(passwordChange);
 
@@ -90,11 +86,6 @@ namespace ZaklepTo.API.Controllers
         [HttpDelete("{login}/remove")]
         public async Task<IActionResult> RemoveCustomer(string login)
         {
-            var customer = _customerService.GetAsync(login);
-
-            if (customer == null)
-                return NotFound();
-
             await _customerService.DeleteAsync(login);
 
             return Ok();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnUpdate;
 using ZaklepTo.Infrastructure.Services.Interfaces;
 
@@ -32,15 +33,36 @@ namespace ZaklepTo.API.Controllers
             return Ok(activeReservations);
         }
 
+        [HttpGet("unconfirmed")]
+        public async Task<IActionResult> GetAllUnconfirmedReservations()
+        {
+            var unconfirmedReservations = await _reservationService.GetAllUncorfirmedReservationsAsync();
+
+            return Ok(unconfirmedReservations);
+        }
+
         [HttpGet("{reservationId}")]
         public async Task<IActionResult> GetSingleReservation(Guid reservationId)
         {
             var reservation = await _reservationService.GetAsync(reservationId);
 
-            if (reservation == null)
-                return NotFound();
-
             return Ok(reservation);
+        }
+
+        [HttpGet("{reservationId}/{customersLogin}")]
+        public async Task<IActionResult> GetAllActiveReservationsByCustomer(string customersLogin)
+        {
+            var allActiveReservations = await _reservationService.GetAllActiveByCustomerAsync(customersLogin);
+
+            return Ok(allActiveReservations);
+        }
+
+        [HttpGet("betweendates")]
+        public async Task<IActionResult> GetAllReservationsBetweenDates([FromBody] TimeInterval timeInterval)
+        {
+            var reservationsBetweenDates = await _reservationService.GetAllBetweenDatesAsync(timeInterval);
+
+            return Ok(reservationsBetweenDates);
         }
 
         [HttpPut("{reservationId}/update")]
@@ -48,11 +70,6 @@ namespace ZaklepTo.API.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            var reservationToUpdate = await _reservationService.GetAsync(updatedReservation.Id);
-
-            if (reservationToUpdate == null)
-                return NotFound();
 
             await _reservationService.UpdateAsync(updatedReservation);
 
@@ -62,12 +79,23 @@ namespace ZaklepTo.API.Controllers
         [HttpDelete("{reservationId}/remove")]
         public async Task<IActionResult> RemoveReservation(Guid reservationId)
         {
-            var reservationToRemove = await _reservationService.GetAsync(reservationId);
-
-            if (reservationToRemove == null)
-                return NotFound();
-
             await _reservationService.DeleteAsync(reservationId);
+
+            return Ok();
+        }
+
+        [HttpPost("{reservationId}/deactivate")]
+        public async Task<IActionResult> DeactivateReservation(Guid reservationId)
+        {
+            await _reservationService.DeactivateReservationAsync(reservationId);
+
+            return Ok();
+        }
+
+        [HttpPost("{reservationId}/activate")]
+        public async Task<IActionResult> ConfirmReservation(Guid reservationId)
+        {
+            await _reservationService.ConfirmReservationAsync(reservationId);
 
             return Ok();
         }

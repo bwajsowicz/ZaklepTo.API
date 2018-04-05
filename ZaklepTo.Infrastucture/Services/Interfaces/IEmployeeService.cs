@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZaklepTo.Infrastructure.DTO;
+using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
 using ZaklepTo.Infrastructure.DTO.OnUpdate;
 
@@ -10,7 +11,7 @@ namespace ZaklepTo.Infrastructure.Services.Interfaces
     {
         Task<EmployeeDTO> GetAsync(string login);
         Task<IEnumerable<EmployeeDTO>> GetAllAsync();
-        Task LoginAsync(PasswordChange passwordChange);
+        Task LoginAsync(LoginCredentials loginCredentials);
         Task RegisterAsync(EmployeeOnCreateDTO employeeDto);
         Task UpdateAsync(EmployeeOnUpdateDTO employeeDto);
         Task ChangePassword(PasswordChange passwordChange);
