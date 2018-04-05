@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -25,7 +22,7 @@ namespace ZaklepTo.API.Middleware
             {
                 await _next(context);
             }
-            catch (Exception exception)
+            catch (ServiceException exception)
             {
                 await HandleExceptionAsync(context, exception);
             }
