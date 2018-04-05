@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -31,6 +32,10 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public async Task<CustomerDTO> GetAsync(string login)
         {
             var customer = await _customerRepository.GetAsync(login);
+
+            if (customer == null)
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
+
             return _mapper.Map<Customer, CustomerDTO>(customer);
         }
 

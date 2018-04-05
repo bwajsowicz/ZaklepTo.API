@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ZaklepTo.Core.Repositories;
 using FluentValidation.AspNetCore;
 using FluentValidation;
+using ZaklepTo.API.Extensions;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
 using ZaklepTo.Infrastructure.DTO.OnUpdate;
 using ZaklepTo.Infrastructure.Encrypter;
@@ -49,11 +50,7 @@ namespace ZaklepTo.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
+            app.UseCustomExceptionHandler();
             app.UseMvc();
         }
     }
