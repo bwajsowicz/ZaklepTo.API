@@ -4,6 +4,9 @@ namespace ZaklepTo.Core.Exceptions
 {
     public class ServiceException : ZaklepToException
     {
+        public ServiceException()
+        {
+        }
         public ServiceException(string code) : base(code)
         {
         }
@@ -12,7 +15,7 @@ namespace ZaklepTo.Core.Exceptions
         {
         }
 
-        public ServiceException(string code, string message, params object[] args) : base(null, string.Empty, message, args)
+        public ServiceException(string code, string message, params object[] args) : base(null, code, message, args)
         {
         }
 
@@ -22,9 +25,8 @@ namespace ZaklepTo.Core.Exceptions
         }
 
         public ServiceException(Exception innerException, string code, string message, params object[] args)
-           : base(code, string.Format(message, args), innerException)
+           : base(string.Format(message, args), innerException)
         {
         }
-
     }
 }
