@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using ZaklepTo.Infrastructure.DTO;
 using ZaklepTo.Infrastructure.Services.Interfaces;
+using ZaklepTo.Infrastructure.DTO.OnCreate;
 
 namespace ZaklepTo.Infrastructure.Services.Implementations
 {
@@ -53,13 +54,22 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
             for(var i = 1; i < 10; i++)
             {
-                var firstName = random.Next(ExampleFirstName.Count);
-                var lastName = random.Next(ExampleLastName.Count);
+                var firstName = ExampleFirstName[random.Next(ExampleFirstName.Count)];
+                var lastName = ExampleLastName[random.Next(ExampleLastName.Count)];
                 var login = firstName + i.ToString();
                 var email = $"{login}@gmail.com";
                 var phone = $"{i}02345678";
 
-                //Need to add await RegisterAsync
+                CustomerOnCreateDTO customer = new CustomerOnCreateDTO()
+                {
+                    Login = login,
+                    FirstName = firstName,
+                    Email = email,
+                    Phone = phone,
+                    LastName = lastName
+                };
+
+                await _customerService.RegisterAsync(customer);
             }
 
         }
