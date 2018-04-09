@@ -72,6 +72,55 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 await _customerService.RegisterAsync(customer);
             }
 
+            List<string> ExampleRestaurantName = new List<string>
+            {
+                "Ceglana",
+                "Spizarnia",
+                "Bachus",
+                "Ole_Bistro",
+                "Brazileriro",
+                "Kawusia",
+                "Bezka",
+                "Kicia",
+                "Merszmyl",
+                "Mordaler"
+            };
+
+            List<string> ExampleCousine = new List<string>
+            {
+                "Chinska",
+                "Hiszpanska",
+                "Polska",
+                "Wloska",
+                "Wloska"
+            };
+
+            for (var i = 0; i < ExampleRestaurantName.Count(); i++)
+            {
+                List<TableDTO> tables = new List<TableDTO>();
+
+                for (i = 0; i < random.Next(5, 12); i++)
+                {                 
+                    TableDTO exampleTable = new TableDTO()
+                    {
+                        Id = Guid.NewGuid(),
+                        NumberOfSeats = random.Next(1, 10),
+                        Coordinates = (random.Next(1, 100), random.Next(1, 100))
+                    };
+
+                    tables.Add(exampleTable); 
+                }
+
+                RestaurantOnCreateDTO restaurant = new RestaurantOnCreateDTO()
+                {
+                    Name = ExampleRestaurantName[i],
+                    Description = "Description",
+                    Cuisine = ExampleCousine[random.Next(1, ExampleCousine.Count())],
+                    Localization = $"Szczecin{i}",
+                    Tables = tables
+                };
+            }
+
         }
     }
 }
