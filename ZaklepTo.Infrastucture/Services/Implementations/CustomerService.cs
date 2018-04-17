@@ -69,7 +69,6 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         {
             var customer = await _customerRepository.GetAsync(customerDto.Login);
 
-            customer.Login = customerDto.Login;
             customer.FirstName = customerDto.FirstName;
             customer.LastName = customerDto.LastName;
             customer.Email = customerDto.Email;
