@@ -10,5 +10,8 @@
         public static string InvalidPassword => "invalid_password";
         public static string CustomerAlreadyExists => "user_already_exists";
         public static string CustomerNotFound => "user_not_found";
+        public static string OwnerNotFound => "owner_not_found";
+        public static string OwnerAlreadyExists => "owner_already_exists";
+
     }
 }

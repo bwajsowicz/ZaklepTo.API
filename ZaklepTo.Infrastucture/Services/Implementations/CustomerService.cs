@@ -48,9 +48,14 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         {
             var customer = await _customerRepository.GetAsync(loginCredentials.Login);
 
+            if(customer == null)
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "Login doesn't match any users.");
+
             var hash = _encrypter.GetHash(loginCredentials.Password, customer.Salt);
+
             if (customer.Password == hash)
                 return;
+
             throw new ServiceException(ErrorCodes.InvalidPassword, "Password is incorrect.");
         }
 
@@ -97,6 +102,11 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
         public async Task DeleteAsync(string login)
         {
+            var customer = await _customerRepository.GetAsync(login);
+
+            if (customer == null)
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist");
+
             await _customerRepository.DeleteAsync(login);
         }
 

@@ -159,7 +159,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                     Phone = phoneOwner,
                     LastName = lastNameOwner,
                     Password = "!QAZxsw2",
-                    Restaurant = restaurant
+                    //Restaurant = restaurant
                 };
 
                 await _ownerService.RegisterAsync(owner);

@@ -7,7 +7,7 @@ using ZaklepTo.Infrastructure.Services.Interfaces;
 
 namespace ZaklepTo.API.Controllers
 {
-    [Route("api/owners")]
+    [Route("api/employee")]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;

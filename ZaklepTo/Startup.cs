@@ -30,8 +30,11 @@ namespace ZaklepTo.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ICustomerRepository, InMemoryCustomerRepository>();
+            services.AddScoped<IOwnerRepository, InMemoryOwnerRepository>();
             services.AddScoped<IReservationRepository, InMemoryReservationRepository>();
+
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IOwnerService, OwnerService>();
             // Restaurant service isn't implemented yet.
             // services.AddScoped<IRestaurantService, RestaurantService>(); 
             services.AddSingleton<IEncrypter, Encrypter>();
@@ -50,6 +53,7 @@ namespace ZaklepTo.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseDeveloperExceptionPage();
             app.UseCustomExceptionHandler();
             app.UseMvc();
         }
