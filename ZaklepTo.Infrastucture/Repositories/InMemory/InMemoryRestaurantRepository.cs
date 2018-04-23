@@ -9,13 +9,7 @@ namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
     public class InMemoryRestaurantRepository : IRestaurantRepository
     {
-        //nulls
-        private static readonly ISet<Restaurant> _restaurants = new HashSet<Restaurant>
-        {
-            new Restaurant("Testowa1", "Opis", "Dobra", "Szczecin", null),
-            new Restaurant("Testowa2", "Opis", "Polska", "Szczecin", null),
-            new Restaurant("Testowa2", "Opis", "Śląska", "Szczecin", null)
-        };
+        private static readonly ISet<Restaurant> _restaurants = new HashSet<Restaurant>();
 
         public async Task AddAsync(Restaurant restaurant)
             => await Task.FromResult(_restaurants.Add(restaurant));
