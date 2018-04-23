@@ -45,7 +45,7 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginCustomer([FromBody] LoginCredentials loginCredentials)
+        public async Task<IActionResult> LoginOwner([FromBody] LoginCredentials loginCredentials)
         {
             await _ownerService.LoginAsync(loginCredentials);
 
@@ -75,7 +75,7 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpDelete("{login}/remove")]
-        public async Task<IActionResult> RemoveCustomer(string login)
+        public async Task<IActionResult> RemoveOwner(string login)
         {
             await _ownerService.DeleteAsync(login);
 

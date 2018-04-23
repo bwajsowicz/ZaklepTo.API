@@ -10,8 +10,7 @@ namespace ZaklepTo.Core.Domain
         public string Description { get; private set; }
         public string Cuisine { get; private set; }
         public string Localization { get; private set; }
-        private List<Table> _tables { get; set; }
-        public IEnumerable<Table> Tables => _tables;
+        public List<Table> Tables { get; set; }
 
         protected Restaurant()
         {
@@ -24,7 +23,7 @@ namespace ZaklepTo.Core.Domain
             Description = description;
             Cuisine = cuisine;
             Localization = localization;
-            _tables = tables;
+            Tables = tables;
         }
     }
 }

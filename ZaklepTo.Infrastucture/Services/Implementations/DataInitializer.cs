@@ -10,7 +10,7 @@ using AutoMapper;
 
 namespace ZaklepTo.Infrastructure.Services.Implementations
 {
-    public class DataDataInitializer : IDataInitializer
+    public class DataInitializer : IDataInitializer
     {
         private readonly ICustomerService _customerService;
         private readonly IEmployeeService _employeeService;
@@ -19,7 +19,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         private readonly IRestaurantService _restaurantService;
         private readonly IMapper _mapper;
 
-        public DataDataInitializer(ICustomerService customerService, IEmployeeService employeeService, 
+        public DataInitializer(ICustomerService customerService, IEmployeeService employeeService, 
             IOwnerService ownerService, IReservationService reservationService, IRestaurantService restaurantService, IMapper mapper)
         {
             _customerService = customerService;
@@ -165,7 +165,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                     Phone = phoneOwner,
                     LastName = lastNameOwner,
                     Password = "!QAZxsw2",
-                    Restaurant = restaurant
+                    //Restaurant = restaurant
                 };
 
                 await _ownerService.RegisterAsync(owner);
