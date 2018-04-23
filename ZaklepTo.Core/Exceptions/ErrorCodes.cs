@@ -14,5 +14,6 @@
         public static string EmployeeAlreadyExists => "employee_already_exists";
         public static string OwnerNotFound => "owner_not_found";
         public static string OwnerAlreadyExists => "owner_already_exists";
+        public static string RestaurantNotFound => "restaurant_not_found";
     }
 }

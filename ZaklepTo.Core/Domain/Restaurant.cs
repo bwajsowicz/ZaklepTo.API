@@ -10,13 +10,13 @@ namespace ZaklepTo.Core.Domain
         public string Description { get; private set; }
         public string Cuisine { get; private set; }
         public string Localization { get; private set; }
-        public List<Table> Tables { get; set; }
+        public IEnumerable<Table> Tables { get; set; }
 
         protected Restaurant()
         {
         }
 
-        public Restaurant(string name, string description, string cuisine, string localization, List<Table> tables)
+        public Restaurant(string name, string description, string cuisine, string localization, IEnumerable<Table> tables)
         {
             Id = Guid.NewGuid();
             Name = name;
