@@ -9,7 +9,7 @@ namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
     public class InMemoryTableRepository : ITableRepository
     {
-        private readonly ISet<Table> _tables = new HashSet<Table>
+        private static readonly ISet<Table> _tables = new HashSet<Table>
         {
             new Table(4, (10, 10)),
             new Table(2, (50, 35)),

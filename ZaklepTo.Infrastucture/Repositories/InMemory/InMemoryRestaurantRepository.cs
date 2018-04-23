@@ -10,7 +10,7 @@ namespace ZaklepTo.Infrastructure.Repositories.InMemory
     public class InMemoryRestaurantRepository : IRestaurantRepository
     {
         //nulls
-        private readonly ISet<Restaurant> _restaurants = new HashSet<Restaurant>
+        private static readonly ISet<Restaurant> _restaurants = new HashSet<Restaurant>
         {
             new Restaurant("Testowa1", "Opis", "Dobra", "Szczecin", null),
             new Restaurant("Testowa2", "Opis", "Polska", "Szczecin", null),

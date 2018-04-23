@@ -10,7 +10,7 @@ namespace ZaklepTo.Infrastructure.Repositories.InMemory
     public class InMemoryReservationRepository : IReservationRepository
     {
         //nulls
-        private readonly ISet<Reservation> _reservations = new HashSet<Reservation>
+        private static readonly ISet<Reservation> _reservations = new HashSet<Reservation>
         {
             new Reservation(null, DateTime.UtcNow, DateTime.UtcNow, null, null, true),
             new Reservation(null, DateTime.UtcNow, DateTime.UtcNow, null, null, true),

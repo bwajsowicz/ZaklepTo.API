@@ -66,11 +66,11 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             if (customer != null)
                 throw new ServiceException(ErrorCodes.OwnerAlreadyExists, "Login already in use,");
 
-            var salt = _encrypter.GetSalt(customer.Password);
-            var hash = _encrypter.GetHash(customer.Password, salt);
+            var salt = _encrypter.GetSalt(customerDto.Password);
+            var hash = _encrypter.GetHash(customerDto.Password, salt);
 
-            var customerToRegister = new Customer(customer.Login, customer.FirstName, customer.LastName, 
-                customer.Email, customer.Phone, hash, salt);
+            var customerToRegister = new Customer(customerDto.Login, customerDto.FirstName, customerDto.LastName, 
+                customerDto.Email, customerDto.Phone, hash, salt);
 
             await _customerRepository.AddAsync(customerToRegister);
         }

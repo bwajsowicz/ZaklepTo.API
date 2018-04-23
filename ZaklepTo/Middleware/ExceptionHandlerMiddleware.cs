@@ -40,6 +40,10 @@ namespace ZaklepTo.API.Middleware
                     statusCode = HttpStatusCode.BadRequest;
                     errorCode = e.Code;
                     break;
+                case Exception e when exceptionType == typeof(Exception):
+                    statusCode = HttpStatusCode.InternalServerError;
+                    break;
+
             }
 
             var response = new {code = errorCode, message = exception.Message};

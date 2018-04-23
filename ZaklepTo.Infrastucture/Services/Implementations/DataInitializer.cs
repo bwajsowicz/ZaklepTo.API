@@ -7,6 +7,7 @@ using ZaklepTo.Infrastructure.Services.Interfaces;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
 using ZaklepTo.Infrastructure.Mappers;
 using AutoMapper;
+using ZaklepTo.Core.Domain;
 
 namespace ZaklepTo.Infrastructure.Services.Implementations
 {
@@ -100,17 +101,12 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 "Wloska"
             };
 
-            for (var i = 0; i < ExampleRestaurantName.Count(); i++)
+            for (var i = 0; i <= ExampleRestaurantName.Count(); i++)
             {
-                List<TableDTO> tables = new List<TableDTO>(); 
-                for (i = 0; i < random.Next(5, 12); i++)
+                List<Table> tables = new List<Table>(); 
+                for (var j = 0; j < random.Next(5, 12); j++)
                 {
-                    TableDTO exampleTable = new TableDTO()
-                    {
-                        Id = Guid.NewGuid(),
-                        NumberOfSeats = random.Next(1, 10),
-                        Coordinates = (random.Next(1, 100), random.Next(1, 100))
-                    };
+                    var exampleTable = new Table(random.Next(1, 10), (random.Next(1, 100), random.Next(1, 100)));
 
                     tables.Add(exampleTable);
                 } //Tables
@@ -126,16 +122,16 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
                 await _restaurantService.RegisterAsync(restaurant);
 
-                for (i = 1; i <= 10; i++)
+                var restaurantDto = (await _restaurantService.GetAllAsync())
+                    .Last();
+
+                for (var z = 1; z <= 10; z++)
                 {
                     var firstNameEmployee = ExampleFirstName[random.Next(ExampleFirstName.Count)];
                     var lastNameEmployee = ExampleLastName[random.Next(ExampleLastName.Count)];
-                    var loginEmployee = $"employee{i}";
+                    var loginEmployee = $"employee{i}{z}";
                     var emailEmployee = $"{loginEmployee}@gmail.com";
-                    var phoneEmployee = $"{i}02345678";
-
-                    var restaurantDto = (await _restaurantService.GetAllAsync())
-                        .Last();
+                    var phoneEmployee = $"{i}{z}02345678";
 
                     EmployeeOnCreateDTO employee = new EmployeeOnCreateDTO()
                     {
@@ -165,11 +161,11 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                     Phone = phoneOwner,
                     LastName = lastNameOwner,
                     Password = "!QAZxsw2",
-                    //Restaurant = restaurant
+                    Restaurant = restaurantDto
                 };
 
-                await _ownerService.RegisterAsync(owner);
+                 await _ownerService.RegisterAsync(owner);
             } //Restaurant & Owner & Employee
-        }
+       }
     }
 }

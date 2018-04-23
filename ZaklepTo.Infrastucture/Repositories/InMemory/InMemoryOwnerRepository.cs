@@ -9,7 +9,7 @@ namespace ZaklepTo.Infrastructure.Repositories.InMemory
     public class InMemoryOwnerRepository : IOwnerRepository
     { 
         //nulls
-        private readonly ISet<Owner> _owners = new HashSet<Owner>
+        private static readonly ISet<Owner> _owners = new HashSet<Owner>
         {
             new Owner("own1", "Jan", "Kowalski", "jkowalski@example.com", "123-123-123", "pass1", "salt", null),
             new Owner("own2", "Zbigniew", "Phrymus", "jphrymus@example.com", "321-321-321", "pass2", "salt", null),
