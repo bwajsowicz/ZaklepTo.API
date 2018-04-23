@@ -110,7 +110,6 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
                     tables.Add(exampleTable);
                 } //Tables
-
                 RestaurantOnCreateDTO restaurant = new RestaurantOnCreateDTO()
                 {
                     Name = ExampleRestaurantName[i],
@@ -164,7 +163,22 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                     Restaurant = restaurantDto
                 };
 
-                 await _ownerService.RegisterAsync(owner);
+                await _ownerService.RegisterAsync(owner);
+
+                for (var z = 0; z < tables.Count()/2; z++)
+                {
+                    Restaurant _restaurant = new Restaurant(restaurantDto.Name, restaurantDto.Description, restaurantDto.Cuisine, 
+                        restaurantDto.Localization, restaurantDto.Tables);
+                    DateTime date = new DateTime(2018, random.Next(1, 12), random.Next(1, 27), random.Next(1, 24), random.Next(1, 60), 0);
+                    ReservationOnCreateDTO reservation = new ReservationOnCreateDTO()
+                    {
+                        Restaurant = _restaurant,
+                        Table = _mapper.Map<Table, TableDTO>(tables.ElementAt(z)),
+                        DateStart = date,
+                        DateEnd = date.AddHours(3)
+                        //TODO Customer
+                    };
+                }
             } //Restaurant & Owner & Employee
        }
     }
