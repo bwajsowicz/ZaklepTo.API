@@ -11,5 +11,6 @@ namespace ZaklepTo.Infrastructure.DTO.OnUpdate
         public TableDTO Table { get; set; }
         public CustomerDTO Customer { get; set; }
         public bool IsConfirmed { get; set; }
+        public bool IsActive { get; set; }
     }
 }
