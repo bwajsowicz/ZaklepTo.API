@@ -40,6 +40,8 @@ namespace ZaklepTo.API
             services.AddSingleton<IEncrypter, Encrypter>();
             services.AddSingleton(AutoMapperConfig.Initialize());
 
+            services.AddScoped<IDataInitializer, DataInitializer>();
+
             services.AddMvc().AddFluentValidation(fv => {});
 
             services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerOnCreateValidator>();
@@ -56,6 +58,9 @@ namespace ZaklepTo.API
             app.UseDeveloperExceptionPage();
             app.UseCustomExceptionHandler();
             app.UseMvc();
+
+            var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
+            dataInitializer.SeedAsync();
         }
     }
 }

@@ -5,24 +5,28 @@ using System.Linq;
 using ZaklepTo.Infrastructure.DTO;
 using ZaklepTo.Infrastructure.Services.Interfaces;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
+using ZaklepTo.Infrastructure.Mappers;
+using AutoMapper;
 
 namespace ZaklepTo.Infrastructure.Services.Implementations
 {
-    public class DataDataInitializer : IDataInitializer
+    public class DataInitializer : IDataInitializer
     {
         private readonly ICustomerService _customerService;
         private readonly IEmployeeService _employeeService;
         private readonly IOwnerService _ownerService;
         private readonly IReservationService _reservationService;
         private readonly IRestaurantService _restaurantService;
+        private readonly IMapper _mapper;
 
-        public DataDataInitializer(ICustomerService customerService, IEmployeeService employeeService, 
-            IOwnerService ownerService, IReservationService reservationService, IRestaurantService restaurantService)
+        public DataInitializer(ICustomerService customerService, IEmployeeService employeeService, 
+            IOwnerService ownerService, IReservationService reservationService, IRestaurantService restaurantService, IMapper mapper)
         {
             _customerService = customerService;
             _employeeService = employeeService;
             _ownerService = ownerService;
             _restaurantService = restaurantService;
+            _mapper = mapper;
             _reservationService = reservationService;
         }
 
@@ -98,8 +102,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
             for (var i = 0; i < ExampleRestaurantName.Count(); i++)
             {
-                List<TableDTO> tables = new List<TableDTO>();
-
+                List<TableDTO> tables = new List<TableDTO>(); 
                 for (i = 0; i < random.Next(5, 12); i++)
                 {
                     TableDTO exampleTable = new TableDTO()
@@ -110,7 +113,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                     };
 
                     tables.Add(exampleTable);
-                }
+                } //Tables
 
                 RestaurantOnCreateDTO restaurant = new RestaurantOnCreateDTO()
                 {
@@ -119,7 +122,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                     Cuisine = ExampleCousine[random.Next(1, ExampleCousine.Count())],
                     Localization = $"Szczecin{i}",
                     Tables = tables
-                }; // Resturanit
+                }; // Restaurant
 
                 await _restaurantService.RegisterAsync(restaurant);
 
@@ -131,6 +134,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                     var emailEmployee = $"{loginEmployee}@gmail.com";
                     var phoneEmployee = $"{i}02345678";
 
+                    var restaurantDto = (await _restaurantService.GetAllAsync())
+                        .Last();
+
                     EmployeeOnCreateDTO employee = new EmployeeOnCreateDTO()
                     {
                         Login = loginEmployee,
@@ -139,7 +145,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                         Phone = phoneEmployee,
                         LastName = lastNameEmployee,
                         Password = "!QAZxsw2",
-                        Restaurant = restaurant
+                        Restaurant = restaurantDto
                     };
 
                     await _employeeService.RegisterAsync(employee);
