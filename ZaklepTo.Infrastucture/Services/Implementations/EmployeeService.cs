@@ -34,7 +34,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var employee = await _employeeRepository.GetAsync(login);
 
             if (employee == null)
-                throw new ServiceException(ErrorCodes.EmployeeNotFound, "Employee doesn't exists");
+                throw new ServiceException(ErrorCodes.EmployeeNotFound, "Employee doesn't exist.");
 
             return _mapper.Map<Employee, EmployeeDTO>(employee);
         }
@@ -50,6 +50,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         {
             var employee = await _employeeRepository.GetAsync(loginCredentials.Login);
 
+            if (employee == null)
+                throw new ServiceException(ErrorCodes.OwnerNotFound, "Login doesn't match any account.");
+
             var hash = _encrypter.GetHash(loginCredentials.Password, employee.Salt);
 
             if(employee.Password == hash)
@@ -60,6 +63,11 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
         public async Task RegisterAsync(EmployeeOnCreateDTO employeeDto)
         {
+            var employee = await _employeeRepository.GetAsync(employeeDto.Login);
+
+            if (employee != null)
+                throw new ServiceException(ErrorCodes.OwnerAlreadyExists, "Login already in use.");
+
             var salt = _encrypter.GetSalt(employeeDto.Password);
             var hash = _encrypter.GetHash(employeeDto.Password, salt);
 
@@ -73,6 +81,11 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
         public async Task UpdateAsync(EmployeeOnUpdateDTO employeeDto)
         {
+            var owner = await _employeeRepository.GetAsync(employeeDto.Login);
+
+            if (owner == null)
+                throw new ServiceException(ErrorCodes.OwnerNotFound, "Employee doesn't exist.");
+
             var employee = await _employeeRepository.GetAsync(employeeDto.Login);
 
             employee.LastName = employeeDto.LastName;
@@ -101,6 +114,11 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
         public async Task DeleteAsync(string login)
         {
+            var employee = await _employeeRepository.GetAsync(login);
+
+            if (employee == null)
+                throw new ServiceException(ErrorCodes.OwnerNotFound, "Employee doesn't exist.");
+
             await _employeeRepository.DeleteAsync(login);
         }
     }

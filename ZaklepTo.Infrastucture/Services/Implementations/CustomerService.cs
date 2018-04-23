@@ -49,7 +49,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var customer = await _customerRepository.GetAsync(loginCredentials.Login);
 
             if(customer == null)
-                throw new ServiceException(ErrorCodes.CustomerNotFound, "Login doesn't match any users.");
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "Login doesn't match any account.");
 
             var hash = _encrypter.GetHash(loginCredentials.Password, customer.Salt);
 
@@ -59,8 +59,13 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             throw new ServiceException(ErrorCodes.InvalidPassword, "Password is incorrect.");
         }
 
-        public async Task RegisterAsync(CustomerOnCreateDTO customer)
+        public async Task RegisterAsync(CustomerOnCreateDTO customerDto)
         {
+            var customer = await _customerRepository.GetAsync(customerDto.Login);
+
+            if (customer != null)
+                throw new ServiceException(ErrorCodes.OwnerAlreadyExists, "Login already in use,");
+
             var salt = _encrypter.GetSalt(customer.Password);
             var hash = _encrypter.GetHash(customer.Password, salt);
 
@@ -72,6 +77,11 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
         public async Task UpdateAsync(CustomerOnUpdateDTO customerDto)
         {
+            var owner = await _customerRepository.GetAsync(customerDto.Login);
+
+            if (owner == null)
+                throw new ServiceException(ErrorCodes.OwnerNotFound, "Customer doesn't exist.");
+
             var customer = await _customerRepository.GetAsync(customerDto.Login);
 
             customer.FirstName = customerDto.FirstName;
@@ -104,7 +114,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var customer = await _customerRepository.GetAsync(login);
 
             if (customer == null)
-                throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist");
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
 
             await _customerRepository.DeleteAsync(login);
         }

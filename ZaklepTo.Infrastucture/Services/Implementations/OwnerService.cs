@@ -19,12 +19,14 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
     public class OwnerService : IOwnerService
     {
         private readonly IOwnerRepository _ownerRepository;
+        private readonly IRestaurantRepository _restaurantRepository;
         private readonly IMapper _mapper;
         private readonly IEncrypter _encrypter;
 
-        public OwnerService(IOwnerRepository ownerRepository, IMapper mapper, IEncrypter encrypter)
+        public OwnerService(IOwnerRepository ownerRepository, IRestaurantRepository restaurantRepository, IMapper mapper, IEncrypter encrypter)
         {
             _ownerRepository = ownerRepository;
+            _restaurantRepository = restaurantRepository;
             _mapper = mapper;
             _encrypter = encrypter;
         }
@@ -32,7 +34,6 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public async Task ChangePassword(PasswordChange passwordChange)
         {
             var owner = await _ownerRepository.GetAsync(passwordChange.Login);
-
 
             var oldPasswordHash = _encrypter.GetHash(passwordChange.OldPassword, owner.Salt);
 
@@ -52,7 +53,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var owner = await _ownerRepository.GetAsync(login);
 
             if (owner == null)
-                throw new ServiceException(ErrorCodes.OwnerNotFound, "Owner doesn't exist.");
+                throw new ServiceException(ErrorCodes.OwnerNotFound, "Owner with given login doesn't exist.");
 
             await _ownerRepository.DeleteAsync(login);
         }
@@ -60,7 +61,6 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public async Task<IEnumerable<OwnerDTO>> GetAllAsync()
         {
             var owners = await _ownerRepository.GetAllAsync();
-
             return owners.Select(owner => _mapper.Map<Owner, OwnerDTO>(owner));
         }
 
@@ -94,15 +94,12 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var owner = await _ownerRepository.GetAsync(ownerDto.Login);
 
             if (owner != null)
-                throw new ServiceException(ErrorCodes.OwnerAlreadyExists, "Provided login is already in use.");
+                throw new ServiceException(ErrorCodes.OwnerAlreadyExists, "Login already in use.");
 
             var salt = _encrypter.GetSalt(ownerDto.Password);
             var hash = _encrypter.GetHash(ownerDto.Password, salt);
-
-            var restaurantToMap = ownerDto.Restaurant;
-
-            var ownersRestaurant = new Restaurant(restaurantToMap.Name, restaurantToMap.Description, restaurantToMap.Cuisine,
-                restaurantToMap.Localization, restaurantToMap.Tables);
+            
+            var ownersRestaurant = await _restaurantRepository.GetAsync(ownerDto.Restaurant.Id);
 
             var ownerToRegister = new Owner(ownerDto.Login, ownerDto.FirstName, ownerDto.LastName, ownerDto.Email, 
                 ownerDto.Phone, ownerDto.Password, salt, ownersRestaurant);
@@ -115,7 +112,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var owner = await _ownerRepository.GetAsync(ownerDto.Login);
 
             if (owner == null)
-                throw new ServiceException(ErrorCodes.OwnerNotFound, "Login doesn't match any existing owners.");
+                throw new ServiceException(ErrorCodes.OwnerNotFound, "Owner doesn't exist.");
 
             owner.Login = ownerDto.Login;
             owner.FirstName = ownerDto.FirstName;
