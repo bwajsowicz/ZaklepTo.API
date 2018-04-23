@@ -35,6 +35,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         {
             var owner = await _ownerRepository.GetAsync(passwordChange.Login);
 
+            if (owner == null)
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "Owner doesn't exist.");
+
             var oldPasswordHash = _encrypter.GetHash(passwordChange.OldPassword, owner.Salt);
 
             if (owner.Password != oldPasswordHash)

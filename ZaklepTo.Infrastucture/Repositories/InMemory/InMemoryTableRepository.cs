@@ -9,12 +9,7 @@ namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
     public class InMemoryTableRepository : ITableRepository
     {
-        private static readonly ISet<Table> _tables = new HashSet<Table>
-        {
-            new Table(4, (10, 10)),
-            new Table(2, (50, 35)),
-            new Table(1, (16, 42))
-        };
+        private static readonly ISet<Table> _tables = new HashSet<Table>();
 
         public async Task AddAsync(Table table)
             => await Task.FromResult(_tables.Add(table));

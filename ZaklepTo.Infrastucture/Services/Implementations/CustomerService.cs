@@ -96,6 +96,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         {
             var customer = await _customerRepository.GetAsync(passwordChange.Login);
 
+            if(customer == null)
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
+
             var oldPasswordHash = _encrypter.GetHash(passwordChange.OldPassword, customer.Salt);
 
             if (customer.Password != oldPasswordHash)

@@ -9,13 +9,7 @@ namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
     public class InMemoryReservationRepository : IReservationRepository
     {
-        //nulls
-        private static readonly ISet<Reservation> _reservations = new HashSet<Reservation>
-        {
-            new Reservation(null, DateTime.UtcNow, DateTime.UtcNow, null, null, true),
-            new Reservation(null, DateTime.UtcNow, DateTime.UtcNow, null, null, true),
-            new Reservation(null, DateTime.UtcNow, DateTime.UtcNow, null, null, true)
-        };
+        private static readonly ISet<Reservation> _reservations = new HashSet<Reservation>();
 
         public async Task AddAsync(Reservation reservation)
             => await Task.FromResult(_reservations.Add(reservation));

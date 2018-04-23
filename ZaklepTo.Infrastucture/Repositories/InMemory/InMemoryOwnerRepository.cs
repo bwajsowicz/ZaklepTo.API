@@ -8,13 +8,7 @@ namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
     public class InMemoryOwnerRepository : IOwnerRepository
     { 
-        //nulls
-        private static readonly ISet<Owner> _owners = new HashSet<Owner>
-        {
-            new Owner("own1", "Jan", "Kowalski", "jkowalski@example.com", "123-123-123", "pass1", "salt", null),
-            new Owner("own2", "Zbigniew", "Phrymus", "jphrymus@example.com", "321-321-321", "pass2", "salt", null),
-            new Owner("own3", "Zbigniew", "Huston", "jhuston@example.com", "321-555-321", "pass3", "salt", null)
-        };
+        private static readonly ISet<Owner> _owners = new HashSet<Owner>();
 
         public async Task AddAsync(Owner owner)
             => await Task.FromResult(_owners.Add(owner));

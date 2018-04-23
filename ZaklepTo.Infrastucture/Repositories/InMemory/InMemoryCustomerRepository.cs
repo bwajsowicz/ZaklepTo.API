@@ -8,12 +8,7 @@ namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
     public class InMemoryCustomerRepository : ICustomerRepository
     {
-        private static readonly ISet<Customer> _customers = new HashSet<Customer>
-        {
-            new Customer("mkowalski", "Madam", "Kowalski", "kkowalski@example.com", "123-123-123", "pass1", "salt"),
-            new Customer("mbodzion", "Maciej", "Bodzion", "mbodzion@example.com", "213-543-185", "pass2", "salt"),
-            new Customer("kprymusowicz", "Kamil", "Prymusowicz", "bprymusowicz@example.com", "123-123-555", "pass3", "salt")
-        };
+        private static readonly ISet<Customer> _customers = new HashSet<Customer>();
 
         public async Task AddAsync(Customer customer)
             => await Task.FromResult(_customers.Add(customer));
