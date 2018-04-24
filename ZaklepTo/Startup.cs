@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Text;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ZaklepTo.Core.Repositories;
 using FluentValidation.AspNetCore;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using ZaklepTo.API.Extensions;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
 using ZaklepTo.Infrastructure.DTO.OnUpdate;
@@ -51,8 +55,19 @@ namespace ZaklepTo.API
             services.AddTransient<IValidator<EmployeeOnCreateDTO>, EmployeeOnCreateValidator>();
             services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerOnCreateValidator>();
             services.AddTransient<IValidator<RestaurantOnCreateDTO>, RestaurantOnCreateValidator>();
-
             services.AddTransient<IValidator<PasswordChange>, PasswordChangeValidator>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = "http://localhost:53993",
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("key")),
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +76,8 @@ namespace ZaklepTo.API
             app.UseDeveloperExceptionPage();
             app.UseCustomExceptionHandler();
             app.UseMvc();
+
+            app.UseAuthentication();
 
             dataInitializer.SeedAsync();
         }
