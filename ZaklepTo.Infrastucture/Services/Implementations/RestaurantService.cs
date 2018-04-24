@@ -30,24 +30,31 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
         public async Task DeleteAsync(Guid id)
         {
+            var restaurant = await _restaurantRepository.GetAsync(id);
+
+            if (restaurant == null)
+                throw new ServiceException(ErrorCodes.RestaurantNotFound, "Restaurant doesn't exist.");
+
             await _restaurantRepository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<RestaurantDTO>> GetAllAsync()
+        public async Task<IEnumerable<RestaurantDto>> GetAllAsync()
         {
             var restaurants = await _restaurantRepository.GetAllAsync();
-            return restaurants.Select(restaurant => _mapper.Map<Restaurant, RestaurantDTO>(restaurant));
+            return restaurants.Select(restaurant => _mapper.Map<Restaurant, RestaurantDto>(restaurant));
         }
 
-        public async Task<RestaurantDTO> GetAsync(Guid id)
+        public async Task<RestaurantDto> GetAsync(Guid id)
         {
             var restaurant = await _restaurantRepository.GetAsync(id);
+
             if (restaurant == null)
                 throw new ServiceException(ErrorCodes.RestaurantNotFound, "Restaurant doesn't exist.");
-            return _mapper.Map<Restaurant, RestaurantDTO>(restaurant);
+
+            return _mapper.Map<Restaurant, RestaurantDto>(restaurant);
         }
 
-        public async Task RegisterAsync(RestaurantOnCreateDTO restaurantDto)
+        public async Task RegisterAsync(RestaurantOnCreateDto restaurantDto)
         {
             var restaurantToRegister = new Restaurant(restaurantDto.Name, restaurantDto.Description,
                 restaurantDto.Cuisine, restaurantDto.Localization, restaurantDto.Tables);
@@ -55,7 +62,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             await _restaurantRepository.AddAsync(restaurantToRegister);
         }
 
-        public async Task UpdateAsync(RestaurantOnUpdateDTO restaurantDto)
+        public async Task UpdateAsync(RestaurantOnUpdateDto restaurantDto)
         {
             //TODO
             throw new NotImplementedException();

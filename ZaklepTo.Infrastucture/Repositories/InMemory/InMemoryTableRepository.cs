@@ -9,29 +9,29 @@ namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
     public class InMemoryTableRepository : ITableRepository
     {
-        private static readonly ISet<Table> _tables = new HashSet<Table>();
+        private static readonly ISet<Table> Tables = new HashSet<Table>();
 
         public async Task AddAsync(Table table)
-            => await Task.FromResult(_tables.Add(table));
+            => await Task.FromResult(Tables.Add(table));
 
         public async Task DeleteAsync(Guid id)
         {
             var table = await GetAsync(id);
-            _tables.Remove(table);
+            Tables.Remove(table);
             await Task.CompletedTask;           
         }
 
         public async Task<IEnumerable<Table>> GetAllAsync()
-            => await Task.FromResult(_tables);
+            => await Task.FromResult(Tables);
 
         public async Task<Table> GetAsync(Guid id)
-            => await Task.FromResult(_tables.SingleOrDefault(x => x.Id == id));
+            => await Task.FromResult(Tables.SingleOrDefault(x => x.Id == id));
 
         public async Task UpdateAsync(Table table)
         {
             var oldTable = await GetAsync(table.Id);
-            _tables.Remove(oldTable);
-            _tables.Add(table);
+            Tables.Remove(oldTable);
+            Tables.Add(table);
             await Task.CompletedTask;
         }
     }

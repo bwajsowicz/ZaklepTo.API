@@ -9,11 +9,11 @@ namespace ZaklepTo.Infrastructure.Services.Interfaces
 {
     public interface IOwnerService
     {
-        Task<OwnerDTO> GetAsync(string login);
-        Task<IEnumerable<OwnerDTO>> GetAllAsync();
+        Task<OwnerDto> GetAsync(string login);
+        Task<IEnumerable<OwnerDto>> GetAllAsync();
         Task LoginAsync(LoginCredentials loginCredentials);
-        Task RegisterAsync(OwnerOnCreateDTO ownerDto);
-        Task UpdateAsync(OwnerOnUpdateDTO ownerDto);
+        Task RegisterAsync(OwnerOnCreateDto ownerDto);
+        Task UpdateAsync(OwnerOnUpdateDto ownerDto);
         Task ChangePassword(PasswordChange passwordChange);
         Task DeleteAsync(string login);
     }

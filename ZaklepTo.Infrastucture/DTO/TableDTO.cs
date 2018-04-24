@@ -2,7 +2,7 @@
 
 namespace ZaklepTo.Infrastructure.DTO
 {
-    public class TableDTO
+    public class TableDto
     {
         public Guid Id { get; set; }
         public int NumberOfSeats { get; set; }

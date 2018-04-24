@@ -9,13 +9,13 @@ namespace ZaklepTo.Infrastructure.Services.Interfaces
 {
     public interface ICustomerService
     {
-        Task<CustomerDTO> GetAsync(string login);
-        Task<IEnumerable<CustomerDTO>> GetAllAsync();
+        Task<CustomerDto> GetAsync(string login);
+        Task<IEnumerable<CustomerDto>> GetAllAsync();
         Task LoginAsync(LoginCredentials loginCredentials);
-        Task RegisterAsync(CustomerOnCreateDTO customer);
-        Task UpdateAsync(CustomerOnUpdateDTO customerDto);
+        Task RegisterAsync(CustomerOnCreateDto customer);
+        Task UpdateAsync(CustomerOnUpdateDto customerDto);
         Task ChangePassword(PasswordChange passwordChange);
         Task DeleteAsync(string login);
-        Task<IEnumerable<RestaurantDTO>> GetMostFrequentRestaurants(string login);
+        Task<IEnumerable<RestaurantDto>> GetMostFrequentRestaurants(string login);
     }
 }

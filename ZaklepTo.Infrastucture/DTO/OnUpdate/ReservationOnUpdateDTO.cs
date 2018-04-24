@@ -2,14 +2,14 @@
 
 namespace ZaklepTo.Infrastructure.DTO.OnUpdate
 {
-    public class ReservationOnUpdateDTO
+    public class ReservationOnUpdateDto
     {
         public Guid Id { get; set; }
-        public RestaurantDTO Restaurant { get; set; }
+        public RestaurantDto Restaurant { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
-        public TableDTO Table { get; set; }
-        public CustomerDTO Customer { get; set; }
+        public TableDto Table { get; set; }
+        public CustomerDto Customer { get; set; }
         public bool IsConfirmed { get; set; }
         public bool IsActive { get; set; }
     }

@@ -9,29 +9,29 @@ namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
     public class InMemoryReservationRepository : IReservationRepository
     {
-        private static readonly ISet<Reservation> _reservations = new HashSet<Reservation>();
+        private static readonly ISet<Reservation> Reservations = new HashSet<Reservation>();
 
         public async Task AddAsync(Reservation reservation)
-            => await Task.FromResult(_reservations.Add(reservation));
+            => await Task.FromResult(Reservations.Add(reservation));
 
         public async Task DeleteAsync(Guid id)
         {
             var reservation = await GetAsync(id);
-            _reservations.Remove(reservation);
+            Reservations.Remove(reservation);
             await Task.CompletedTask;
         }
 
         public async Task<IEnumerable<Reservation>> GetAllAsync()
-            => await Task.FromResult(_reservations);
+            => await Task.FromResult(Reservations);
 
         public async Task<Reservation> GetAsync(Guid id)
-            => await Task.FromResult(_reservations.SingleOrDefault(x => x.Id == id));
+            => await Task.FromResult(Reservations.SingleOrDefault(x => x.Id == id));
 
         public async Task UpdateAsync(Reservation reservation)
         {
             var oldReservation = await GetAsync(reservation.Id);
-            _reservations.Remove(oldReservation);
-            _reservations.Add(reservation);
+            Reservations.Remove(oldReservation);
+            Reservations.Add(reservation);
             await Task.CompletedTask;
         }
     }

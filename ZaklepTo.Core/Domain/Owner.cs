@@ -2,7 +2,7 @@
 {
     public class Owner : User
     {
-        public Restaurant Restaurant { get; private set; }
+        public Restaurant Restaurant { get; set; }
 
         public Owner(string login, string firstname, string lastname, string email,
             string phone, string password, string salt, Restaurant restaurant)

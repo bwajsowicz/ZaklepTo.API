@@ -43,7 +43,7 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterCustomer([FromBody] CustomerOnCreateDTO customer)
+        public async Task<IActionResult> RegisterCustomer([FromBody] CustomerOnCreateDto customer)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -62,7 +62,7 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpPut("{login}/update")]
-        public async Task<IActionResult> UpdateCustomer([FromBody] CustomerOnUpdateDTO updatedCustomer)
+        public async Task<IActionResult> UpdateCustomer([FromBody] CustomerOnUpdateDto updatedCustomer)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);

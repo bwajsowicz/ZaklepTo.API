@@ -2,7 +2,7 @@
 
 namespace ZaklepTo.Infrastructure.DTO
 {
-    public class EmployeeDTO
+    public class EmployeeDto
     {
         public string Login { get; set; }
         public string FirstName { get; set; }
@@ -10,6 +10,6 @@ namespace ZaklepTo.Infrastructure.DTO
         public string Email { get; set; }
         public string Phone { get; set; }
         public DateTime CreatedAt { get; set; }
-        public RestaurantDTO Restaurant { get; set; }
+        public RestaurantDto Restaurant { get; set; }
     }
 }

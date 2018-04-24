@@ -3,7 +3,7 @@ using ZaklepTo.Infrastructure.DTO.OnCreate;
 
 namespace ZaklepTo.Infrastructure.Validators
 {
-    public class RestaurantOnCreateValidator : AbstractValidator<RestaurantOnCreateDTO>
+    public class RestaurantOnCreateValidator : AbstractValidator<RestaurantOnCreateDto>
     {
         public RestaurantOnCreateValidator()
         {

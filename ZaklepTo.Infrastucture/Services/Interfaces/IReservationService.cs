@@ -9,13 +9,13 @@ namespace ZaklepTo.Infrastructure.Services.Interfaces
 {
     public interface IReservationService
     {
-        Task<IEnumerable<ReservationDTO>> GetAllAsync();
-        Task<IEnumerable<ReservationDTO>> GetAllBetweenDatesAsync(TimeInterval timeInterval);
-        Task<IEnumerable<ReservationDTO>> GetAllActiveAsync();
-        Task<IEnumerable<ReservationDTO>> GetAllActiveByCustomerAsync(string customersLogin);
-        Task<IEnumerable<ReservationDTO>> GetAllUncorfirmedReservationsAsync();
-        Task<ReservationDTO> GetAsync(Guid id);
-        Task UpdateAsync(ReservationOnUpdateDTO reservationDto);
+        Task<IEnumerable<ReservationDto>> GetAllAsync();
+        Task<IEnumerable<ReservationDto>> GetAllBetweenDatesAsync(TimeInterval timeInterval);
+        Task<IEnumerable<ReservationDto>> GetAllActiveAsync();
+        Task<IEnumerable<ReservationDto>> GetAllActiveByCustomerAsync(string customersLogin);
+        Task<IEnumerable<ReservationDto>> GetAllUncorfirmedReservationsAsync();
+        Task<ReservationDto> GetAsync(Guid id);
+        Task UpdateAsync(ReservationOnUpdateDto reservationDto);
         Task DeleteAsync(Guid id);
         Task DeactivateReservationAsync(Guid id);
         Task ConfirmReservationAsync(Guid id);

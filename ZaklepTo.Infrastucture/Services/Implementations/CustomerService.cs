@@ -28,20 +28,20 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             _encrypter = encrypter;
             _reservationRepository = reservationRepository;
         }
-        public async Task<CustomerDTO> GetAsync(string login)
+        public async Task<CustomerDto> GetAsync(string login)
         {
             var customer = await _customerRepository.GetAsync(login);
 
             if (customer == null)
                 throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
 
-            return _mapper.Map<Customer, CustomerDTO>(customer);
+            return _mapper.Map<Customer, CustomerDto>(customer);
         }
 
-        public async Task<IEnumerable<CustomerDTO>> GetAllAsync()
+        public async Task<IEnumerable<CustomerDto>> GetAllAsync()
         {
             var customers = await _customerRepository.GetAllAsync();
-            return customers.Select(customer => _mapper.Map<Customer, CustomerDTO>(customer));
+            return customers.Select(customer => _mapper.Map<Customer, CustomerDto>(customer));
         }
 
         public async Task LoginAsync(LoginCredentials loginCredentials)
@@ -59,12 +59,12 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             throw new ServiceException(ErrorCodes.InvalidPassword, "Password is incorrect.");
         }
 
-        public async Task RegisterAsync(CustomerOnCreateDTO customerDto)
+        public async Task RegisterAsync(CustomerOnCreateDto customerDto)
         {
             var customer = await _customerRepository.GetAsync(customerDto.Login);
 
             if (customer != null)
-                throw new ServiceException(ErrorCodes.OwnerAlreadyExists, "Login already in use,");
+                throw new ServiceException(ErrorCodes.OwnerAlreadyExists, "Login is already in use.");
 
             var salt = _encrypter.GetSalt(customerDto.Password);
             var hash = _encrypter.GetHash(customerDto.Password, salt);
@@ -75,7 +75,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             await _customerRepository.AddAsync(customerToRegister);
         }
 
-        public async Task UpdateAsync(CustomerOnUpdateDTO customerDto)
+        public async Task UpdateAsync(CustomerOnUpdateDto customerDto)
         {
             var owner = await _customerRepository.GetAsync(customerDto.Login);
 
@@ -122,15 +122,20 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             await _customerRepository.DeleteAsync(login);
         }
 
-        public async Task<IEnumerable<RestaurantDTO>> GetMostFrequentRestaurants(string login)
+        public async Task<IEnumerable<RestaurantDto>> GetMostFrequentRestaurants(string login)
         {
+            var customer = await _customerRepository.GetAsync(login);
+
+            if (customer == null)
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
+
             var reservations = await _reservationRepository.GetAllAsync();
 
             var topRestaurantsForCustomer = reservations.Where(x => x.Customer.Login == login)
                 .GroupBy(x => x.Restaurant)
                 .OrderByDescending(x => x.Count())
                 .Take(4)
-                .Select(x => _mapper.Map<Restaurant, RestaurantDTO>(x.Key));
+                .Select(x => _mapper.Map<Restaurant, RestaurantDto>(x.Key));
 
             return topRestaurantsForCustomer;
         }

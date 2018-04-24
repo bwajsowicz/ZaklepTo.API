@@ -3,7 +3,7 @@ using ZaklepTo.Core.Domain;
 
 namespace ZaklepTo.Infrastructure.DTO.OnCreate
 {
-    public class RestaurantOnCreateDTO
+    public class RestaurantOnCreateDto
     {
         public string Name { get; set; }
         public string Description { get; set; }

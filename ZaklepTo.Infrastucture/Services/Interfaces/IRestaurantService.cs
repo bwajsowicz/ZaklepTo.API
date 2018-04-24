@@ -9,10 +9,10 @@ namespace ZaklepTo.Infrastructure.Services.Interfaces
 {
     public interface IRestaurantService
     {
-        Task<IEnumerable<RestaurantDTO>> GetAllAsync();
-        Task<RestaurantDTO> GetAsync(Guid id);
-        Task UpdateAsync(RestaurantOnUpdateDTO restaurantDto);
+        Task<IEnumerable<RestaurantDto>> GetAllAsync();
+        Task<RestaurantDto> GetAsync(Guid id);
+        Task UpdateAsync(RestaurantOnUpdateDto restaurantDto);
         Task DeleteAsync(Guid id);
-        Task RegisterAsync(RestaurantOnCreateDTO restaurantDto);
+        Task RegisterAsync(RestaurantOnCreateDto restaurantDto);
     }
 }

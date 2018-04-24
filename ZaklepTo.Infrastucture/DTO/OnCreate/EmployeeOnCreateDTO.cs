@@ -1,6 +1,6 @@
 ﻿namespace ZaklepTo.Infrastructure.DTO.OnCreate
 {
-    public class EmployeeOnCreateDTO
+    public class EmployeeOnCreateDto
     {
         public string Login { get; set; }
         public string Password { get; set; }
@@ -8,6 +8,6 @@
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public RestaurantDTO Restaurant { get; set; }
+        public RestaurantDto Restaurant { get; set; }
     }
 }

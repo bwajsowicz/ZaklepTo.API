@@ -4,7 +4,7 @@ using ZaklepTo.Core.Domain;
 
 namespace ZaklepTo.Infrastructure.DTO
 {
-    public class RestaurantDTO
+    public class RestaurantDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

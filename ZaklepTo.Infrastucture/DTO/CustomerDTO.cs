@@ -2,7 +2,7 @@
 
 namespace ZaklepTo.Infrastructure.DTO
 {
-    public class CustomerDTO
+    public class CustomerDto
     {
         public string Login { get; set; }
         public string FirstName { get; set; }

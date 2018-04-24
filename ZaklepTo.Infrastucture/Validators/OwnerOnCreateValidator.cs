@@ -4,7 +4,7 @@ using ZaklepTo.Infrastructure.DTO.OnCreate;
 
 namespace ZaklepTo.Infrastructure.Validators
 {
-    public class OwnerOnCreateValidator : AbstractValidator<OwnerOnCreateDTO>
+    public class OwnerOnCreateValidator : AbstractValidator<OwnerOnCreateDto>
     {
         public OwnerOnCreateValidator()
         {

@@ -2,7 +2,7 @@
 {
     public class Employee : User
     {
-        public Restaurant Restaurant { get; private set; }
+        public Restaurant Restaurant { get; set; }
 
         public Employee(string login, string firstname, string lastname, string email,
             string phone, string password, string salt, Restaurant restaurant)

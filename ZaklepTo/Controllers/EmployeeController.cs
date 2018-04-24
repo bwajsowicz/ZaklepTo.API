@@ -34,7 +34,7 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterNewEmployee([FromBody] EmployeeOnCreateDTO employeeToRegister)
+        public async Task<IActionResult> RegisterNewEmployee([FromBody] EmployeeOnCreateDto employeeToRegister)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -53,7 +53,7 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpPost("{login}/update")]
-        public async Task<IActionResult> UpdateEmployee([FromBody] EmployeeOnUpdateDTO updatedEmployee)
+        public async Task<IActionResult> UpdateEmployee([FromBody] EmployeeOnUpdateDto updatedEmployee)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

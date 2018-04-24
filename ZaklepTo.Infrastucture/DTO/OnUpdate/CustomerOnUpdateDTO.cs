@@ -1,6 +1,6 @@
 ﻿namespace ZaklepTo.Infrastructure.DTO.OnUpdate
 {
-    public class CustomerOnUpdateDTO
+    public class CustomerOnUpdateDto
     {
         public string Login { get; set; }
         public string FirstName { get; set; }

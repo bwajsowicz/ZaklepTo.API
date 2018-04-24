@@ -4,13 +4,13 @@ namespace ZaklepTo.Core.Domain
 {
     public class Reservation
     {
-        public Guid Id { get; private set; }
-        public Restaurant Restaurant { get; private set; }
-        public DateTime DateStart { get; private set; }
-        public DateTime DateEnd { get; private set; }
-        public Table Table { get; private set; }
-        public Customer Customer { get; private set; }
-        public bool IsConfirmed { get; private set; }
+        public Guid Id { get; set; }
+        public Restaurant Restaurant { get; set; }
+        public DateTime DateStart { get; set; }
+        public DateTime DateEnd { get; set; }
+        public Table Table { get; set; }
+        public Customer Customer { get; set; }
+        public bool IsConfirmed { get; set; }
         private bool _isActive;
 
         public bool IsActive

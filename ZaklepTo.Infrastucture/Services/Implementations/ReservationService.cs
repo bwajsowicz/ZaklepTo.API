@@ -28,56 +28,56 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             _restaurantRepository = restaurantRepository;
         }
 
-        public async Task<IEnumerable<ReservationDTO>> GetAllAsync()
+        public async Task<IEnumerable<ReservationDto>> GetAllAsync()
         {
             var reservations = await _reservationRepository.GetAllAsync();
-            return reservations.Select(x => _mapper.Map<Reservation, ReservationDTO>(x));
+            return reservations.Select(x => _mapper.Map<Reservation, ReservationDto>(x));
         }
 
-        public async Task<IEnumerable<ReservationDTO>> GetAllBetweenDatesAsync(TimeInterval timeInterval)
+        public async Task<IEnumerable<ReservationDto>> GetAllBetweenDatesAsync(TimeInterval timeInterval)
         {
             var reservations = await _reservationRepository.GetAllAsync();
             var reservationsBetweenDates = reservations
                 .Where(x => x.DateStart > timeInterval.DateStart)
                 .Where(x => x.DateEnd < timeInterval.DateEnd);
 
-            return reservationsBetweenDates.Select(x => _mapper.Map<Reservation, ReservationDTO>(x));
+            return reservationsBetweenDates.Select(x => _mapper.Map<Reservation, ReservationDto>(x));
         }
 
-        public async Task<IEnumerable<ReservationDTO>> GetAllActiveAsync()
+        public async Task<IEnumerable<ReservationDto>> GetAllActiveAsync()
         {
             var reservations = await _reservationRepository.GetAllAsync();
             var activeReservations = reservations.Where(x => x.IsActive);
 
-            return activeReservations.Select(x => _mapper.Map<Reservation, ReservationDTO>(x));
+            return activeReservations.Select(x => _mapper.Map<Reservation, ReservationDto>(x));
         }
 
-        public async Task<IEnumerable<ReservationDTO>> GetAllActiveByCustomerAsync(string customersLogin)
+        public async Task<IEnumerable<ReservationDto>> GetAllActiveByCustomerAsync(string customersLogin)
         {
             var reservations = await _reservationRepository.GetAllAsync();
             var activeReservationsOfCustomer = reservations
                 .Where(x => x.Customer.Login == customersLogin)
                 .Where(x => x.IsActive);
 
-            return activeReservationsOfCustomer.Select(x => _mapper.Map<Reservation, ReservationDTO>(x));
+            return activeReservationsOfCustomer.Select(x => _mapper.Map<Reservation, ReservationDto>(x));
         }
 
-        public async Task<IEnumerable<ReservationDTO>> GetAllUncorfirmedReservationsAsync()
+        public async Task<IEnumerable<ReservationDto>> GetAllUncorfirmedReservationsAsync()
         {
             var reservations = await _reservationRepository.GetAllAsync();
             var unconfirmedReservations = reservations.Where(x => x.IsConfirmed == false);
 
-            return unconfirmedReservations.Select(x => _mapper.Map<Reservation, ReservationDTO>(x));
+            return unconfirmedReservations.Select(x => _mapper.Map<Reservation, ReservationDto>(x));
         }
 
-        public async Task<ReservationDTO> GetAsync(Guid id)
+        public async Task<ReservationDto> GetAsync(Guid id)
         {
             var reservation = await _reservationRepository.GetAsync(id);
 
-            return _mapper.Map<Reservation, ReservationDTO>(reservation);
+            return _mapper.Map<Reservation, ReservationDto>(reservation);
         }
 
-        public async Task UpdateAsync(ReservationOnUpdateDTO reservationDto)
+        public async Task UpdateAsync(ReservationOnUpdateDto reservationDto)
         {
             var reservation = await _reservationRepository.GetAsync(reservationDto.Id);
             var restaurant = await _restaurantRepository.GetAsync(reservationDto.Restaurant.Id);

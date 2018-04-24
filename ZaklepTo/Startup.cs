@@ -51,10 +51,10 @@ namespace ZaklepTo.API
 
             services.AddMvc().AddFluentValidation(fv => {});
 
-            services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerOnCreateValidator>();
-            services.AddTransient<IValidator<EmployeeOnCreateDTO>, EmployeeOnCreateValidator>();
-            services.AddTransient<IValidator<CustomerOnCreateDTO>, CustomerOnCreateValidator>();
-            services.AddTransient<IValidator<RestaurantOnCreateDTO>, RestaurantOnCreateValidator>();
+            services.AddTransient<IValidator<CustomerOnCreateDto>, CustomerOnCreateValidator>();
+            services.AddTransient<IValidator<EmployeeOnCreateDto>, EmployeeOnCreateValidator>();
+            services.AddTransient<IValidator<CustomerOnCreateDto>, CustomerOnCreateValidator>();
+            services.AddTransient<IValidator<RestaurantOnCreateDto>, RestaurantOnCreateValidator>();
             services.AddTransient<IValidator<PasswordChange>, PasswordChangeValidator>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

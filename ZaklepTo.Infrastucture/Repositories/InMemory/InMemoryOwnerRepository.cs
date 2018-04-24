@@ -8,29 +8,29 @@ namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
     public class InMemoryOwnerRepository : IOwnerRepository
     { 
-        private static readonly ISet<Owner> _owners = new HashSet<Owner>();
+        private static readonly ISet<Owner> Owners = new HashSet<Owner>();
 
         public async Task AddAsync(Owner owner)
-            => await Task.FromResult(_owners.Add(owner));
+            => await Task.FromResult(Owners.Add(owner));
 
         public async Task DeleteAsync(string login)
         {
             var owner = await GetAsync(login);
-            _owners.Remove(owner);
+            Owners.Remove(owner);
             await Task.CompletedTask;
         }
 
         public async Task<IEnumerable<Owner>> GetAllAsync()
-            => await Task.FromResult(_owners);
+            => await Task.FromResult(Owners);
 
         public async Task<Owner> GetAsync(string login)
-            => await Task.FromResult(_owners.SingleOrDefault(x => x.Login == login));
+            => await Task.FromResult(Owners.SingleOrDefault(x => x.Login == login));
 
         public async Task UpdateAsync(Owner owner)
         {
             var oldOwner = await GetAsync(owner.Login);
-            _owners.Remove(oldOwner);
-            _owners.Add(owner);
+            Owners.Remove(oldOwner);
+            Owners.Add(owner);
             await Task.CompletedTask;
         }
     }

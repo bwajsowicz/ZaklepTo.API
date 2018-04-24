@@ -36,7 +36,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var owner = await _ownerRepository.GetAsync(passwordChange.Login);
 
             if (owner == null)
-                throw new ServiceException(ErrorCodes.CustomerNotFound, "Owner doesn't exist.");
+                throw new ServiceException(ErrorCodes.OwnerNotFound, "Owner doesn't exist.");
 
             var oldPasswordHash = _encrypter.GetHash(passwordChange.OldPassword, owner.Salt);
 
@@ -56,25 +56,25 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var owner = await _ownerRepository.GetAsync(login);
 
             if (owner == null)
-                throw new ServiceException(ErrorCodes.OwnerNotFound, "Owner with given login doesn't exist.");
+                throw new ServiceException(ErrorCodes.OwnerNotFound, "Owner doesn't exist.");
 
             await _ownerRepository.DeleteAsync(login);
         }
 
-        public async Task<IEnumerable<OwnerDTO>> GetAllAsync()
+        public async Task<IEnumerable<OwnerDto>> GetAllAsync()
         {
             var owners = await _ownerRepository.GetAllAsync();
-            return owners.Select(owner => _mapper.Map<Owner, OwnerDTO>(owner));
+            return owners.Select(owner => _mapper.Map<Owner, OwnerDto>(owner));
         }
 
-        public async Task<OwnerDTO> GetAsync(string login)
+        public async Task<OwnerDto> GetAsync(string login)
         {
             var owner = await _ownerRepository.GetAsync(login);
 
             if(owner == null)
                 throw new ServiceException(ErrorCodes.OwnerNotFound, "Owner doesn't exist.");
 
-            return _mapper.Map<Owner, OwnerDTO>(owner);
+            return _mapper.Map<Owner, OwnerDto>(owner);
         }
 
         public async Task LoginAsync(LoginCredentials loginCredentials)
@@ -92,12 +92,12 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 throw new ServiceException(ErrorCodes.InvalidPassword, "Password is incorrect.");
         }
 
-        public async Task RegisterAsync(OwnerOnCreateDTO ownerDto)
+        public async Task RegisterAsync(OwnerOnCreateDto ownerDto)
         {
             var owner = await _ownerRepository.GetAsync(ownerDto.Login);
 
             if (owner != null)
-                throw new ServiceException(ErrorCodes.OwnerAlreadyExists, "Login already in use.");
+                throw new ServiceException(ErrorCodes.OwnerAlreadyExists, "Login is already in use.");
 
             var salt = _encrypter.GetSalt(ownerDto.Password);
             var hash = _encrypter.GetHash(ownerDto.Password, salt);
@@ -110,7 +110,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             await _ownerRepository.AddAsync(ownerToRegister);
         }
 
-        public async Task UpdateAsync(OwnerOnUpdateDTO ownerDto)
+        public async Task UpdateAsync(OwnerOnUpdateDto ownerDto)
         {
             var owner = await _ownerRepository.GetAsync(ownerDto.Login);
 

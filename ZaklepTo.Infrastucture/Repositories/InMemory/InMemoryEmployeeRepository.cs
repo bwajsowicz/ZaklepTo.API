@@ -8,29 +8,29 @@ namespace ZaklepTo.Infrastructure.Repositories.InMemory
 {
     public class InMemoryEmployeeRepository : IEmployeeRepository
     {
-        private static readonly ISet<Employee> _employees = new HashSet<Employee>();
+        private static readonly ISet<Employee> Employees = new HashSet<Employee>();
 
         public async Task AddAsync(Employee employee)
-            => await Task.FromResult(_employees.Add(employee));
+            => await Task.FromResult(Employees.Add(employee));
 
         public async Task DeleteAsync(string login)
         {
             var employee = await GetAsync(login);
-            _employees.Remove(employee);
+            Employees.Remove(employee);
             await Task.CompletedTask;
         }
 
         public async Task<IEnumerable<Employee>> GetAllAsync()
-            => await Task.FromResult(_employees);
+            => await Task.FromResult(Employees);
 
         public async Task<Employee> GetAsync(string login)
-            => await Task.FromResult(_employees.SingleOrDefault(x => x.Login == login));
+            => await Task.FromResult(Employees.SingleOrDefault(x => x.Login == login));
 
         public async Task UpdateAsync(Employee employee)
         {
             var oldEmployee = await GetAsync(employee.Login);
-            _employees.Remove(oldEmployee);
-            _employees.Add(employee);
+            Employees.Remove(oldEmployee);
+            Employees.Add(employee);
             await Task.CompletedTask;
         }
     }
