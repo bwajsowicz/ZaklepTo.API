@@ -35,7 +35,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         {
             var random = new Random();
 
-            List<string> exampleFirstName = new List<string>
+            var exampleFirstName = new List<string>
             {
                 "Adam",
                 "Kamil",
@@ -46,7 +46,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 "Krzystof"
             };
 
-            List<string> exampleLastName = new List<string>
+            var exampleLastName = new List<string>
             {
                 "Kowalski",
                 "Nowak",
@@ -65,7 +65,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 var email = $"{login}@gmail.com";
                 var phone = $"{i}02345678";
 
-                CustomerOnCreateDto customer = new CustomerOnCreateDto()
+                var customer = new CustomerOnCreateDto()
                 {
                     Login = login,
                     FirstName = firstName,
@@ -78,7 +78,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 await _customerService.RegisterAsync(customer);
             } //Customer
 
-            List<string> exampleRestaurantName = new List<string>
+            var exampleRestaurantName = new List<string>
             {
                 "Ceglana",
                 "Spizarnia",
@@ -92,7 +92,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 "Mordaler"
             };
 
-            List<string> exampleCousine = new List<string>
+            var exampleCousine = new List<string>
             {
                 "Chinska",
                 "Hiszpanska",
@@ -103,14 +103,14 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
             for (var i = 0; i <= exampleRestaurantName.Count(); i++)
             {
-                List<Table> tables = new List<Table>(); 
+                var tables = new List<Table>(); 
                 for (var j = 0; j < random.Next(5, 12); j++)
                 {
                     var exampleTable = new Table(random.Next(1, 10), (random.Next(1, 100), random.Next(1, 100)));
 
                     tables.Add(exampleTable);
-                } //Tables
-                RestaurantOnCreateDto restaurant = new RestaurantOnCreateDto()
+                } // Tables
+                var restaurant = new RestaurantOnCreateDto()
                 {
                     Name = exampleRestaurantName[i],
                     Description = "Description",
@@ -152,7 +152,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 var emailOwner = $"{loginOwner}@gmail.com";
                 var phoneOwner = $"{i}02345678";
 
-                OwnerOnCreateDto owner = new OwnerOnCreateDto()
+                var owner = new OwnerOnCreateDto()
                 {
                     Login = loginOwner,
                     FirstName = firstNameOwner,
@@ -168,8 +168,8 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 
                 for (var z = 0; z < tables.Count()/2; z++)
                 {
-                    DateTime date = new DateTime(2018, random.Next(1, 12), random.Next(1, 27), random.Next(1, 24), random.Next(1, 60), 0);
-                    ReservationOnCreateDto reservation = new ReservationOnCreateDto()
+                    var date = new DateTime(2018, random.Next(1, 12), random.Next(1, 27), random.Next(1, 24), random.Next(1, 60), 0);
+                    var reservation = new ReservationOnCreateDto()
                     {
                         Restaurant = restaurantDto,
                         Table = _mapper.Map<Table, TableDto>(tables.ElementAt(z)),
@@ -179,8 +179,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                     };
 
                     await _reservationService.RegisterReservation(reservation);
-                }
-                
+                }              
             } //Restaurant & Owner & Employee
        }
     }
