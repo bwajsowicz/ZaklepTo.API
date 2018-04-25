@@ -8,6 +8,7 @@ using ZaklepTo.Core.Domain;
 using ZaklepTo.Core.Repositories;
 using ZaklepTo.Infrastructure.DTO;
 using ZaklepTo.Infrastructure.DTO.EntryData;
+using ZaklepTo.Infrastructure.DTO.OnCreate;
 using ZaklepTo.Infrastructure.DTO.OnUpdate;
 using ZaklepTo.Infrastructure.Services.Interfaces;
 
@@ -77,9 +78,23 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             return _mapper.Map<Reservation, ReservationDto>(reservation);
         }
 
+        public async Task RegisterReservation(ReservationOnCreateDto reservationDto)
+        {
+            var restaurant = await _restaurantRepository.GetAsync(reservationDto.Restaurant.Id);
+            var customer = await _customerRepository.GetAsync(reservationDto.Customer.Login);
+
+            var table = new Table(reservationDto.Table.NumberOfSeats,
+                reservationDto.Table.Coordinates);
+
+            var reservation = new Reservation(restaurant, reservationDto.DateStart, reservationDto.DateEnd,
+                table, customer);
+
+            await _reservationRepository.AddAsync(reservation);
+        }
+
         public async Task UpdateAsync(ReservationOnUpdateDto reservationDto)
         {
-            var reservation = await _reservationRepository.GetAsync(reservationDto.Id);
+            var reservation = await _reservationRepository.GetAsync(reservationDto.Id); //TODO Updated reservation gets new id
             var restaurant = await _restaurantRepository.GetAsync(reservationDto.Restaurant.Id);
             var customer = await _customerRepository.GetAsync(reservationDto.Customer.Login);
 
