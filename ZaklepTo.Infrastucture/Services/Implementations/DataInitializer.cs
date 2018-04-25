@@ -165,22 +165,22 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
                 await _ownerService.RegisterAsync(owner);
 
-                /*
+                
                 for (var z = 0; z < tables.Count()/2; z++)
                 {
-                    Restaurant restaurant = new Restaurant(restaurantDto.Name, restaurantDto.Description, restaurantDto.Cuisine, 
-                        restaurantDto.Localization, restaurantDto.Tables);
                     DateTime date = new DateTime(2018, random.Next(1, 12), random.Next(1, 27), random.Next(1, 24), random.Next(1, 60), 0);
                     ReservationOnCreateDto reservation = new ReservationOnCreateDto()
                     {
-                        Restaurant = restaurant,
+                        Restaurant = restaurantDto,
                         Table = _mapper.Map<Table, TableDto>(tables.ElementAt(z)),
                         DateStart = date,
-                        DateEnd = date.AddHours(3)
-                        //TODO Customer
+                        DateEnd = date.AddHours(3),
+                        Customer =  (await _customerService.GetAllAsync()).Last()                
                     };
+
+                    await _reservationService.RegisterReservation(reservation);
                 }
-                */
+                
             } //Restaurant & Owner & Employee
        }
     }
