@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,10 +7,8 @@ using ZaklepTo.Core.Domain;
 using ZaklepTo.Core.Exceptions;
 using ZaklepTo.Core.Repositories;
 using ZaklepTo.Infrastructure.DTO;
-using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
 using ZaklepTo.Infrastructure.DTO.OnUpdate;
-using ZaklepTo.Infrastructure.Encrypter;
 using ZaklepTo.Infrastructure.Services.Interfaces;
 
 namespace ZaklepTo.Infrastructure.Services.Implementations
@@ -20,7 +17,6 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
     {
         private readonly IRestaurantRepository _restaurantRepository;
         private readonly IMapper _mapper;
-
 
         public RestaurantService(IRestaurantRepository restaurantRepository, IMapper mapper)
         {
@@ -31,7 +27,6 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public async Task DeleteAsync(Guid id)
         {
             var restaurant = await _restaurantRepository.GetAsync(id);
-
             if (restaurant == null)
                 throw new ServiceException(ErrorCodes.RestaurantNotFound, "Restaurant doesn't exist.");
 
@@ -47,7 +42,6 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public async Task<RestaurantDto> GetAsync(Guid id)
         {
             var restaurant = await _restaurantRepository.GetAsync(id);
-
             if (restaurant == null)
                 throw new ServiceException(ErrorCodes.RestaurantNotFound, "Restaurant doesn't exist.");
 
@@ -64,8 +58,17 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
         public async Task UpdateAsync(RestaurantOnUpdateDto restaurantDto)
         {
-            //TODO
-            throw new NotImplementedException();
+            var restaurantToUpdate = await _restaurantRepository.GetAsync(restaurantDto.Id);
+            if(restaurantToUpdate == null)
+                throw new ServiceException(ErrorCodes.RestaurantNotFound, "Restaurant doesn't exist.");
+
+            restaurantToUpdate.Name = restaurantDto.Name;
+            restaurantToUpdate.Description = restaurantDto.Description;
+            restaurantToUpdate.Cuisine = restaurantDto.Cuisine;
+            restaurantToUpdate.Localization = restaurantDto.Localization;
+            restaurantToUpdate.Tables = restaurantDto.Tables;
+
+            await _restaurantRepository.UpdateAsync(restaurantToUpdate);
         }
     }
 }

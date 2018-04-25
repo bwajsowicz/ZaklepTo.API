@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ZaklepTo.Core.Domain;
 
 namespace ZaklepTo.Infrastructure.DTO.OnUpdate
 {
@@ -10,6 +11,6 @@ namespace ZaklepTo.Infrastructure.DTO.OnUpdate
         public string Description { get; set; }
         public string Cuisine { get; set; }
         public string Localization { get; set; }
-        public IEnumerable<TableDto> Tables { get; set; }
+        public IEnumerable<Table> Tables { get; set; }
     }
 }

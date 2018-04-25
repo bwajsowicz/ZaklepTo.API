@@ -29,27 +29,24 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             _encrypter = encrypter;
         }
 
-        public async Task<EmployeeDto> GetAsync(string login)
+        public async Task<EmployeeDto> GetAsync(string employeesLogin)
         {
-            var employee = await _employeeRepository.GetAsync(login);
-
-            if (employee == null)
+            var employeeToGet = await _employeeRepository.GetAsync(employeesLogin);
+            if (employeeToGet == null)
                 throw new ServiceException(ErrorCodes.EmployeeNotFound, "Employee doesn't exist.");
 
-            return _mapper.Map<Employee, EmployeeDto>(employee);
+            return _mapper.Map<Employee, EmployeeDto>(employeeToGet);
         }
 
         public async Task<IEnumerable<EmployeeDto>> GetAllAsync()
         {
             var employees = await _employeeRepository.GetAllAsync();
-
             return employees.Select(employee => _mapper.Map<Employee, EmployeeDto>(employee));
         }
 
         public async Task LoginAsync(LoginCredentials loginCredentials)
         {
             var employee = await _employeeRepository.GetAsync(loginCredentials.Login);
-
             if (employee == null)
                 throw new ServiceException(ErrorCodes.EmployeeNotFound, "Login doesn't match any account.");
 
@@ -64,7 +61,6 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public async Task RegisterAsync(EmployeeOnCreateDto employeeDto)
         {
             var employee = await _employeeRepository.GetAsync(employeeDto.Login);
-
             if (employee != null)
                 throw new ServiceException(ErrorCodes.EmployeeAlreadyExists, "Login is already in use.");
 
@@ -81,22 +77,20 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
         public async Task UpdateAsync(EmployeeOnUpdateDto employeeDto)
         {
-            var employee = await _employeeRepository.GetAsync(employeeDto.Login);
-
-            if (employee == null)
+            var employeeToUpdate = await _employeeRepository.GetAsync(employeeDto.Login);
+            if (employeeToUpdate == null)
                 throw new ServiceException(ErrorCodes.EmployeeNotFound, "Employee doesn't exist.");
 
-            employee.LastName = employeeDto.LastName;
-            employee.Email = employeeDto.Email;
-            employee.Phone = employeeDto.Phone;
+            employeeToUpdate.LastName = employeeDto.LastName;
+            employeeToUpdate.Email = employeeDto.Email;
+            employeeToUpdate.Phone = employeeDto.Phone;
 
-            await _employeeRepository.UpdateAsync(employee);
+            await _employeeRepository.UpdateAsync(employeeToUpdate);
         }
 
         public async Task ChangePassword(PasswordChange passwordChange)
         {
             var employee = await _employeeRepository.GetAsync(passwordChange.Login);
-
             if (employee == null)
                 throw new ServiceException(ErrorCodes.CustomerNotFound, "Employee doesn't exist.");
 
@@ -115,9 +109,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
         public async Task DeleteAsync(string login)
         {
-            var employee = await _employeeRepository.GetAsync(login);
+            var employeeToDelete = await _employeeRepository.GetAsync(login);
 
-            if (employee == null)
+            if (employeeToDelete == null)
                 throw new ServiceException(ErrorCodes.EmployeeNotFound, "Employee doesn't exist.");
 
             await _employeeRepository.DeleteAsync(login);

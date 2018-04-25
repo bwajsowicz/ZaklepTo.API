@@ -28,14 +28,14 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             _encrypter = encrypter;
             _reservationRepository = reservationRepository;
         }
-        public async Task<CustomerDto> GetAsync(string login)
+        public async Task<CustomerDto> GetAsync(string customersLogin)
         {
-            var customer = await _customerRepository.GetAsync(login);
+            var customerToGet = await _customerRepository.GetAsync(customersLogin);
 
-            if (customer == null)
+            if (customerToGet == null)
                 throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
 
-            return _mapper.Map<Customer, CustomerDto>(customer);
+            return _mapper.Map<Customer, CustomerDto>(customerToGet);
         }
 
         public async Task<IEnumerable<CustomerDto>> GetAllAsync()
@@ -77,9 +77,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
         public async Task UpdateAsync(CustomerOnUpdateDto customerDto)
         {
-            var owner = await _customerRepository.GetAsync(customerDto.Login);
+            var customerToUpdate = await _customerRepository.GetAsync(customerDto.Login);
 
-            if (owner == null)
+            if (customerToUpdate == null)
                 throw new ServiceException(ErrorCodes.OwnerNotFound, "Customer doesn't exist.");
 
             var customer = await _customerRepository.GetAsync(customerDto.Login);
@@ -112,14 +112,14 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             await _customerRepository.UpdateAsync(customer);
         }
 
-        public async Task DeleteAsync(string login)
+        public async Task DeleteAsync(string customersLogin)
         {
-            var customer = await _customerRepository.GetAsync(login);
+            var customerToDelete = await _customerRepository.GetAsync(customersLogin);
 
-            if (customer == null)
+            if (customerToDelete == null)
                 throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
 
-            await _customerRepository.DeleteAsync(login);
+            await _customerRepository.DeleteAsync(customersLogin);
         }
 
         public async Task<IEnumerable<RestaurantDto>> GetMostFrequentRestaurants(string login)

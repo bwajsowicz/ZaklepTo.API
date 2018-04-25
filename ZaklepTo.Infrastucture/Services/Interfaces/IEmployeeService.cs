@@ -9,7 +9,7 @@ namespace ZaklepTo.Infrastructure.Services.Interfaces
 {
     public interface IEmployeeService
     {
-        Task<EmployeeDto> GetAsync(string login);
+        Task<EmployeeDto> GetAsync(string employeesLogin);
         Task<IEnumerable<EmployeeDto>> GetAllAsync();
         Task LoginAsync(LoginCredentials loginCredentials);
         Task RegisterAsync(EmployeeOnCreateDto employeeDto);

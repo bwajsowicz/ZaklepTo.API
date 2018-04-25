@@ -70,11 +70,11 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             return unconfirmedReservations.Select(x => _mapper.Map<Reservation, ReservationDto>(x));
         }
 
-        public async Task<ReservationDto> GetAsync(Guid id)
+        public async Task<ReservationDto> GetAsync(Guid reservationGuid)
         {
-            var reservation = await _reservationRepository.GetAsync(id);
+            var reservationToGet = await _reservationRepository.GetAsync(reservationGuid);
 
-            return _mapper.Map<Reservation, ReservationDto>(reservation);
+            return _mapper.Map<Reservation, ReservationDto>(reservationToGet);
         }
 
         public async Task UpdateAsync(ReservationOnUpdateDto reservationDto)

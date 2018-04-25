@@ -15,6 +15,6 @@ namespace ZaklepTo.Infrastructure.Services.Interfaces
         Task RegisterAsync(OwnerOnCreateDto ownerDto);
         Task UpdateAsync(OwnerOnUpdateDto ownerDto);
         Task ChangePassword(PasswordChange passwordChange);
-        Task DeleteAsync(string login);
+        Task DeleteAsync(string ownersLogin);
     }
 }
