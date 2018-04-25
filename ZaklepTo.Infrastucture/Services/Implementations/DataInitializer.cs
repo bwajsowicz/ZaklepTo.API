@@ -175,7 +175,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                         Table = _mapper.Map<Table, TableDto>(tables.ElementAt(z)),
                         DateStart = date,
                         DateEnd = date.AddHours(3),
-                        Customer =  (await _customerService.GetAllAsync()).Last()                
+                        Customer =  (await _customerService.GetAllAsync()).ElementAt(z)              
                     };
 
                     await _reservationService.RegisterReservation(reservation);
