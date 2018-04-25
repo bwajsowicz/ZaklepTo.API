@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ZaklepTo.Infrastructure.DTO;
 using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnUpdate;
+using ZaklepTo.Infrastructure.DTO.OnCreate;
 
 namespace ZaklepTo.Infrastructure.Services.Interfaces
 {
@@ -15,6 +16,7 @@ namespace ZaklepTo.Infrastructure.Services.Interfaces
         Task<IEnumerable<ReservationDto>> GetAllActiveByCustomerAsync(string customersLogin);
         Task<IEnumerable<ReservationDto>> GetAllUncorfirmedReservationsAsync();
         Task<ReservationDto> GetAsync(Guid id);
+        Task RegisterReservation(ReservationOnCreateDto reservationDto);
         Task UpdateAsync(ReservationOnUpdateDto reservationDto);
         Task DeleteAsync(Guid id);
         Task DeactivateReservationAsync(Guid id);
