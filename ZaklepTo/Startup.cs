@@ -8,6 +8,7 @@ using ZaklepTo.Core.Repositories;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ZaklepTo.API.Extensions;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
@@ -82,8 +83,8 @@ namespace ZaklepTo.API
 
             services.AddMvc().AddFluentValidation(fv => { });
 
-            //var connectionString = @"Server=(localdb)\mssqllocaldb;Database=ZaklepToDB;Trusted_Connection=True;";
-            //services.AddDbContext<DataBaseService>(options => options.UseSqlServer(connectionString));
+            var connectionString = @"Server=(localdb)\mssqllocaldb;Database=ZaklepToDB;Trusted_Connection=True;";
+            services.AddDbContext<DataBaseService>(options => options.UseSqlServer(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

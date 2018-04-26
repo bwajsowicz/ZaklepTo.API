@@ -17,5 +17,6 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public DbSet<EmployeeEntity> Employees { get; set; }
         public DbSet<RestaurantEntity> Restaurants { get; set; }
         public DbSet<TableEntity> Tables { get; set; }
+        public DbSet<ReservationEntity> Reservations { get; set; }
     }
 }
