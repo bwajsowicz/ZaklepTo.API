@@ -2,7 +2,7 @@
 
 namespace ZaklepTo.Infrastructure.Services.Interfaces
 {
-    public interface IJwtHandler
+    public interface IJwtService
     {
         JwtDto CreateToken(string login, string role);
     }

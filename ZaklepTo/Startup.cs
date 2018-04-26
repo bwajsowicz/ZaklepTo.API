@@ -49,35 +49,47 @@ namespace ZaklepTo.API
 
             services.AddScoped<IDataInitializer, DataInitializer>();
 
-            services.AddMvc().AddFluentValidation(fv => {});
-
             services.AddTransient<IValidator<CustomerOnCreateDto>, CustomerOnCreateValidator>();
             services.AddTransient<IValidator<EmployeeOnCreateDto>, EmployeeOnCreateValidator>();
             services.AddTransient<IValidator<CustomerOnCreateDto>, CustomerOnCreateValidator>();
             services.AddTransient<IValidator<RestaurantOnCreateDto>, RestaurantOnCreateValidator>();
             services.AddTransient<IValidator<PasswordChange>, PasswordChangeValidator>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            services.AddSingleton<IJwtService, JwtService>();
+
+            services
+            .AddAuthentication(options =>
             {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = "http://localhost:53993",
+                    ValidIssuer = Configuration.GetSection("Jwt:Issuer").Value,
+                    ValidAudience = Configuration.GetSection("Jwt:Audience").Value,
+                    ValidateIssuer = true,
                     ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("key")),
                     ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("Jwt:Key").ToString())),
                     ClockSkew = TimeSpan.Zero
                 };
             });
+
+            services.AddMvc().AddFluentValidation(fv => { });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDataInitializer dataInitializer)
         {
+            app.UseAuthentication();
             app.UseDeveloperExceptionPage();
             app.UseCustomExceptionHandler();
             app.UseMvc();
-
-            app.UseAuthentication();
 
             dataInitializer.SeedAsync();
         }

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
@@ -11,10 +12,12 @@ namespace ZaklepTo.API.Controllers
     public class CustomerController : Controller
     {
         private readonly ICustomerService _customerService;
+        private readonly IJwtService _jwtHander;
 
-        public CustomerController(ICustomerService customerService)
+        public CustomerController(ICustomerService customerService, IJwtService jwtHander)
         {
             _customerService = customerService;
+            _jwtHander = jwtHander;
         }
 
         [HttpGet()]
@@ -58,7 +61,9 @@ namespace ZaklepTo.API.Controllers
         {
             await _customerService.LoginAsync(loginCredentials);
 
-            return Ok();
+            var token = _jwtHander.CreateToken(loginCredentials.Login, "customer");
+
+            return Ok(token);
         }
 
         [HttpPut("{login}/update")]

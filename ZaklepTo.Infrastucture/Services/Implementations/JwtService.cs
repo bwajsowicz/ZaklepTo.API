@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ZaklepTo.Infrastructure.DTO;
 using ZaklepTo.Infrastructure.Extensions;
@@ -10,33 +10,37 @@ using ZaklepTo.Infrastructure.Services.Interfaces;
 
 namespace ZaklepTo.Infrastructure.Services.Implementations
 {
-    public class JwtHandler : IJwtHandler
+    public class JwtService : IJwtService
     {
-        public JwtHandler()
+        private IConfiguration _configuration;
+
+        public JwtService(IConfiguration configuration)
         {
+            _configuration = configuration;
         }
 
         public JwtDto CreateToken(string login, string role)
         {
             var now = DateTime.UtcNow;
+            var expiry = now.AddMinutes(20);
 
             var claims = new Claim[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, login),
                 new Claim(ClaimTypes.Role, role),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, now.toTimestamp().ToString(), ClaimValueTypes.Integer64)
             };
 
-            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("key")),
-                SecurityAlgorithms.HmacSha256);
-            var expiry = now.AddMinutes(20);
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").ToString()));
+            var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
             var jwt = new JwtSecurityToken(
-                issuer: "",
+                issuer: _configuration.GetSection("Jwt:Issuer").Value,
+                audience: _configuration.GetSection("Jwt:Audience").Value,
                 claims: claims,
+                signingCredentials: signingCredentials,
                 notBefore: now,
-                expires: expiry,
-                signingCredentials: signingCredentials
+                expires: expiry
             );
 
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
