@@ -12,7 +12,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 {
     public class JwtService : IJwtService
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public JwtService(IConfiguration configuration)
         {
@@ -24,7 +24,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var now = DateTime.UtcNow;
             var expiry = now.AddMinutes(20);
 
-            var claims = new Claim[]
+            var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, login),
                 new Claim(ClaimTypes.Role, role),
@@ -48,7 +48,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             return new JwtDto
             {
                 Token = token,
-                Expiry = expiry.toTimestamp()
+                Expiry = expiry.ToTimestamp()
             };
         }
     }

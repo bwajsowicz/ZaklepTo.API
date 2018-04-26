@@ -17,20 +17,20 @@ namespace ZaklepTo.API.Controllers
             _ownerService = ownerService;
         }
 
-        [HttpGet("{login}")]
-        public async Task<IActionResult> GetSingleOwner(string login)
-        {
-            var owner = await _ownerService.GetAsync(login);
-
-            return Ok(owner);
-        }
-
         [HttpGet()]
         public async Task<IActionResult> GetAllOwners()
         {
             var owners = await _ownerService.GetAllAsync();
 
             return Ok(owners);
+        }
+
+        [HttpGet("{login}")]
+        public async Task<IActionResult> GetSingleOwner(string login)
+        {
+            var owner = await _ownerService.GetAsync(login);
+
+            return Ok(owner);
         }
 
         [HttpPost("register")]

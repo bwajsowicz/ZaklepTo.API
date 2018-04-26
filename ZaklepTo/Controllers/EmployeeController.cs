@@ -17,20 +17,20 @@ namespace ZaklepTo.API.Controllers
             _employeeService = employeeService;
         }
 
-        [HttpGet("{login}")]
-        public async Task<IActionResult> GetSingleEmployee(string login)
-        {
-            var employee = await _employeeService.GetAsync(login);
-
-            return Ok(employee);
-        }
-
         [HttpGet()]
         public async Task<IActionResult> GetAllEmployees()
         {
             var employees = await _employeeService.GetAllAsync();
 
             return Ok(employees);
+        }
+
+        [HttpGet("{login}")]
+        public async Task<IActionResult> GetSingleEmployee(string login)
+        {
+            var employee = await _employeeService.GetAsync(login);
+
+            return Ok(employee);
         }
 
         [HttpPost("register")]

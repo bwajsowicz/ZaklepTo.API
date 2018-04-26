@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
@@ -20,7 +19,7 @@ namespace ZaklepTo.API.Controllers
             _jwtHander = jwtHander;
         }
 
-        [HttpGet()]
+        [HttpGet]
         public async Task<IActionResult> GetAllCustomers()
         {
             var customers = await _customerService.GetAllAsync();

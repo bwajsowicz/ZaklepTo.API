@@ -4,7 +4,7 @@ using ZaklepTo.Infrastructure.Services.Interfaces;
 
 namespace ZaklepTo.Infrastructure.Services.Implementations
 {
-    public class DataBaseService : DbContext, IDataBaseService
+    public sealed class DataBaseService : DbContext, IDataBaseService
     {
         public DataBaseService(DbContextOptions<DataBaseService> options)
             : base(options)

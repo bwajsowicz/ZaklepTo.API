@@ -16,7 +16,7 @@ namespace ZaklepTo.API.Controllers
             _restaurantService = restaurantService;
         }
 
-        [HttpGet()]
+        [HttpGet]
         public async Task<IActionResult> GetAllRestaurants()
         {
             var restaurants = await _restaurantService.GetAllAsync();

@@ -17,7 +17,7 @@ namespace ZaklepTo.API.Controllers
             _reservationService = reservationService;
         }
 
-        [HttpGet("")]
+        [HttpGet]
         public async Task<IActionResult> GetAllReservations()
         {
             var reservations = await _reservationService.GetAllAsync();

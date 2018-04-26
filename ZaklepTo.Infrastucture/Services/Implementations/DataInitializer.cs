@@ -5,7 +5,6 @@ using System.Linq;
 using ZaklepTo.Infrastructure.DTO;
 using ZaklepTo.Infrastructure.Services.Interfaces;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
-using ZaklepTo.Infrastructure.Mappers;
 using AutoMapper;
 using ZaklepTo.Core.Domain;
 
@@ -101,7 +100,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 "Wloska"
             };
 
-            for (var i = 0; i <= exampleRestaurantName.Count(); i++)
+            for (var i = 0; i <= exampleRestaurantName.Count; i++)
             {
                 var tables = new List<Table>(); 
                 for (var j = 0; j < random.Next(5, 12); j++)
@@ -114,7 +113,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 {
                     Name = exampleRestaurantName[i],
                     Description = "Description",
-                    Cuisine = exampleCousine[random.Next(1, exampleCousine.Count())],
+                    Cuisine = exampleCousine[random.Next(1, exampleCousine.Count)],
                     Localization = $"Szczecin{i}",
                     Tables = tables
                 }; // RestaurantEntity
@@ -166,7 +165,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 await _ownerService.RegisterAsync(owner);
 
                 
-                for (var z = 0; z < tables.Count()/2; z++)
+                for (var z = 0; z < tables.Count/2; z++)
                 {
                     var date = new DateTime(2018, random.Next(1, 12), random.Next(1, 27), random.Next(1, 24), random.Next(1, 60), 0);
                     var reservation = new ReservationOnCreateDto()

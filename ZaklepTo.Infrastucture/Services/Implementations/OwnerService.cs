@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ZaklepTo.Core.Domain;
 using ZaklepTo.Core.Exceptions;
@@ -84,8 +82,8 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
             if (owner.Password == hash)
                 return;
-            else
-                throw new ServiceException(ErrorCodes.InvalidPassword, "Password is incorrect.");
+
+            throw new ServiceException(ErrorCodes.InvalidPassword, "Password is incorrect.");
         }
 
         public async Task RegisterAsync(OwnerOnCreateDto ownerDto)
@@ -100,7 +98,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var ownersRestaurant = await _restaurantRepository.GetAsync(ownerDto.Restaurant.Id);
 
             var ownerToRegister = new Owner(ownerDto.Login, ownerDto.FirstName, ownerDto.LastName, ownerDto.Email, 
-                ownerDto.Phone, ownerDto.Password, salt, ownersRestaurant);
+                ownerDto.Phone, hash, salt, ownersRestaurant);
 
             await _ownerRepository.AddAsync(ownerToRegister);
         }

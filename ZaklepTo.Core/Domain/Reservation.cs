@@ -13,12 +13,6 @@ namespace ZaklepTo.Core.Domain
         public bool IsConfirmed { get; set; }
         private bool _isActive;
 
-        public bool IsActive
-        {
-            get => _isActive && DateTime.Now < DateEnd;
-            private set => _isActive = value;
-        }
-
         protected Reservation()
         {
         }
@@ -34,6 +28,12 @@ namespace ZaklepTo.Core.Domain
             Customer = customer;
             IsConfirmed = isConfirmed;
             IsActive = isActive;
+        }
+
+        public bool IsActive
+        {
+            get => _isActive && DateTime.Now < DateEnd;
+            private set => _isActive = value;
         }
     }
 }
