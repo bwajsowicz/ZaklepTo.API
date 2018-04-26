@@ -33,7 +33,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var customerToGet = await _customerRepository.GetAsync(customersLogin);
 
             if (customerToGet == null)
-                throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "CustomerEntity doesn't exist.");
 
             return _mapper.Map<Customer, CustomerDto>(customerToGet);
         }
@@ -80,7 +80,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var customerToUpdate = await _customerRepository.GetAsync(customerDto.Login);
 
             if (customerToUpdate == null)
-                throw new ServiceException(ErrorCodes.OwnerNotFound, "Customer doesn't exist.");
+                throw new ServiceException(ErrorCodes.OwnerNotFound, "CustomerEntity doesn't exist.");
 
             var customer = await _customerRepository.GetAsync(customerDto.Login);
 
@@ -97,7 +97,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var customer = await _customerRepository.GetAsync(passwordChange.Login);
 
             if(customer == null)
-                throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "CustomerEntity doesn't exist.");
 
             var oldPasswordHash = _encrypter.GetHash(passwordChange.OldPassword, customer.Salt);
 
@@ -117,7 +117,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var customerToDelete = await _customerRepository.GetAsync(customersLogin);
 
             if (customerToDelete == null)
-                throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "CustomerEntity doesn't exist.");
 
             await _customerRepository.DeleteAsync(customersLogin);
         }
@@ -127,7 +127,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var customer = await _customerRepository.GetAsync(login);
 
             if (customer == null)
-                throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "CustomerEntity doesn't exist.");
 
             var reservations = await _reservationRepository.GetAllAsync();
 

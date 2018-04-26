@@ -76,7 +76,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 };
 
                 await _customerService.RegisterAsync(customer);
-            } //Customer
+            } //CustomerEntity
 
             var exampleRestaurantName = new List<string>
             {
@@ -117,7 +117,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                     Cuisine = exampleCousine[random.Next(1, exampleCousine.Count())],
                     Localization = $"Szczecin{i}",
                     Tables = tables
-                }; // Restaurant
+                }; // RestaurantEntity
 
                 await _restaurantService.RegisterAsync(restaurant);
 
@@ -146,7 +146,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                     await _employeeService.RegisterAsync(employee);
                 } //Employee
 
-                var firstNameOwner = exampleFirstName[random.Next(exampleFirstName.Count)]; //Owner
+                var firstNameOwner = exampleFirstName[random.Next(exampleFirstName.Count)]; //OwnerEntity
                 var lastNameOwner = exampleLastName[random.Next(exampleLastName.Count)];
                 var loginOwner = $"owner{i}";
                 var emailOwner = $"{loginOwner}@gmail.com";
@@ -180,7 +180,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
                     await _reservationService.RegisterReservation(reservation);
                 }              
-            } //Restaurant & Owner & Employee
+            } //RestaurantEntity & OwnerEntity & Employee
        }
     }
 }
