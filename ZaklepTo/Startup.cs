@@ -14,6 +14,7 @@ using ZaklepTo.API.Extensions;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
 using ZaklepTo.Infrastructure.DTO.OnUpdate;
 using ZaklepTo.Infrastructure.Encrypter;
+using ZaklepTo.Infrastructure.EntityFramwerork;
 using ZaklepTo.Infrastructure.Extensions;
 using ZaklepTo.Infrastructure.Mappers;
 using ZaklepTo.Infrastructure.Repositories;
@@ -36,7 +37,7 @@ namespace ZaklepTo.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ICustomerRepository, InMemoryCustomerRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IEmployeeRepository, InMemoryEmployeeRepository>();
             services.AddScoped<IOwnerRepository, InMemoryOwnerRepository>();
             services.AddScoped<IReservationRepository, InMemoryReservationRepository>();
@@ -86,18 +87,21 @@ namespace ZaklepTo.API
             services.AddMvc().AddFluentValidation(fv => { });
 
             var connectionString = Configuration["ConnectionStrings:DataBaseConnectionString"];
-            services.AddDbContext<DataBaseService>(options => options.UseSqlServer(connectionString));
+            services
+                .AddEntityFrameworkSqlServer()
+                .AddEntityFrameworkInMemoryDatabase()
+                .AddDbContext<ZaklepToContext>(options => options.UseSqlServer(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDataInitializer dataInitializer, DataBaseService dataBaseService)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDataInitializer dataInitializer)
         {
             app.UseAuthentication();
             app.UseDeveloperExceptionPage();
             app.UseCustomExceptionHandler();
             app.UseMvc();
 
-            dataInitializer.SeedAsync();
+            dataInitializer.SeedAsync().Wait();
         }
     }
 }

@@ -4,42 +4,43 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ZaklepTo.Core.Domain;
 using ZaklepTo.Core.Repositories;
+using ZaklepTo.Infrastructure.EntityFramwerork;
 using ZaklepTo.Infrastructure.Services.Implementations;
 
 namespace ZaklepTo.Infrastructure.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
-        private readonly DataBaseService _dataBaseService;
+        private readonly ZaklepToContext _context;
 
-        public CustomerRepository(DataBaseService dataBaseService)
+        public CustomerRepository(ZaklepToContext context)
         {
-            _dataBaseService = dataBaseService;
+            _context = context;
         }
 
         public async Task AddAsync(Customer customer)
         {
-            await _dataBaseService.Customers.AddAsync(customer);
-            await _dataBaseService.SaveChangesAsync();
+            await _context.Customers.AddAsync(customer);
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(string login)
         {
-            var customerToRemove = await _dataBaseService.Customers.FindAsync(login);
-            _dataBaseService.Customers.Remove(customerToRemove);
-            await _dataBaseService.SaveChangesAsync();
+            var customerToRemove = await _context.Customers.FindAsync(login);
+           _context.Customers.Remove(customerToRemove);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Customer>> GetAllAsync()
-            => await _dataBaseService.Customers.ToListAsync();
+            => await _context.Customers.ToListAsync();
 
         public async Task<Customer> GetAsync(string login)
-            => await _dataBaseService.Customers.FindAsync(login);
+            => await _context.Customers.FindAsync(login);
 
         public async Task UpdateAsync(Customer customer)
         {
-            _dataBaseService.Update(customer);
-            await _dataBaseService.SaveChangesAsync();
+            _context.Update(customer);
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -32,6 +32,10 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
         public async Task SeedAsync()
         {
+            var customers = await _customerService.GetAllAsync();
+            if(customers.Any())
+                return;
+
             var random = new Random();
 
             var exampleFirstName = new List<string>
@@ -100,7 +104,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 "Wloska"
             };
 
-            for (var i = 0; i <= exampleRestaurantName.Count; i++)
+            for (var i = 0; i < exampleRestaurantName.Count; i++)
             {
                 var tables = new List<Table>(); 
                 for (var j = 0; j < random.Next(5, 12); j++)
@@ -109,11 +113,12 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
                     tables.Add(exampleTable);
                 } // Tables
+
                 var restaurant = new RestaurantOnCreateDto()
                 {
                     Name = exampleRestaurantName[i],
                     Description = "Description",
-                    Cuisine = exampleCousine[random.Next(1, exampleCousine.Count)],
+                    Cuisine = exampleCousine[random.Next(0, exampleCousine.Count-1)],
                     Localization = $"Szczecin{i}",
                     Tables = tables
                 }; // RestaurantEntity
