@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ZaklepTo.Infrastructure.Entities;
+using ZaklepTo.Core.Domain;
 using ZaklepTo.Infrastructure.Services.Interfaces;
 
 namespace ZaklepTo.Infrastructure.Services.Implementations
@@ -12,11 +12,11 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             Database.EnsureCreated();
         }
 
-        public DbSet<CustomerEntity> Customers { get; set; }
-        public DbSet<OwnerEntity> Owners { get; set; }
-        public DbSet<EmployeeEntity> Employees { get; set; }
-        public DbSet<RestaurantEntity> Restaurants { get; set; }
-        public DbSet<TableEntity> Tables { get; set; }
-        public DbSet<ReservationEntity> Reservations { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Owner> Owners { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<Table> Tables { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
     }
 }

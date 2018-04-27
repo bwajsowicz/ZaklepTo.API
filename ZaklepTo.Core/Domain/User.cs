@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ZaklepTo.Core.Domain
 {
     public abstract class User
     {
+        [Key]
         public string Login { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

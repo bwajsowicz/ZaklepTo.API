@@ -33,7 +33,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         {
             var owner = await _ownerRepository.GetAsync(passwordChange.Login);
             if (owner == null)
-                throw new ServiceException(ErrorCodes.OwnerNotFound, "OwnerEntity doesn't exist.");
+                throw new ServiceException(ErrorCodes.OwnerNotFound, "Owner doesn't exist.");
 
             var oldPasswordHash = _encrypter.GetHash(passwordChange.OldPassword, owner.Salt);
 
@@ -52,7 +52,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         {
             var ownerToDelete = await _ownerRepository.GetAsync(ownersLogin);
             if (ownerToDelete == null)
-                throw new ServiceException(ErrorCodes.OwnerNotFound, "OwnerEntity doesn't exist.");
+                throw new ServiceException(ErrorCodes.OwnerNotFound, "Owner doesn't exist.");
 
             await _ownerRepository.DeleteAsync(ownersLogin);
         }
@@ -67,7 +67,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         {
             var ownerToGet = await _ownerRepository.GetAsync(login);
             if(ownerToGet == null)
-                throw new ServiceException(ErrorCodes.OwnerNotFound, "OwnerEntity doesn't exist.");
+                throw new ServiceException(ErrorCodes.OwnerNotFound, "Owner doesn't exist.");
 
             return _mapper.Map<Owner, OwnerDto>(ownerToGet);
         }
@@ -107,7 +107,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         {
             var ownerToUpdate = await _ownerRepository.GetAsync(ownerDto.Login);
             if (ownerToUpdate == null)
-                throw new ServiceException(ErrorCodes.OwnerNotFound, "OwnerEntity doesn't exist.");
+                throw new ServiceException(ErrorCodes.OwnerNotFound, "Owner doesn't exist.");
 
             ownerToUpdate.Login = ownerDto.Login;
             ownerToUpdate.FirstName = ownerDto.FirstName;

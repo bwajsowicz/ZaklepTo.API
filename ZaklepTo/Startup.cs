@@ -14,7 +14,9 @@ using ZaklepTo.API.Extensions;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
 using ZaklepTo.Infrastructure.DTO.OnUpdate;
 using ZaklepTo.Infrastructure.Encrypter;
+using ZaklepTo.Infrastructure.Extensions;
 using ZaklepTo.Infrastructure.Mappers;
+using ZaklepTo.Infrastructure.Repositories;
 using ZaklepTo.Infrastructure.Repositories.InMemory;
 using ZaklepTo.Infrastructure.Services.Implementations;
 using ZaklepTo.Infrastructure.Services.Interfaces;
@@ -70,25 +72,25 @@ namespace ZaklepTo.API
                 options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = Configuration.GetSection("Jwt:Issuer").Value,
-                    ValidAudience = Configuration.GetSection("Jwt:Audience").Value,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Audience"],
                     ValidateIssuer = true,
                     ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("Jwt:Key").ToString())),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
                     ClockSkew = TimeSpan.Zero
                 };
             });
 
             services.AddMvc().AddFluentValidation(fv => { });
 
-            var connectionString = @"Server=(localdb)\mssqllocaldb;Database=ZaklepToDB;Trusted_Connection=True;";
+            var connectionString = Configuration["ConnectionStrings:DataBaseConnectionString"];
             services.AddDbContext<DataBaseService>(options => options.UseSqlServer(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDataInitializer dataInitializer)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDataInitializer dataInitializer, DataBaseService dataBaseService)
         {
             app.UseAuthentication();
             app.UseDeveloperExceptionPage();

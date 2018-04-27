@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ZaklepTo.Core.Domain
 {
@@ -6,6 +7,7 @@ namespace ZaklepTo.Core.Domain
     {
         public Guid Id { get; set; }
         public int NumberOfSeats { get; set; }
+        [NotMapped]
         public (int x, int y) Coordinates { get; set; }
 
         protected Table()

@@ -22,7 +22,7 @@ namespace ZaklepTo.API.Middleware
             {
                 await _next(context);
             }
-            catch (ServiceException exception)
+            catch (Exception exception)
             {
                 await HandleExceptionAsync(context, exception);
             }

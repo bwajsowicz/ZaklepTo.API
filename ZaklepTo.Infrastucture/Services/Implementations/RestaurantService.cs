@@ -28,7 +28,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         {
             var restaurant = await _restaurantRepository.GetAsync(id);
             if (restaurant == null)
-                throw new ServiceException(ErrorCodes.RestaurantNotFound, "RestaurantEntity doesn't exist.");
+                throw new ServiceException(ErrorCodes.RestaurantNotFound, "Restaurant doesn't exist.");
 
             await _restaurantRepository.DeleteAsync(id);
         }
@@ -43,7 +43,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         {
             var restaurant = await _restaurantRepository.GetAsync(id);
             if (restaurant == null)
-                throw new ServiceException(ErrorCodes.RestaurantNotFound, "RestaurantEntity doesn't exist.");
+                throw new ServiceException(ErrorCodes.RestaurantNotFound, "Restaurant doesn't exist.");
 
             return _mapper.Map<Restaurant, RestaurantDto>(restaurant);
         }
@@ -60,7 +60,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         {
             var restaurantToUpdate = await _restaurantRepository.GetAsync(restaurantDto.Id);
             if(restaurantToUpdate == null)
-                throw new ServiceException(ErrorCodes.RestaurantNotFound, "RestaurantEntity doesn't exist.");
+                throw new ServiceException(ErrorCodes.RestaurantNotFound, "Restaurant doesn't exist.");
 
             restaurantToUpdate.Name = restaurantDto.Name;
             restaurantToUpdate.Description = restaurantDto.Description;
