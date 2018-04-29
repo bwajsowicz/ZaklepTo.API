@@ -18,8 +18,8 @@ namespace ZaklepTo.Infrastructure.Services.Interfaces
         Task<ReservationDto> GetAsync(Guid id);
         Task RegisterReservation(ReservationOnCreateDto reservationDto);
         Task UpdateAsync(ReservationOnUpdateDto reservationDto);
-        Task DeleteAsync(Guid id);
-        Task DeactivateReservationAsync(Guid id);
-        Task ConfirmReservationAsync(Guid id);
+        Task DeleteAsync(Guid reservationId);
+        Task DeactivateReservationAsync(Guid reservationId);
+        Task ConfirmReservationAsync(Guid reservationId);
     }
 }

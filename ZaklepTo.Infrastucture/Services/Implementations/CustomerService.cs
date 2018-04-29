@@ -31,9 +31,8 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public async Task<CustomerDto> GetAsync(string customersLogin)
         {
             var customerToGet = await _customerRepository.GetAsync(customersLogin);
-
             if (customerToGet == null)
-                throw new ServiceException(ErrorCodes.CustomerNotFound, "CustomerEntity doesn't exist.");
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
 
             return _mapper.Map<Customer, CustomerDto>(customerToGet);
         }
@@ -47,7 +46,6 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public async Task LoginAsync(LoginCredentials loginCredentials)
         {
             var customer = await _customerRepository.GetAsync(loginCredentials.Login);
-
             if(customer == null)
                 throw new ServiceException(ErrorCodes.CustomerNotFound, "Login doesn't match any account.");
 
@@ -62,7 +60,6 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public async Task RegisterAsync(CustomerOnCreateDto customerDto)
         {
             var customer = await _customerRepository.GetAsync(customerDto.Login);
-
             if (customer != null)
                 throw new ServiceException(ErrorCodes.OwnerAlreadyExists, "Login is already in use.");
 
@@ -78,9 +75,8 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public async Task UpdateAsync(CustomerOnUpdateDto customerDto)
         {
             var customerToUpdate = await _customerRepository.GetAsync(customerDto.Login);
-
             if (customerToUpdate == null)
-                throw new ServiceException(ErrorCodes.OwnerNotFound, "CustomerEntity doesn't exist.");
+                throw new ServiceException(ErrorCodes.OwnerNotFound, "Customer doesn't exist.");
 
             var customer = await _customerRepository.GetAsync(customerDto.Login);
 
@@ -95,9 +91,8 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public async Task ChangePassword(PasswordChange passwordChange)
         {
             var customer = await _customerRepository.GetAsync(passwordChange.Login);
-
             if(customer == null)
-                throw new ServiceException(ErrorCodes.CustomerNotFound, "CustomerEntity doesn't exist.");
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
 
             var oldPasswordHash = _encrypter.GetHash(passwordChange.OldPassword, customer.Salt);
 
@@ -115,9 +110,8 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public async Task DeleteAsync(string customersLogin)
         {
             var customerToDelete = await _customerRepository.GetAsync(customersLogin);
-
             if (customerToDelete == null)
-                throw new ServiceException(ErrorCodes.CustomerNotFound, "CustomerEntity doesn't exist.");
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
 
             await _customerRepository.DeleteAsync(customersLogin);
         }
@@ -127,7 +121,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var customer = await _customerRepository.GetAsync(login);
 
             if (customer == null)
-                throw new ServiceException(ErrorCodes.CustomerNotFound, "CustomerEntity doesn't exist.");
+                throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
 
             var reservations = await _reservationRepository.GetAllAsync();
 

@@ -24,13 +24,13 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid restaurantId)
         {
-            var restaurant = await _restaurantRepository.GetAsync(id);
+            var restaurant = await _restaurantRepository.GetAsync(restaurantId);
             if (restaurant == null)
                 throw new ServiceException(ErrorCodes.RestaurantNotFound, "Restaurant doesn't exist.");
 
-            await _restaurantRepository.DeleteAsync(id);
+            await _restaurantRepository.DeleteAsync(restaurantId);
         }
 
         public async Task<IEnumerable<RestaurantDto>> GetAllAsync()
@@ -39,9 +39,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             return restaurants.Select(restaurant => _mapper.Map<Restaurant, RestaurantDto>(restaurant));
         }
 
-        public async Task<RestaurantDto> GetAsync(Guid id)
+        public async Task<RestaurantDto> GetAsync(Guid restaurantId)
         {
-            var restaurant = await _restaurantRepository.GetAsync(id);
+            var restaurant = await _restaurantRepository.GetAsync(restaurantId);
             if (restaurant == null)
                 throw new ServiceException(ErrorCodes.RestaurantNotFound, "Restaurant doesn't exist.");
 

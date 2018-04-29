@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ZaklepTo.Core.Domain;
+using ZaklepTo.Core.Exceptions;
 using ZaklepTo.Core.Repositories;
 using ZaklepTo.Infrastructure.DTO;
 using ZaklepTo.Infrastructure.DTO.EntryData;
@@ -74,6 +75,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         {
             var reservationToGet = await _reservationRepository.GetAsync(reservationGuid);
 
+            if(reservationToGet == null)
+                throw new ServiceException(ErrorCodes.ReservationNotFound, "Reservation doesn't exist");
+
             return _mapper.Map<Reservation, ReservationDto>(reservationToGet);
         }
 
@@ -93,7 +97,10 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
         public async Task UpdateAsync(ReservationOnUpdateDto reservationDto)
         {
-            var reservation = await _reservationRepository.GetAsync(reservationDto.Id); //TODO Updated reservation gets new id
+            var reservationToUpdate = await _reservationRepository.GetAsync(reservationDto.Id);
+            if (reservationToUpdate == null)
+                throw new ServiceException(ErrorCodes.ReservationNotFound, "Reservation doesn't exist");
+
             var restaurant = await _restaurantRepository.GetAsync(reservationDto.Restaurant.Id);
             var customer = await _customerRepository.GetAsync(reservationDto.Customer.Login);
 
@@ -106,25 +113,35 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             await _reservationRepository.UpdateAsync(updatedReservation);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid reservationId)
         {
-            await _reservationRepository.DeleteAsync(id);
+            var reservationToRemove = await _reservationRepository.GetAsync(reservationId);
+            if (reservationToRemove == null)
+                throw new ServiceException(ErrorCodes.ReservationNotFound, "Reservation doesn't exist");
+
+            await _reservationRepository.DeleteAsync(reservationId);
         }
 
-        public async Task DeactivateReservationAsync(Guid id)
+        public async Task DeactivateReservationAsync(Guid reservationId)
         {
-            var reservation = await _reservationRepository.GetAsync(id);
-            var deactivatedReservation = new Reservation(reservation.Restaurant, reservation.DateStart, reservation.DateEnd,
-                reservation.Table, reservation.Customer, reservation.IsConfirmed, false);
+            var reservationToDeactivate = await _reservationRepository.GetAsync(reservationId);
+            if (reservationToDeactivate == null)
+                throw new ServiceException(ErrorCodes.ReservationNotFound, "Reservation doesn't exist");
+
+            var deactivatedReservation = new Reservation(reservationToDeactivate.Restaurant, reservationToDeactivate.DateStart, reservationToDeactivate.DateEnd,
+                reservationToDeactivate.Table, reservationToDeactivate.Customer, reservationToDeactivate.IsConfirmed, false);
 
             await _reservationRepository.UpdateAsync(deactivatedReservation);
         }
 
-        public async Task ConfirmReservationAsync(Guid id)
+        public async Task ConfirmReservationAsync(Guid reservationId)
         {
-            var reservation = await _reservationRepository.GetAsync(id);
-            var deactivatedReservation = new Reservation(reservation.Restaurant, reservation.DateStart, reservation.DateEnd,
-                reservation.Table, reservation.Customer, true, reservation.IsActive);
+            var reservationToConfirm = await _reservationRepository.GetAsync(reservationId);
+            if (reservationToConfirm == null)
+                throw new ServiceException(ErrorCodes.ReservationNotFound, "Reservation doesn't exist");
+
+            var deactivatedReservation = new Reservation(reservationToConfirm.Restaurant, reservationToConfirm.DateStart, reservationToConfirm.DateEnd,
+                reservationToConfirm.Table, reservationToConfirm.Customer, true, reservationToConfirm.IsActive);
 
             await _reservationRepository.UpdateAsync(deactivatedReservation);
         }
