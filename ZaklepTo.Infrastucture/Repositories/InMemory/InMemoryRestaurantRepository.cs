@@ -14,9 +14,9 @@ namespace ZaklepTo.Infrastructure.Repositories.InMemory
         public async Task AddAsync(Restaurant restaurant)
             => await Task.FromResult(Restaurants.Add(restaurant));
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid restaurantId)
         {
-            var restaurant = await GetAsync(id);
+            var restaurant = await GetAsync(restaurantId);
             Restaurants.Remove(restaurant);
             await Task.CompletedTask;
         }

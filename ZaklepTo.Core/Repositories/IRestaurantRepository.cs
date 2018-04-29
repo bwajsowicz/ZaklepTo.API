@@ -11,6 +11,6 @@ namespace ZaklepTo.Core.Repositories
         Task<IEnumerable<Restaurant>> GetAllAsync();
         Task AddAsync(Restaurant restaurant);
         Task UpdateAsync(Restaurant restaurant);
-        Task DeleteAsync(Guid id);
+        Task DeleteAsync(Guid restaurantId);
     }
 }
