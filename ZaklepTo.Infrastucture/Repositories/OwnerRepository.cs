@@ -30,10 +30,14 @@ namespace ZaklepTo.Infrastructure.Repositories
         }
 
         public async Task<IEnumerable<Owner>> GetAllAsync()
-            => await _context.Owners.ToListAsync();
+            => await _context.Owners
+                .Include(x => x.Restaurant)
+                .ToListAsync();
 
         public async Task<Owner> GetAsync(string login)
-            => await _context.Owners.FindAsync(login);
+            => await _context.Owners
+                .Include(x => x.Restaurant)
+                .SingleOrDefaultAsync(x => x.Login == login);
 
         public async Task UpdateAsync(Owner owner)
         {

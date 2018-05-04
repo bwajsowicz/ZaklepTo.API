@@ -30,10 +30,14 @@ namespace ZaklepTo.Infrastructure.Repositories
         }
 
         public async Task<IEnumerable<Employee>> GetAllAsync()
-            => await _context.Employees.ToListAsync();
+            => await _context.Employees
+                .Include(x => x.Restaurant)
+                .ToListAsync();
 
         public async Task<Employee> GetAsync(string login)
-            => await _context.Employees.FindAsync(login);
+            => await _context.Employees
+                    .Include(x => x.Restaurant)
+                    .SingleOrDefaultAsync(x => x.Login == login);
 
         public async Task UpdateAsync(Employee employee)
         {

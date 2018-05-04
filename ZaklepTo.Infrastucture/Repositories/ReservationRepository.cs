@@ -31,10 +31,18 @@ namespace ZaklepTo.Infrastructure.Repositories
         }
 
         public async Task<IEnumerable<Reservation>> GetAllAsync()
-            => await _context.Reservations.ToListAsync();
+            => await _context.Reservations
+            .Include(x => x.Customer)
+            .Include(x => x.Restaurant)
+            .Include(x => x.Table)
+            .ToListAsync();
 
         public async Task<Reservation> GetAsync(Guid reservationId)
-            => await _context.Reservations.FindAsync(reservationId);
+            => await _context.Reservations
+            .Include(x => x.Customer)
+            .Include(x => x.Restaurant)
+            .Include(x => x.Table)
+            .SingleOrDefaultAsync(x => x.Id == reservationId);
 
         public async Task UpdateAsync(Reservation reservation)
         {

@@ -4,7 +4,7 @@
     {
         public Restaurant Restaurant { get; set; }
 
-        public Employee() : base()
+        protected Employee() : base()
         {
         }
 

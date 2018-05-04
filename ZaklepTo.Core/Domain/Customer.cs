@@ -2,7 +2,7 @@
 {
     public class Customer : User
     {
-        public Customer() : base()
+        protected Customer() : base()
         {
         }
 

@@ -31,10 +31,14 @@ namespace ZaklepTo.Infrastructure.Repositories
         }
 
         public async Task<IEnumerable<Restaurant>> GetAllAsync()
-            => await _context.Restaurants.ToListAsync();
+            => await _context.Restaurants
+                .Include(x => x.Tables)
+                .ToListAsync();
 
         public async Task<Restaurant> GetAsync(Guid restaurantId)
-            => await _context.Restaurants.FindAsync(restaurantId);
+            => await _context.Restaurants
+                .Include(x => x.Tables)
+                .SingleOrDefaultAsync(x => x.Id == restaurantId);
 
         public async Task UpdateAsync(Restaurant restaurant)
         {

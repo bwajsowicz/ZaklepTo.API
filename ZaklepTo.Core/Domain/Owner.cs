@@ -4,7 +4,7 @@
     {
         public Restaurant Restaurant { get; set; }
 
-        public Owner() : base()
+        protected Owner() : base()
         {
         }
 
