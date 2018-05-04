@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
@@ -44,6 +45,7 @@ namespace ZaklepTo.API.Controllers
             return Ok(topRestaurantsForCustomer);
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> RegisterCustomer([FromBody] CustomerOnCreateDto customer)
         {

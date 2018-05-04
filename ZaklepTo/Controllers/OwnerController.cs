@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
@@ -11,10 +12,12 @@ namespace ZaklepTo.API.Controllers
     public class OwnerController : Controller
     {
         private readonly IOwnerService _ownerService;
+        private readonly IJwtService _jwtHandler;
 
-        public OwnerController(IOwnerService ownerService)
+        public OwnerController(IOwnerService ownerService, IJwtService jwtHandler)
         {
             _ownerService = ownerService;
+            _jwtHandler = jwtHandler;
         }
 
         [HttpGet()]
@@ -33,6 +36,7 @@ namespace ZaklepTo.API.Controllers
             return Ok(owner);
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> RegisterNewOwner([FromBody] OwnerOnCreateDto ownerToRegister)
         {
@@ -49,7 +53,9 @@ namespace ZaklepTo.API.Controllers
         {
             await _ownerService.LoginAsync(loginCredentials);
 
-            return Ok();
+            var token = _jwtHandler.CreateToken(loginCredentials.Login, "owner");
+
+            return Ok(token);
         }
 
         [HttpPost("{login}/update")]

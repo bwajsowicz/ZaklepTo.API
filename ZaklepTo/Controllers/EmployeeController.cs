@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
@@ -11,10 +12,12 @@ namespace ZaklepTo.API.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
+        private readonly IJwtService _jwtHandler;
 
-        public EmployeeController(IEmployeeService employeeService)
+        public EmployeeController(IEmployeeService employeeService, IJwtService jwtHandler)
         {
             _employeeService = employeeService;
+            _jwtHandler = jwtHandler;
         }
 
         [HttpGet()]
@@ -30,9 +33,10 @@ namespace ZaklepTo.API.Controllers
         {
             var employee = await _employeeService.GetAsync(login);
 
-            return Ok(employee);
+            return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> RegisterNewEmployee([FromBody] EmployeeOnCreateDto employeeToRegister)
         {
@@ -48,6 +52,8 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> LoginEmployee([FromBody] LoginCredentials loginCredentials)
         {
             await _employeeService.LoginAsync(loginCredentials);
+
+            var token = _jwtHandler.CreateToken(loginCredentials.Login, "employee");
 
             return Ok();
         }
