@@ -38,10 +38,10 @@ namespace ZaklepTo.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<IEmployeeRepository, InMemoryEmployeeRepository>();
-            services.AddScoped<IOwnerRepository, InMemoryOwnerRepository>();
-            services.AddScoped<IReservationRepository, InMemoryReservationRepository>();
-            services.AddScoped<IRestaurantRepository, InMemoryRestaurantRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<IRestaurantRepository, RestaurantRepository>();
 
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
