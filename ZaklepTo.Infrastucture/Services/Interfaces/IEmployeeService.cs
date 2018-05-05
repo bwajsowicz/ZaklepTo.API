@@ -13,8 +13,8 @@ namespace ZaklepTo.Infrastructure.Services.Interfaces
         Task<IEnumerable<EmployeeDto>> GetAllAsync();
         Task LoginAsync(LoginCredentials loginCredentials);
         Task RegisterAsync(EmployeeOnCreateDto employeeDto);
-        Task UpdateAsync(EmployeeOnUpdateDto employeeDto);
-        Task ChangePassword(PasswordChange passwordChange);
+        Task UpdateAsync(EmployeeOnUpdateDto employeeDto, string login);
+        Task ChangePassword(PasswordChange passwordChange, string login);
         Task DeleteAsync(string login);
     }
 }

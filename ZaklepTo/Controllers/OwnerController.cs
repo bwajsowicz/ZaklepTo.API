@@ -59,23 +59,23 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpPost("{login}/update")]
-        public async Task<IActionResult> UpdateOwner([FromBody] OwnerOnUpdateDto updatedOwner)
+        public async Task<IActionResult> UpdateOwner([FromBody] OwnerOnUpdateDto updatedOwner, string login)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _ownerService.UpdateAsync(updatedOwner);
+            await _ownerService.UpdateAsync(updatedOwner, login);
 
             return Ok();
         }
 
         [HttpPost("{login}/changepassword")]
-        public async Task<IActionResult> ChangeOwnersPassword([FromBody] PasswordChange passwordChange)
+        public async Task<IActionResult> ChangeOwnersPassword([FromBody] PasswordChange passwordChange, string login)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _ownerService.ChangePassword(passwordChange);
+            await _ownerService.ChangePassword(passwordChange, login);
 
             return Ok();
         }

@@ -95,9 +95,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             await _reservationRepository.AddAsync(reservation);
         }
 
-        public async Task UpdateAsync(ReservationOnUpdateDto reservationDto)
+        public async Task UpdateAsync(ReservationOnUpdateDto reservationDto, Guid reservationId)
         {
-            var reservationToUpdate = await _reservationRepository.GetAsync(reservationDto.Id);
+            var reservationToUpdate = await _reservationRepository.GetAsync(reservationId );
             if (reservationToUpdate == null)
                 throw new ServiceException(ErrorCodes.ReservationNotFound, "Reservation doesn't exist");
 

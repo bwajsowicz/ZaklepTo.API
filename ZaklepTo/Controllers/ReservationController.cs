@@ -66,12 +66,12 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpPut("{reservationId}/update")]
-        public async Task<IActionResult> UpdateReservation([FromBody] ReservationOnUpdateDto updatedReservation)
+        public async Task<IActionResult> UpdateReservation([FromBody] ReservationOnUpdateDto updatedReservation, Guid reservationId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _reservationService.UpdateAsync(updatedReservation);
+            await _reservationService.UpdateAsync(updatedReservation, reservationId);
 
             return Ok();
         }

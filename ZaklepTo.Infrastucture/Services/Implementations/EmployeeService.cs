@@ -75,12 +75,13 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             await _employeeRepository.AddAsync(employeeToRegister);
         }
 
-        public async Task UpdateAsync(EmployeeOnUpdateDto employeeDto)
+        public async Task UpdateAsync(EmployeeOnUpdateDto employeeDto, string login)
         {
-            var employeeToUpdate = await _employeeRepository.GetAsync(employeeDto.Login);
+            var employeeToUpdate = await _employeeRepository.GetAsync(login);
             if (employeeToUpdate == null)
                 throw new ServiceException(ErrorCodes.EmployeeNotFound, "Employee doesn't exist.");
 
+            employeeToUpdate.FirstName = employeeDto.FirstName;
             employeeToUpdate.LastName = employeeDto.LastName;
             employeeToUpdate.Email = employeeDto.Email;
             employeeToUpdate.Phone = employeeDto.Phone;
@@ -88,9 +89,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             await _employeeRepository.UpdateAsync(employeeToUpdate);
         }
 
-        public async Task ChangePassword(PasswordChange passwordChange)
+        public async Task ChangePassword(PasswordChange passwordChange, string login)
         {
-            var employee = await _employeeRepository.GetAsync(passwordChange.Login);
+            var employee = await _employeeRepository.GetAsync(login);
             if (employee == null)
                 throw new ServiceException(ErrorCodes.CustomerNotFound, "Employee doesn't exist.");
 

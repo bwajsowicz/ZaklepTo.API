@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using ZaklepTo.Core.Domain;
 using ZaklepTo.Core.Exceptions;
 using ZaklepTo.Core.Repositories;
@@ -72,25 +73,23 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             await _customerRepository.AddAsync(customerToRegister);
         }
 
-        public async Task UpdateAsync(CustomerOnUpdateDto customerDto)
+        public async Task UpdateAsync(CustomerOnUpdateDto customerDto, string login)
         {
-            var customerToUpdate = await _customerRepository.GetAsync(customerDto.Login);
+            var customerToUpdate = await _customerRepository.GetAsync(login);
             if (customerToUpdate == null)
                 throw new ServiceException(ErrorCodes.OwnerNotFound, "Customer doesn't exist.");
 
-            var customer = await _customerRepository.GetAsync(customerDto.Login);
+            customerToUpdate.FirstName = customerDto.FirstName;
+            customerToUpdate.LastName = customerDto.LastName;
+            customerToUpdate.Email = customerDto.Email;
+            customerToUpdate.Phone = customerDto.Phone;
 
-            customer.FirstName = customerDto.FirstName;
-            customer.LastName = customerDto.LastName;
-            customer.Email = customerDto.Email;
-            customer.Phone = customerDto.Phone;
-
-            await _customerRepository.UpdateAsync(customer);
+            await _customerRepository.UpdateAsync(customerToUpdate);
         }
 
-        public async Task ChangePassword(PasswordChange passwordChange)
+        public async Task ChangePassword(PasswordChange passwordChange, string login)
         {
-            var customer = await _customerRepository.GetAsync(passwordChange.Login);
+            var customer = await _customerRepository.GetAsync(login);
             if(customer == null)
                 throw new ServiceException(ErrorCodes.CustomerNotFound, "Customer doesn't exist.");
 

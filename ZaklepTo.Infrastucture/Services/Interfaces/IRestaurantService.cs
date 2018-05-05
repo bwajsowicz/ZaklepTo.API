@@ -11,7 +11,7 @@ namespace ZaklepTo.Infrastructure.Services.Interfaces
     {
         Task<IEnumerable<RestaurantDto>> GetAllAsync();
         Task<RestaurantDto> GetAsync(Guid restaurantId);
-        Task UpdateAsync(RestaurantOnUpdateDto restaurantDto);
+        Task UpdateAsync(RestaurantOnUpdateDto restaurantDto, Guid restaurantId);
         Task DeleteAsync(Guid restaurantId);
         Task RegisterAsync(RestaurantOnCreateDto restaurantDto);
     }

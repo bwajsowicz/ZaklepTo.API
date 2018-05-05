@@ -4,7 +4,6 @@ namespace ZaklepTo.Infrastructure.DTO.OnUpdate
 {
     public class ReservationOnUpdateDto
     {
-        public Guid Id { get; set; }
         public RestaurantDto Restaurant { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }

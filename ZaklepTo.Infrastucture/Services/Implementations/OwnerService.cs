@@ -29,9 +29,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             _encrypter = encrypter;
         }
 
-        public async Task ChangePassword(PasswordChange passwordChange)
+        public async Task ChangePassword(PasswordChange passwordChange, string login)
         {
-            var owner = await _ownerRepository.GetAsync(passwordChange.Login);
+            var owner = await _ownerRepository.GetAsync(login);
             if (owner == null)
                 throw new ServiceException(ErrorCodes.OwnerNotFound, "Owner doesn't exist.");
 
@@ -103,13 +103,12 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             await _ownerRepository.AddAsync(ownerToRegister);
         }
 
-        public async Task UpdateAsync(OwnerOnUpdateDto ownerDto)
+        public async Task UpdateAsync(OwnerOnUpdateDto ownerDto, string login)
         {
-            var ownerToUpdate = await _ownerRepository.GetAsync(ownerDto.Login);
+            var ownerToUpdate = await _ownerRepository.GetAsync(login);
             if (ownerToUpdate == null)
                 throw new ServiceException(ErrorCodes.OwnerNotFound, "Owner doesn't exist.");
 
-            ownerToUpdate.Login = ownerDto.Login;
             ownerToUpdate.FirstName = ownerDto.FirstName;
             ownerToUpdate.LastName = ownerDto.LastName;
             ownerToUpdate.Email = ownerDto.Email;

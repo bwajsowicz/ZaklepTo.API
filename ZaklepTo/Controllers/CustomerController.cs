@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
@@ -45,7 +44,6 @@ namespace ZaklepTo.API.Controllers
             return Ok(topRestaurantsForCustomer);
         }
 
-        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> RegisterCustomer([FromBody] CustomerOnCreateDto customer)
         {
@@ -68,23 +66,23 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpPut("{login}/update")]
-        public async Task<IActionResult> UpdateCustomer([FromBody] CustomerOnUpdateDto updatedCustomer)
+        public async Task<IActionResult> UpdateCustomer([FromBody] CustomerOnUpdateDto updatedCustomer, string login)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _customerService.UpdateAsync(updatedCustomer);
+            await _customerService.UpdateAsync(updatedCustomer, login);
 
             return Ok();
         }
 
         [HttpPut("{login}/changepassword")]
-        public async Task<IActionResult> ChangeCustomersPassword([FromBody] PasswordChange passwordChange)
+        public async Task<IActionResult> ChangeCustomersPassword([FromBody] PasswordChange passwordChange, string login)
         {
             if (!ModelState.IsValid) 
                 return BadRequest(ModelState);
 
-            await _customerService.ChangePassword(passwordChange);
+            await _customerService.ChangePassword(passwordChange, login);
 
             return Ok();
         }

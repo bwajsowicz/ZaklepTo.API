@@ -56,9 +56,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             await _restaurantRepository.AddAsync(restaurantToRegister);
         }
 
-        public async Task UpdateAsync(RestaurantOnUpdateDto restaurantDto)
+        public async Task UpdateAsync(RestaurantOnUpdateDto restaurantDto, Guid restaurantId)
         {
-            var restaurantToUpdate = await _restaurantRepository.GetAsync(restaurantDto.Id);
+            var restaurantToUpdate = await _restaurantRepository.GetAsync(restaurantId);
             if(restaurantToUpdate == null)
                 throw new ServiceException(ErrorCodes.RestaurantNotFound, "Restaurant doesn't exist.");
 

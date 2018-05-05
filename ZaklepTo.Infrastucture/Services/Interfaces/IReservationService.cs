@@ -17,7 +17,7 @@ namespace ZaklepTo.Infrastructure.Services.Interfaces
         Task<IEnumerable<ReservationDto>> GetAllUncorfirmedReservationsAsync();
         Task<ReservationDto> GetAsync(Guid id);
         Task RegisterReservation(ReservationOnCreateDto reservationDto);
-        Task UpdateAsync(ReservationOnUpdateDto reservationDto);
+        Task UpdateAsync(ReservationOnUpdateDto reservationDto, Guid reservationId);
         Task DeleteAsync(Guid reservationId);
         Task DeactivateReservationAsync(Guid reservationId);
         Task ConfirmReservationAsync(Guid reservationId);
