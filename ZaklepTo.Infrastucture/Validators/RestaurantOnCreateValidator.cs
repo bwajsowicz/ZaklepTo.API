@@ -25,6 +25,10 @@ namespace ZaklepTo.Infrastructure.Validators
                 .MaximumLength(50)
                 .WithMessage("Cuisine can't be longer than 50 characters");
 
+            RuleFor(x => x.RepresenativePhotoUrl)
+                .NotEmpty()
+                .WithMessage("Url can't be empty.");
+
             RuleFor(x => x.Localization)
                 .NotEmpty()
                 .WithMessage("Localization can't be empty.")

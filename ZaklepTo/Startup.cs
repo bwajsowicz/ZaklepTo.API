@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,7 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using ZaklepTo.API.Extensions;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
@@ -91,15 +93,25 @@ namespace ZaklepTo.API
                 .AddEntityFrameworkSqlServer()
                 .AddEntityFrameworkInMemoryDatabase()
                 .AddDbContext<ZaklepToContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddDirectoryBrowser();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDataInitializer dataInitializer)
         {
+            app.UseStaticFiles();
             app.UseAuthentication();
             app.UseDeveloperExceptionPage();
             app.UseCustomExceptionHandler();
             app.UseMvc();
+
+            app.UseDirectoryBrowser(new DirectoryBrowserOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images")),
+                RequestPath = "/images"
+            });
 
             dataInitializer.SeedAsync().Wait();
         }

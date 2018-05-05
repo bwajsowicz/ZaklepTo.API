@@ -51,7 +51,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public async Task RegisterAsync(RestaurantOnCreateDto restaurantDto)
         {
             var restaurantToRegister = new Restaurant(restaurantDto.Name, restaurantDto.Description,
-                restaurantDto.Cuisine, restaurantDto.Localization, restaurantDto.Tables);
+                restaurantDto.Cuisine, restaurantDto.RepresenativePhotoUrl, restaurantDto.Localization, restaurantDto.Tables);
 
             await _restaurantRepository.AddAsync(restaurantToRegister);
         }
