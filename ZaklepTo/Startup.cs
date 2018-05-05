@@ -110,8 +110,9 @@ namespace ZaklepTo.API
             {
                 FileProvider = new PhysicalFileProvider(
                     Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images")),
-                RequestPath = "/images"
+                RequestPath = "/images/restaurants"
             });
+
 
             dataInitializer.SeedAsync().Wait();
         }
