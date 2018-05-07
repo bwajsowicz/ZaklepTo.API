@@ -33,7 +33,7 @@ namespace ZaklepTo.API.Controllers
         {
             var employee = await _employeeService.GetAsync(login);
 
-            return Ok();
+            return Ok(employee);
         }
 
         [AllowAnonymous]
@@ -55,7 +55,7 @@ namespace ZaklepTo.API.Controllers
 
             var token = _jwtHandler.CreateToken(loginCredentials.Login, "employee");
 
-            return Ok();
+            return Ok(token);
         }
 
         [HttpPost("{login}/update")]
