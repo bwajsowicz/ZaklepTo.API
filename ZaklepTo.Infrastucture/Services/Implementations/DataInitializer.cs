@@ -100,7 +100,6 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 "Chinska",
                 "Hiszpanska",
                 "Polska",
-                "Wloska",
                 "Wloska"
             };
 
@@ -117,9 +116,17 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 var restaurant = new RestaurantOnCreateDto()
                 {
                     Name = exampleRestaurantName[i],
-                    Description = "Description",
+                    Description = $@"Restauracja {exampleRestaurantName[i]} jest od lat cenionym miejscem kameralnych spotkań, znanym ze znakomitej kuchni. Zapraszamy na  wyśmienity lunch w przerwie w pracy, wykwintny obiad z rodziną lub romantyczny wieczór na tarasach przy lampce wina.  Jadłospis zawiera wiele zarówno tradycyjnych jak również typowo europejskich dań.
+
+                    Szef kuchni szczególnie poleca - kotlet a'la {exampleRestaurantName[i]}, maczankę firmową (schab w sosie myśliwskim z grzankami), kotlet Pani Walewska,  naleśniki a'la {exampleRestaurantName[i]}.Wielu 'zwolenników' ma firmowa szarlotka z bitą śmietaną,
+                    a także banany w sosie rumowym chętnie spożywane jako dodatek do kawy.
+
+
+                    Szczególnie warte polecenia są również wina serwowane w restauracji.
+
+                    W restauracji hotelu Maria odbywają się huczne wesela, przyjęcia okolicznościowe, bankiety firmowe. sylwestry.",
                     Cuisine = exampleCousine[random.Next(0, exampleCousine.Count-1)],
-                    Localization = $"Szczecin{i}",
+                    Localization = $"Szczecin",
                     Tables = tables
                 }; // RestaurantEntity
 
