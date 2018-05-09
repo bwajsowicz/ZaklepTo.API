@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
 using ZaklepTo.Infrastructure.DTO;
@@ -7,6 +8,7 @@ using ZaklepTo.Infrastructure.Services.Interfaces;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
 using AutoMapper;
 using ZaklepTo.Core.Domain;
+using ZaklepTo.Infrastructure.DTO.OnUpdate;
 
 namespace ZaklepTo.Infrastructure.Services.Implementations
 {
@@ -32,9 +34,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
         public async Task SeedAsync()
         {
-            var customers = await _customerService.GetAllAsync();
-            if(customers.Any())
-                return;
+           var customers = await _customerService.GetAllAsync();
+           if(customers.Any())
+           return;
 
             var random = new Random();
 
@@ -97,10 +99,10 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
             var exampleCousine = new List<string>
             {
-                "Chinska",
+                "Chińska",
                 "Hiszpanska",
                 "Polska",
-                "Wloska"
+                "Włoska"
             };
 
             for (var i = 0; i < exampleRestaurantName.Count; i++)
@@ -132,8 +134,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
                 await _restaurantService.RegisterAsync(restaurant);
 
-                var restaurantDto = (await _restaurantService.GetAllAsync())
-                    .Last();
+                var restaurantDto = (await _restaurantService.GetAllAsync()).Last();                
 
                 for (var z = 1; z <= 10; z++)
                 {
@@ -192,6 +193,21 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                     await _reservationService.RegisterReservation(reservation);
                 }              
             } //RestaurantEntity & OwnerEntity & Employee
-       }
+
+            var restaurants = (await _restaurantService.GetAllAsync()).ToList();
+
+            for(int i = 0; i < exampleRestaurantName.Count; i++)
+            {
+                var restaurant = restaurants.ElementAt(i);
+                var restaurantGuid = restaurant.Id;
+                File.Copy($"wwwroot/images/datainitializer/examplephotos/0{random.Next(0, 9)}.jpg", $"wwwroot/images/restaurants/{restaurantGuid}.jpg");
+                restaurant.RepresentativePhotoUrl =
+                    $"http://zakleptoapi.azurewebsites.net/images/restaurants/{restaurantGuid}.jpg";
+
+                var restaurantWithPhoto = _mapper.Map<RestaurantDto, RestaurantOnUpdateDto>(restaurant);
+                await _restaurantService.UpdateAsync(restaurantWithPhoto, restaurant.Id);
+
+            }
+        }
     }
 }

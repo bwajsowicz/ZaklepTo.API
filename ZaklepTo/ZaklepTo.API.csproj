@@ -29,7 +29,7 @@
 
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\images\restaurants\" />
   </ItemGroup>
 
 </Project>
