@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using ZaklepTo.Core.Domain;
 using ZaklepTo.Core.Exceptions;
 using ZaklepTo.Core.Repositories;

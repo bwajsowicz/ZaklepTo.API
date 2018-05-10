@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ZaklepTo.Core.Domain;
 using ZaklepTo.Core.Repositories;
 using ZaklepTo.Infrastructure.EntityFramwerork;
-using ZaklepTo.Infrastructure.Services.Implementations;
 
 namespace ZaklepTo.Infrastructure.Repositories
 {

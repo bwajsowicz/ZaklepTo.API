@@ -209,12 +209,12 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                 await _restaurantService.UpdateAsync(restaurantWithPhoto, restaurant.Id);
 
             }
-        }
+
             foreach (var reservationDto in await _reservationService.GetAllAsync())
             {
-                if(random.Next(1,10)>3)
+                if (random.Next(1, 10) > 3)
                     await _reservationService.ConfirmReservationAsync(reservationDto.Id);
             }
-       }
+        }          
     }
 }
