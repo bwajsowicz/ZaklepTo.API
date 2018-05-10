@@ -187,8 +187,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
                         Table = _mapper.Map<Table, TableDto>(tables.ElementAt(z)),
                         DateStart = date,
                         DateEnd = date.AddHours(3),
-                        Customer =  (await _customerService.GetAllAsync()).ElementAt(z)              
-                    };
+                        Customer =  (await _customerService.GetAllAsync()).ElementAt(z),
+
+                     };
 
                     await _reservationService.RegisterReservation(reservation);
                 }              
@@ -209,5 +210,11 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
 
             }
         }
+            foreach (var reservationDto in await _reservationService.GetAllAsync())
+            {
+                if(random.Next(1,10)>3)
+                    await _reservationService.ConfirmReservationAsync(reservationDto.Id);
+            }
+       }
     }
 }

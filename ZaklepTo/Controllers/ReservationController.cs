@@ -49,7 +49,7 @@ namespace ZaklepTo.API.Controllers
             return Ok(reservation);
         }
 
-        [HttpGet("{reservationId}/{customersLogin}")]
+        [HttpGet("active/{customersLogin}")]
         public async Task<IActionResult> GetAllActiveReservationsByCustomer(string customersLogin)
         {
             var allActiveReservations = await _reservationService.GetAllActiveByCustomerAsync(customersLogin);
