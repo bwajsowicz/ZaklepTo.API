@@ -3,15 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using ZaklepTo.Infrastructure.EntityFramwerork;
 
 namespace ZaklepTo.Infrastructure.Migrations
 {
     [DbContext(typeof(ZaklepToContext))]
-    [Migration("20180505152118_Initial")]
+    [Migration("20180509211436_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
