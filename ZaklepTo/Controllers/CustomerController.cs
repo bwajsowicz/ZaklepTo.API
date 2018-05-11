@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ZaklepTo.Infrastructure.DTO;
 using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
 using ZaklepTo.Infrastructure.DTO.OnUpdate;
@@ -107,9 +108,9 @@ namespace ZaklepTo.API.Controllers
         }
 
         [HttpPost("getLogin")]
-        public async Task<IActionResult> GetLoginFromToken([FromBody] string token)
+        public async Task<IActionResult> GetLoginFromToken([FromBody] JwtDto token)
         {
-            var login = new JwtSecurityTokenHandler().ReadJwtToken(token).Id;
+            var login = new JwtSecurityTokenHandler().ReadJwtToken(token.Token).Id;
             return Ok(login);
         }
     }
