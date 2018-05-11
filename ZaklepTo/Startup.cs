@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Web.Http.Cors;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -95,6 +96,8 @@ namespace ZaklepTo.API
                 .AddDbContext<ZaklepToContext>(options => options.UseSqlServer(connectionString));
 
             services.AddDirectoryBrowser();
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,6 +107,11 @@ namespace ZaklepTo.API
             app.UseAuthentication();
             app.UseDeveloperExceptionPage();
             app.UseCustomExceptionHandler();
+
+            app.UseCors(
+                options => options.WithOrigins("http://localhost:4200").AllowAnyMethod()
+            );
+
             app.UseMvc();
 
             app.UseDirectoryBrowser(new DirectoryBrowserOptions
@@ -112,7 +120,6 @@ namespace ZaklepTo.API
                     Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images")),
                 RequestPath = "/images/restaurants"
             });
-
 
             dataInitializer.SeedAsync().Wait();
         }
