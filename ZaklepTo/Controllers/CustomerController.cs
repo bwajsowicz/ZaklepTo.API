@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ZaklepTo.Infrastructure.DTO;
 using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
 using ZaklepTo.Infrastructure.DTO.OnUpdate;
@@ -51,11 +52,7 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> RegisterCustomer([FromBody] CustomerOnCreateDto customer)
         {
             if (!ModelState.IsValid)
-            {
-                var result = Json(ModelState);
-                result.StatusCode = 420;
-                return result;
-            }
+                return BadRequest(ModelState);
 
             await _customerService.RegisterAsync(customer);
 
@@ -110,10 +107,10 @@ namespace ZaklepTo.API.Controllers
             return Ok();
         }
 
-        [HttpGet("getLogin")]
-        public async Task<IActionResult> GetLoginFromToken([FromBody] string token)
+        [HttpPost("getLogin")]
+        public async Task<IActionResult> GetLoginFromToken([FromBody] JwtDto token)
         {
-            var login = new JwtSecurityTokenHandler().ReadJwtToken(token).Id;
+            var login = new JwtSecurityTokenHandler().ReadJwtToken(token.Token).Id;
             return Ok(login);
         }
     }
