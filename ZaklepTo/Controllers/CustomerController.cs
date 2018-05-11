@@ -51,11 +51,7 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> RegisterCustomer([FromBody] CustomerOnCreateDto customer)
         {
             if (!ModelState.IsValid)
-            {
-                var result = Json(ModelState);
-                result.StatusCode = 420;
-                return result;
-            }
+                return BadRequest(ModelState);
 
             await _customerService.RegisterAsync(customer);
 
@@ -110,7 +106,7 @@ namespace ZaklepTo.API.Controllers
             return Ok();
         }
 
-        [HttpGet("getLogin")]
+        [HttpPost("getLogin")]
         public async Task<IActionResult> GetLoginFromToken([FromBody] string token)
         {
             var login = new JwtSecurityTokenHandler().ReadJwtToken(token).Id;
