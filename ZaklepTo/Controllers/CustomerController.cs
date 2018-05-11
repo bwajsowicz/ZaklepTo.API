@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ZaklepTo.Infrastructure.DTO.EntryData;
 using ZaklepTo.Infrastructure.DTO.OnCreate;
@@ -48,7 +51,11 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> RegisterCustomer([FromBody] CustomerOnCreateDto customer)
         {
             if (!ModelState.IsValid)
-                return StatusCode(420,ModelState);
+            {
+                var result = Json(ModelState);
+                result.StatusCode = 420;
+                return result;
+            }
 
             await _customerService.RegisterAsync(customer);
 
@@ -69,7 +76,11 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> UpdateCustomer([FromBody] CustomerOnUpdateDto updatedCustomer, string login)
         {
             if(!ModelState.IsValid)
-                return StatusCode(420, ModelState);
+            {
+                var result = Json(ModelState);
+                result.StatusCode = 420;
+                return result;
+            }
 
             await _customerService.UpdateAsync(updatedCustomer, login);
 
@@ -80,7 +91,11 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> ChangeCustomersPassword([FromBody] PasswordChange passwordChange, string login)
         {
             if (!ModelState.IsValid)
-                return StatusCode(420, ModelState);
+            {
+                var result = Json(ModelState);
+                result.StatusCode = 420;
+                return result;
+            }
 
             await _customerService.ChangePassword(passwordChange, login);
 
@@ -93,6 +108,13 @@ namespace ZaklepTo.API.Controllers
             await _customerService.DeleteAsync(login);
 
             return Ok();
+        }
+
+        [HttpGet("getLogin")]
+        public async Task<IActionResult> GetLoginFromToken([FromBody] string token)
+        {
+            var login = new JwtSecurityTokenHandler().ReadJwtToken(token).Id;
+            return Ok(login);
         }
     }
 }
