@@ -69,7 +69,7 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> UpdateReservation([FromBody] ReservationOnUpdateDto updatedReservation, Guid reservationId)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return StatusCode(420, ModelState);
 
             await _reservationService.UpdateAsync(updatedReservation, reservationId);
 

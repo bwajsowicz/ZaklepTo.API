@@ -41,7 +41,7 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> RegisterNewEmployee([FromBody] EmployeeOnCreateDto employeeToRegister)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return StatusCode(420, ModelState);
 
             await _employeeService.RegisterAsync(employeeToRegister);
 
@@ -62,7 +62,7 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> UpdateEmployee([FromBody] EmployeeOnUpdateDto updatedEmployee, string login)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return StatusCode(420, ModelState);
 
             await _employeeService.UpdateAsync(updatedEmployee, login);
 
@@ -73,7 +73,7 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> ChangeEmployeesPassword([FromBody] PasswordChange passwordChange, string login)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return StatusCode(420, ModelState);
 
             await _employeeService.ChangePassword(passwordChange, login);
 

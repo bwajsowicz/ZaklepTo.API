@@ -41,7 +41,7 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> RegisterNewOwner([FromBody] OwnerOnCreateDto ownerToRegister)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return StatusCode(420, ModelState);
 
             await _ownerService.RegisterAsync(ownerToRegister);
 
@@ -62,7 +62,7 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> UpdateOwner([FromBody] OwnerOnUpdateDto updatedOwner, string login)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return StatusCode(420, ModelState);
 
             await _ownerService.UpdateAsync(updatedOwner, login);
 
@@ -73,7 +73,7 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> ChangeOwnersPassword([FromBody] PasswordChange passwordChange, string login)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return StatusCode(420, ModelState);
 
             await _ownerService.ChangePassword(passwordChange, login);
 

@@ -36,7 +36,7 @@ namespace ZaklepTo.API.Controllers
         public async Task<IActionResult> UpdateRestaurant([FromBody] RestaurantOnUpdateDto updatedRestaurant, Guid restaurantId)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return StatusCode(420, ModelState);
 
             await _restaurantService.UpdateAsync(updatedRestaurant, restaurantId);
 
