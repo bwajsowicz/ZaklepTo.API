@@ -22,7 +22,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
         public JwtDto CreateToken(string login, string role)
         {
             var now = DateTime.UtcNow;
-            var expiry = now.AddMinutes(20);
+            var expiry = now.AddMinutes(60);
 
             var claims = new[]
             {

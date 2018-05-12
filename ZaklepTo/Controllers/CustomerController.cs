@@ -110,7 +110,7 @@ namespace ZaklepTo.API.Controllers
         [HttpPost("getLogin")]
         public async Task<IActionResult> GetLoginFromToken([FromBody] JwtDto token)
         {
-            var login = new JwtSecurityTokenHandler().ReadJwtToken(token.Token).Id;
+            var login = new JwtSecurityTokenHandler().ReadJwtToken(token.Token).Subject;
             return Ok(login);
         }
     }
