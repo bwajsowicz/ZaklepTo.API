@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ZaklepTo.Infrastructure.DTO.EntryData;
+using ZaklepTo.Infrastructure.DTO.OnCreate;
 using ZaklepTo.Infrastructure.DTO.OnUpdate;
 using ZaklepTo.Infrastructure.Services.Interfaces;
 
@@ -98,6 +99,14 @@ namespace ZaklepTo.API.Controllers
             await _reservationService.ConfirmReservationAsync(reservationId);
 
             return Ok();
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterReservation([FromBody] ReservationOnCreateDto reservation)
+        {
+            //TODO modelstate check
+            await _reservationService.RegisterReservation(reservation);
+            return Created("Reservation: ",Json(reservation));
         }
     }
 }
