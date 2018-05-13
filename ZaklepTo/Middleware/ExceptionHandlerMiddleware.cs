@@ -31,17 +31,18 @@ namespace ZaklepTo.API.Middleware
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             var errorCode = "error";
-            var statusCode = HttpStatusCode.BadRequest;
+            int statusCode = 404;
+
             var exceptionType = exception.GetType();
 
             switch (exception)
             {
                 case ServiceException e when exceptionType == typeof(ServiceException):
-                    statusCode = HttpStatusCode.BadRequest;
+                    statusCode = 420;
                     errorCode = e.Code;
                     break;
                 case Exception e when exceptionType == typeof(Exception):
-                    statusCode = HttpStatusCode.InternalServerError;
+                    statusCode = 500;
                     break;
 
             }
@@ -49,7 +50,7 @@ namespace ZaklepTo.API.Middleware
             var response = new {code = errorCode, message = exception.Message};
             var payload = JsonConvert.SerializeObject(response);
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int) statusCode;
+            context.Response.StatusCode = statusCode;
 
             return context.Response.WriteAsync(payload);
         }
