@@ -109,8 +109,12 @@ namespace ZaklepTo.API
             app.UseCustomExceptionHandler();
 
             app.UseCors(
-                options => options.WithOrigins("http://localhost:4200").AllowAnyMethod()
-            );
+                options =>
+                {
+                    options.AllowAnyMethod();
+                    options.AllowAnyOrigin();
+                    options.AllowAnyHeader();
+                });
 
             app.UseMvc();
 
