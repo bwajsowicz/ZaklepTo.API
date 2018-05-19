@@ -86,8 +86,7 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             var restaurant = await _restaurantRepository.GetAsync(reservationDto.Restaurant.Id);
             var customer = await _customerRepository.GetAsync(reservationDto.Customer.Login);
 
-            var table = new Table(reservationDto.Table.NumberOfSeats,
-                reservationDto.Table.Coordinates);
+            var table = restaurant.Tables.SingleOrDefault(x => x.Id == reservationDto.TableId);
 
             var reservation = new Reservation(restaurant, reservationDto.DateStart, reservationDto.DateEnd,
                 table, customer);
@@ -140,10 +139,9 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             if (reservationToConfirm == null)
                 throw new ServiceException(ErrorCodes.ReservationNotFound, "Reservation doesn't exist");
 
-            var deactivatedReservation = new Reservation(reservationToConfirm.Restaurant, reservationToConfirm.DateStart, reservationToConfirm.DateEnd,
-                reservationToConfirm.Table, reservationToConfirm.Customer, true, reservationToConfirm.IsActive);
+            reservationToConfirm.IsConfirmed = true;
 
-            await _reservationRepository.UpdateAsync(deactivatedReservation);
+            await _reservationRepository.UpdateAsync(reservationToConfirm);
         }
     }
 }
