@@ -53,6 +53,29 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             return activeReservations.Select(x => _mapper.Map<Reservation, ReservationDto>(x));
         }
 
+        public async Task<IEnumerable<ReservationDto>> GetAllForSpecificRestaurantAndDate(Guid restaurantId, string date)
+        {
+            var specificDate = DateTime.Parse(date);
+
+            var reservations = await _reservationRepository.GetAllAsync();
+            var reservationsForSpecificRestaurantAndDate = reservations
+                .Where(x => x.IsConfirmed == true)
+                .Where(x => x.Restaurant.Id == restaurantId)
+                .Where(x => x.DateStart.DayOfYear == specificDate.DayOfYear);
+
+            return reservationsForSpecificRestaurantAndDate.Select(x => _mapper.Map<Reservation, ReservationDto>(x));
+        }
+
+        public async Task<IEnumerable<ReservationDto>> GetAllForSpecificRestaurant(Guid restaurantId)
+        {
+            var reservations = await _reservationRepository.GetAllAsync();
+            var reservationsForSpecificRestaurant = reservations
+                .Where(x => x.IsConfirmed == false)
+                .Where(x => x.Restaurant.Id == restaurantId);
+
+            return reservationsForSpecificRestaurant.Select(x => _mapper.Map<Reservation, ReservationDto>(x));
+        }
+
         public async Task<IEnumerable<ReservationDto>> GetAllActiveByCustomerAsync(string customersLogin)
         {
             var reservations = await _reservationRepository.GetAllAsync();

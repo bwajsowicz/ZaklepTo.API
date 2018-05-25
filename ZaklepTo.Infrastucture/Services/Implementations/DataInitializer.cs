@@ -265,23 +265,26 @@ namespace ZaklepTo.Infrastructure.Services.Implementations
             if(!reservations.Any())
             { 
                 var registeredCustomers = (await _customerService.GetAllAsync()).ToList();
-        
+                
                 for (var i = 0; i < 10; i++)
                 {
-                    for (var j = 0; j < random.Next(5, 10); j++)
-                    {
-                        var restaurantId = random.Next(0, 9);
-                        var date = new DateTime(2018, random.Next(1, 12), random.Next(1, 27), random.Next(1, 24), random.Next(1, 60), 0);
-                        var reservation = new ReservationOnCreateDto()
-                        {
-                            Restaurant = restaurants.ElementAt(restaurantId),
-                            TableId = restaurants.ElementAt(restaurantId).Tables.ElementAt(random.Next(0,9)).Id,
-                            DateStart = date,
-                            DateEnd = date.AddHours(1),
-                            Customer = registeredCustomers.ElementAt(random.Next(0, 99)),
-                        };
+                    for(var x = 0; x < 10; x++)
+                    { 
+                        var date = new DateTime(2018, 5, 21 + x, 9, 0, 0);
+                        for (var j = 0; j < random.Next(10, 20); j++)
+                        {          
+                            var reservationDate = date.AddHours(j);
+                            var reservation = new ReservationOnCreateDto()
+                            {
+                                Restaurant = restaurants.ElementAt(i),
+                                TableId = restaurants.ElementAt(i).Tables.ElementAt(random.Next(0,9)).Id,
+                                DateStart = reservationDate,
+                                DateEnd = reservationDate.AddHours(1),
+                                Customer = registeredCustomers.ElementAt(random.Next(0, 99)),
+                            };
 
-                        await _reservationService.RegisterReservation(reservation);
+                            await _reservationService.RegisterReservation(reservation);
+                        }
                     }
                 }
             }

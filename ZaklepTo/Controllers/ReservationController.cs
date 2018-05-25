@@ -26,6 +26,22 @@ namespace ZaklepTo.API.Controllers
             return Ok(reservations);
         }
 
+        [HttpGet("{restaurantId}/{date}")]
+        public async Task<IActionResult> GetAllConfirmedReservationsForSpecificRestaurantAndDate(Guid restaurantId, string date)
+        {
+            var reservations = await _reservationService.GetAllForSpecificRestaurantAndDate(restaurantId, date);
+
+            return Ok(reservations);
+        }
+
+        [HttpGet("specific-restaurant/{restaurantId}")]
+        public async Task<IActionResult> GetAllUnconffirmedReservationsForSpecificRestaurant(Guid restaurantId)
+        {
+            var reservations = await _reservationService.GetAllForSpecificRestaurant(restaurantId);
+
+            return Ok(reservations);
+        }
+
         [HttpGet("active")]
         public async Task<IActionResult> GetAllActiveReservations()
         {

@@ -11,6 +11,8 @@ namespace ZaklepTo.Infrastructure.Services.Interfaces
     public interface IReservationService
     {
         Task<IEnumerable<ReservationDto>> GetAllAsync();
+        Task<IEnumerable<ReservationDto>> GetAllForSpecificRestaurantAndDate(Guid restaurantId, string date);
+        Task<IEnumerable<ReservationDto>> GetAllForSpecificRestaurant(Guid restaurantId);
         Task<IEnumerable<ReservationDto>> GetAllBetweenDatesAsync(TimeInterval timeInterval);
         Task<IEnumerable<ReservationDto>> GetAllActiveAsync();
         Task<IEnumerable<ReservationDto>> GetAllActiveByCustomerAsync(string customersLogin);
